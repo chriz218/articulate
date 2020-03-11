@@ -42,6 +42,8 @@ button {
     display: inline-block;
     margin-left: 5px;
     margin-right: 5px;
+    font-weight: bold;
+    font-family: 'Roboto Slab', serif;
 }
 
 #JoinBtn {
@@ -49,7 +51,15 @@ button {
     color: white;
 }
 
+#PlayBtn:focus {
+    background-color: #8800FF;
+}
+
 #CancelBtn {
-    background-color: grey;
+    background-color: #EE6EF2;
     color: white
+}
+
+#CancelBtn:active {
+    background-color: #F700FF;
 }

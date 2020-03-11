@@ -15,6 +15,12 @@ h1 {
     font-weight: bold;
     background-color: purple;
     color: white;
+    font-weight: bold;
+    font-family: 'Roboto Slab', serif;
+}
+
+.HomeBtns:focus {
+    background-color: #8800FF;
 }
   
 #HomeBtnsDiv {
@@ -31,6 +37,7 @@ h1 {
 }
 
 .Squares {
+    /* The colors were defined through inline-styling */
     display: inline-block;
     height: 40px;
     width: 40px;
