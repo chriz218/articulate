@@ -12,6 +12,10 @@ function HomePage() {
         history.push("/create-room")
     }
 
+    const handleJoinRoom = () => {
+        history.push("/join-room")
+    }
+
     return (
         <div>
             <h1>Articulate</h1>
@@ -35,7 +39,7 @@ function HomePage() {
                     <div className="ColorDescription">Everything (All categories)</div>
             <div id="HomeBtnsDiv">
                 <button className="HomeBtns" onClick={handleCreateRoom}>Create Room</button>
-                <button className="HomeBtns">Join Room</button> 
+                <button className="HomeBtns" onClick={handleJoinRoom}>Join Room</button> 
             </div>
         </div>
     );
