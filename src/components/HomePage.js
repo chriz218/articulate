@@ -25,7 +25,7 @@ function HomePage() {
                     </div>
                     <div className="Squares" style={{backgroundColor: "cyan"}}></div>
                     <div className="ColorDescription">Object (e.g., tool box, pool table)</div>
-                    <div className="Squares" style={{backgroundColor: "orange"}}></div>
+                    <div className="Squares" style={{backgroundColor: "#FF7B00"}}></div>
                     <div className="ColorDescription">Action (e.g., singing, driving)</div>
                     <div className="Squares" style={{backgroundColor: "green"}}></div>
                     <div className="ColorDescription">Nature (e.g., tulip, rose)</div>

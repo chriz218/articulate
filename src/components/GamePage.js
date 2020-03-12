@@ -12,11 +12,11 @@ function Board({ boardBlock, index }) {
 
 function GamePage() {
     const [boardBlocks, setBoardBlocks] = useState(['', '', '', '', '', '',
-        '', 'A', '', '', '', '',
-        '', '', '', '', 'B', '',
-        '', '', 'C', '', '', '',
         '', '', '', '', '', '',
-        '', '', '', 'D', '', '',
+        '', '', '', '', 'B', 'C',
+        '', '', '', '', '', '',
+        '', 'A', '', '', '', '',
+        '', '', '', '', 'D', '',
         '', '', '', '', '', ''])
 
 
@@ -46,7 +46,7 @@ function GamePage() {
             </div>
             <div id="generatedWordDiv">
                 <div id="word">
-                    Pool Table
+                    Rafael Nadal
                 </div>
             </div>
             <div id="btnDiv">

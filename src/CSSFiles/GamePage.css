@@ -36,7 +36,7 @@ h1 {
 }
 
 #boardBlock1, #boardBlock8, #boardBlock15, #boardBlock22, #boardBlock29, #boardBlock36 {
-    background-color: orange;
+    background-color: #FF7B00;
 }
 
 #boardBlock2, #boardBlock9, #boardBlock16, #boardBlock23, #boardBlock30, #boardBlock37 {
@@ -68,7 +68,7 @@ h1 {
     font-size: 1.4em;
     margin-left: 10px;
     font-weight: bold;
-    color: purple;
+    color: black;
 }
 
 #role {
@@ -76,14 +76,14 @@ h1 {
     float: right;
     margin-right: 10px;
     font-weight: bold;
-    color: purple;
+    color: black;
 }
 
 #wordCategory {
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-    color: purple;
+    color: black;
     margin-bottom: 20px;
 }
 
@@ -91,7 +91,7 @@ h1 {
     text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-    color: purple;
+    color: black;
     margin-bottom: 20px;
 }
 
@@ -106,7 +106,7 @@ h1 {
     border: 3px solid black;
     display: inline-block;
     padding: 3px;
-    background-color: cyan;
+    background-color: yellow;
     font-weight: bold;
 }
 
@@ -128,7 +128,7 @@ h1 {
 }
 
 #skipBtn {
-    background-color: #EE6EF2;
+    background-color: #F700FF;
 }
 
 #foulBtn {
