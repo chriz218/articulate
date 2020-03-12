@@ -21,7 +21,7 @@ function HomePage() {
             <h1>Articulate</h1>
                 <h2 id="RuleTitle">Rules</h2>
                     <div id="Description">
-                        Describe the generated word(s) for your teammates to guess. You cannot spell or rhyme the word, nor can you say the word (obviously). Each teammate will take turns being the describer and guesser. Each word guessed correctly moves your board piece by 1 position. Move your board piece to the end position to win. The color of the box where your board piece is on determines the category of word generated.
+                        Describe the generated word(s) for your teammates to guess. You cannot spell or rhyme the word, nor can you say the word or parts of the word. Each teammate will take turns being the describer and guesser. Each word guessed correctly moves your board piece by 1 position. Move your board piece to the end position to win. The color of the box where your board piece is on determines the word category.
                     </div>
                     <div className="Squares" style={{backgroundColor: "cyan"}}></div>
                     <div className="ColorDescription">Object (e.g., tool box, pool table)</div>
