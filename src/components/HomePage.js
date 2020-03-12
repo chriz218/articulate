@@ -9,11 +9,11 @@ function HomePage() {
     let history = useHistory();
 
     const handleCreateRoom = () => {
-        history.push("/create-room")
+        history.push("/create")
     }
 
     const handleJoinRoom = () => {
-        history.push("/join-room")
+        history.push("/join")
     }
 
     return (
@@ -35,7 +35,7 @@ function HomePage() {
                     <div className="ColorDescription">Person (e.g., Peter Griffin, Cain)</div>
                     <div className="Squares" style={{backgroundColor: "red"}}></div>
                     <div className="ColorDescription">Random (e.g., chapter, wedge)</div>
-                    <div className="Squares" style={{backgroundColor: "white"}}></div>
+                    <div className="Squares" style={{backgroundColor: "grey"}}></div>
                     <div className="ColorDescription">Everything (All categories)</div>
             <div id="HomeBtnsDiv">
                 <button className="HomeBtns" onClick={handleCreateRoom}>Create Room</button>

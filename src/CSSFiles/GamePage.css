@@ -1,0 +1,137 @@
+h1 {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    height: 50px;
+    text-align: center;
+    color: purple;
+}
+
+.board { 
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: calc(100vw - 10px - 10px); 
+    height: calc(100vw - 10px - 10px);
+    border: 2px solid black;
+    margin-left: auto; 
+    margin-right: auto; 
+    padding: 0px;
+    margin-bottom: 20px;
+  }
+  
+.boardBlock { 
+    width: calc((100vw - 10px - 10px)/6 - 2px - 2px);
+    height: calc((100vw - 10px - 10px)/7 - 2px - 2px);
+    text-align: center;
+    line-height: calc((100vw - 10px - 10px)/7 - 2px - 2px);
+    border: 2px solid black;
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#boardBlock0, #boardBlock7, #boardBlock14, #boardBlock21, #boardBlock28, #boardBlock35 {
+    background-color: cyan;
+}
+
+#boardBlock1, #boardBlock8, #boardBlock15, #boardBlock22, #boardBlock29, #boardBlock36 {
+    background-color: orange;
+}
+
+#boardBlock2, #boardBlock9, #boardBlock16, #boardBlock23, #boardBlock30, #boardBlock37 {
+    background-color: green;
+}
+
+#boardBlock3, #boardBlock10, #boardBlock17, #boardBlock24, #boardBlock31, #boardBlock38 {
+    background-color: blue;
+}
+
+#boardBlock4, #boardBlock11, #boardBlock18, #boardBlock25, #boardBlock32, #boardBlock39 {
+    background-color: yellow;
+}
+
+#boardBlock5, #boardBlock12, #boardBlock19, #boardBlock26, #boardBlock33, #boardBlock40 {
+    background-color: red;
+}
+
+#boardBlock6, #boardBlock13, #boardBlock20, #boardBlock27, #boardBlock34, #boardBlock41 {
+    background-color: grey;
+}
+
+#teamRoleDiv {
+    margin-bottom: 20px;
+}
+
+#team {
+    display: inline-block;
+    font-size: 1.4em;
+    margin-left: 10px;
+    font-weight: bold;
+    color: purple;
+}
+
+#role {
+    font-size: 1.4em;
+    float: right;
+    margin-right: 10px;
+    font-weight: bold;
+    color: purple;
+}
+
+#wordCategory {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: purple;
+    margin-bottom: 20px;
+}
+
+#time {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: purple;
+    margin-bottom: 20px;
+}
+
+#generatedWordDiv {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#word {
+    text-align: center;
+    font-size: 1.5em;
+    border: 3px solid black;
+    display: inline-block;
+    padding: 3px;
+    background-color: cyan;
+    font-weight: bold;
+}
+
+#btnDiv {
+    text-align: center;
+}
+
+.btn {
+    height: 7.5vh;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: calc((100vw - 60px)/3);
+    font-size: 1.5em;
+    color: white;
+}
+
+#correctBtn {
+    background-color: purple;
+}
+
+#skipBtn {
+    background-color: #EE6EF2;
+}
+
+#foulBtn {
+    background-color: grey;
+}
+
