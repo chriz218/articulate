@@ -17,10 +17,10 @@ function GamePage() {
         '', '', '', '', '', '',
         '', 'A', '', '', '', '',
         '', '', '', '', 'D', '',
-        '', '', '', '', '', ''])
+        '', '', '', '', '', '']);
 
 
-    const [timer, setTimer] = useState(60)
+    const [timer, setTimer] = useState(60);
 
     return (
         <div>
