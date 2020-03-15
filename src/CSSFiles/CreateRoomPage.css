@@ -6,7 +6,7 @@ h1 {
     color: purple;
 }
 
-form {
+.form {
     padding-left: 30px;
     padding-right: 30px;
 }
@@ -25,19 +25,6 @@ input {
     font-size: 1.2em;
     width: 75vw;
     margin-bottom: 10px;
-}
-
-select {
-    height: 30px;
-    width: 20vw;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.players-list {
-    height: 40vh;
-    background-color: white;
-    margin: 0px;
 }
 
 .BtnDiv {
@@ -59,20 +46,20 @@ button {
     font-family: 'Roboto Slab', serif;
 }
 
-#PlayBtn {
+.CreateBtn {
     background-color: purple;
     color: white;
 }
 
-#PlayBtn:focus {
+.PlayBtn:focus {
     background-color: #8800FF;
 }
 
-#CancelBtn {
+.CancelBtn {
     background-color: #EE6EF2;
     color: white
 }
 
-#CancelBtn:active {
+.CancelBtn:active {
     background-color: #F700FF;
 }
