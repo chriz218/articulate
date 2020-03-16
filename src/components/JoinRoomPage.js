@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Route, Link, useHistory } from "react-router-dom"
 import '../CSSFiles/JoinRoomPage.css'
 
-function JoinRoomPage({ socket, socketId, setRoomCode, playerName, setPlayerName }) {
+function JoinRoomPage({ setRoomCode, playerName, setPlayerName }) {
     let history = useHistory();
 
     const handleJoin = async() => {
@@ -11,14 +11,6 @@ function JoinRoomPage({ socket, socketId, setRoomCode, playerName, setPlayerName
             history.push("/lobby")
         }
     };
-
-    // const handleJoin = () => {
-    //     socket.emit('joinRoom', { roomCode, playerName }, (error) => {
-    //         if(error) {
-    //             alert(error);
-    //         }
-    //     });
-    // };
 
     const handleCancel = () => {
         history.push("/")
