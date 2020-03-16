@@ -1,17 +1,66 @@
-h1 {
+#ArticulateTitle {
     margin-top: 10px;
     margin-bottom: 0px;
-    height: 40px;
+    height: 5vh;
     text-align: center;
     color: purple;
+    font-size: 4vh;
+}
+
+#RuleTitle {
+    color: purple;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 30px;
+    height: 5vh;
+    font-size: 3vh;
+}
+
+#Description {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    margin-right: 30px;
+    text-align: justify;
+    min-height: 25vh;
+    font-size: 4vmin;
+}
+
+.Squares {
+    /* The colors were defined through inline-styling */
+    display: inline-block;
+    height: 5vh;
+    width: 5vh;
+    border: solid black 2px;
+    margin-top: 0px;
+    margin-bottom: 1px;
+    margin-left: 30px;
+}
+
+.ColorDescription {
+    display: inline-block;
+    margin-top: 2px;
+    margin-bottom: 3px;
+    margin-right: 0px;
+    margin-left: 5px;
+    height: 5vh;
+    line-height: 5vh;
+    width: calc(100vw - 30px - 5vh - 2px - 2px - 5px);
+    vertical-align: top;
+    font-size: 4vmin;
+}
+
+#HomeBtnsDiv {
+    margin: 0px;
+    text-align: center;
 }
   
 .HomeBtns {
     display: inline-block;
-    height: 60px;
-    width: 150px;
+    height: 8vh;
+    width: 40vw;
     margin: 10px;
-    font-size: 1.3em;
+    font-size: 4vmin;
     font-weight: bold;
     background-color: purple;
     color: white;
@@ -21,48 +70,4 @@ h1 {
 
 .HomeBtns:focus {
     background-color: #8800FF;
-}
-  
-#HomeBtnsDiv {
-    margin: 0px;
-    text-align: center;
-    height: 90px;
-}
-
-#RuleTitle {
-    color: purple;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 30px;
-}
-
-.Squares {
-    /* The colors were defined through inline-styling */
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-    border: solid black 2px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 30px;
-}
-
-#Description {
-    margin-top: 0px;
-    margin-bottom: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
-    text-align: justify;
-}
-
-.ColorDescription {
-    display: inline-block;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-right: 0px;
-    margin-left: 5px;
-    height: 44px;
-    line-height: 44px;
-    width: calc(100vw - 30px - 40px - 2px - 2px - 5px);
-    vertical-align: top;
 }
