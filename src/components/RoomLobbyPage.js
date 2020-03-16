@@ -3,11 +3,12 @@ import React, {useState, useEffect, useLayoutEffect} from 'react';
 import { Route, Link, useHistory } from "react-router-dom"
 import '../CSSFiles/RoomLobbyPage.css';
 import {CREATE_ROOM} from '../properties';
-
-let hostJoined = false;
+import PlayerListContainer from './PlayerListContainer';
 
 function RoomLobbyPage(
-    { socket, isHost, socketId, playerName, numberOfTeams, roomCode, setRoomCode, gameState, setGameState }
+    { socket, isHost, hostJoined, setHostJoined, socketId, playerName,
+      numberOfTeams, roomCode, setRoomCode, gameState, setGameState,
+      playerTeam, setPlayerTeam }
     ) {
   let history = useHistory();
 
@@ -72,7 +73,8 @@ function RoomLobbyPage(
   const joinRoom = (joinPayload) => {
     socket.emit('joinRoom', joinPayload, error => {
       if(error) alert(error);
-      hostJoined = true;
+      if (isHost) setHostJoined(true);
+      setPlayerTeam(0);
     });
   };
 
@@ -89,14 +91,13 @@ function RoomLobbyPage(
             <label>Your name: {`${playerName}`}</label>
             <label>No. of Teams: {`${numberOfTeams}`}</label>
             <label>List of Players:</label>
-            <div className="players-list">
-              {gameState.teams.map(team => {
-                return team.map(player => {
-                  return <p>{player.playerName}</p>
-                })
-              })
-              }
-            </div>
+            <PlayerListContainer
+                socketId={socketId}
+                gameState={gameState}
+                setGameState={setGameState}
+                setPlayerTeam={setPlayerTeam}
+                playerTeam={playerTeam}
+            />
           </div>
           <div className="BtnDiv">
             { isHost && <button type="submit" id="PlayBtn">Play!</button>}
