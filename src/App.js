@@ -12,13 +12,22 @@ import CreateRoomPage from './components/CreateRoomPage';
 
 
 function App() {
-  let socket = io(BACKEND_ENDPOINT);
+  let socket = io(BACKEND_ENDPOINT, {transports: ['websocket']});
   const [isHost, setIsHost] = useState(false);
   const [socketId, setSocketId] = useState("");
   const [roomCode, setRoomCode] = useState("");
   const [playerName, setPlayerName] = useState("");
   const [numberOfTeams, setNumberOfTeams] = useState(2);
   const [gameState, setGameState] = useState({ teams: [[]] });
+
+  useEffect(() => {
+    if(!isHost) {
+      socket.on('updateGameState', (newGameState) => {
+        console.log("UPDATING GAME STATE");
+        setGameState(newGameState);
+      });
+    }
+  });
 
   return (
     <div className="App">

@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { Route, Link, useHistory } from "react-router-dom"
 import '../CSSFiles/HomePage.css';
-import { GENERATE_DEVICE } from '../properties';
 
 // NEED TO FIX THE HEIGHT
 
@@ -11,15 +10,14 @@ function HomePage({ socket, setIsHost, socketId, setSocketId }) {
 
     useEffect(() => {
         socket.emit('getSocketId', {}, (error) => {
-            if (error) {
-                alert(error);
-            }
+            if(error) alert(error);
         });
     }, []);
 
     useEffect(() => {
         socket.on("socketId", ({ socketId }, error) => {
-            console.log(socketId);
+            if(error) alert(error);
+            console.log("SocketId: ", socketId);
             setSocketId(socketId);
         })
     });
@@ -63,6 +61,7 @@ function HomePage({ socket, setIsHost, socketId, setSocketId }) {
                 <button className="HomeBtns" onClick={handleCreateRoom}>Create Room</button>
                 <button className="HomeBtns" onClick={handleJoinRoom}>Join Room</button>
             </div>
+            <p>Connected: { socketId ? 'YES' : 'NO' }</p>
         </div>
     );
 
