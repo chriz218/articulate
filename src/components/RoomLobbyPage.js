@@ -4,51 +4,47 @@ import { Route, Link, useHistory } from "react-router-dom"
 import '../CSSFiles/RoomLobbyPage.css';
 import {CREATE_ROOM} from '../properties';
 
+let hostJoined = false;
+
 function RoomLobbyPage(
     { socket, isHost, socketId, playerName, numberOfTeams, roomCode, setRoomCode, gameState, setGameState }
     ) {
   let history = useHistory();
 
-  useEffect(() => {
-    socket.on('requestGameState', (newPlayer, error) => {
-      if(isHost) {
-        console.log("GAME STATE REQUESTED");
-        setGameState(prev => {
-          prev.teams[0].concat(
-              {
-                playerName: newPlayer.playerName,
-                socketId: newPlayer.socketId
-              })
-        });
-        socket.emit('broadcastGameState', gameState, error => {
-          if (error) alert(error);
-        });
-        if (error) alert(error);
-      }
-    });
-    socket.on('broadcastGameState', (gameState, error) => {
-      setGameState(gameState);
-      if(error) alert(error);
-    });
-    // FOR ALL
-    // New Player Joins
-    socket.on('playerJoined', { playerName, socketId }, (error) => {
-      console.log("PLAYER JOINS: ", playerName);
-      if(error) {
-        alert(error);
-      }
-    });
-  });
-
-
   // Initial Load
   useEffect(() => {
     if(isHost) {
       createRoom();
-    }else{
-      joinRoom();
+    }else {
+      joinRoom({ playerName, socketId, roomCode });
     }
   }, []);
+
+  // FOR HOST
+  // New Player Joins Lobby
+  useEffect(() => {
+    socket.on("playerJoined", ({ playerName, socketId }) => {
+      console.log("PLAYER JOINS: ", playerName);
+      setGameState(prev => {
+        const { teams } = prev;
+        teams[0].push(
+          {
+            playerName: playerName,
+            socketId: socketId
+          }
+        );
+        return { ...prev, teams };
+      });
+    });
+  });
+  // Broadcast gameState Changes
+  useEffect(() => {
+    if(isHost && hostJoined) {
+      socket.emit('broadcastGameState', gameState, () => {
+        console.log("Broadcasting GameState: ", gameState.roomCode);
+      });
+    }
+  }, [gameState]);
 
   // HOST FUNCTIONS
   // Create Room and GameState
@@ -67,19 +63,18 @@ function RoomLobbyPage(
         console.log(data);
         setGameState(data);
         setRoomCode(data.roomCode);
+        joinRoom({ playerName, socketId, roomCode: data.roomCode });
     })
   };
-  // OTHER PLAYER FUNCTIONS
-  // Join Room and fetch GameState
-  const joinRoom = () => {
-    socket.emit('joinRoom', {playerName, socketId, roomCode}, error => {
+
+  // ALL PLAYER FUNCTIONS
+  // Join Room
+  const joinRoom = (joinPayload) => {
+    socket.emit('joinRoom', joinPayload, error => {
       if(error) alert(error);
+      hostJoined = true;
     });
   };
-
-
-
-
 
   const handleCancel = () => {
     history.push("/")
