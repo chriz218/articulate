@@ -1,7 +1,7 @@
 import React from 'react';
 import '../CSSFiles/PlayerListContainer.css'
 
-function PlayerListContainer({ gameState, setGameState, playerTeam, setPlayerTeam, socketId }){
+function PlayerListContainer({ gameState, setGameState, playerTeam, setPlayerTeam, socketId, broadcastGameState }){
 
   function chooseTeam(newTeam) {
     setGameState(prevGameState => {
@@ -15,9 +15,9 @@ function PlayerListContainer({ gameState, setGameState, playerTeam, setPlayerTea
       });
       teams[newTeam].push(myPlayerObj);
       setPlayerTeam(newTeam);
-      return {
-        ...prevGameState, teams
-      }
+      const newGameState = { ...prevGameState, teams };
+      broadcastGameState(newGameState);
+      return newGameState;
     })
   }
 

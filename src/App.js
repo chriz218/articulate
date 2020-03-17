@@ -14,7 +14,7 @@ import CreateRoomPage from './components/CreateRoomPage';
 function App() {
   let socket = io(BACKEND_ENDPOINT, {transports: ['websocket']});
   const [isHost, setIsHost] = useState(false);
-  const [hostJoined, setHostJoined] = useState(false);
+  const [hasJoined, setHasJoined] = useState(false);
   const [socketId, setSocketId] = useState("");
   const [roomCode, setRoomCode] = useState("");
   const [playerName, setPlayerName] = useState("");
@@ -22,13 +22,19 @@ function App() {
   const [numberOfTeams, setNumberOfTeams] = useState(2);
   const [gameState, setGameState] = useState({ teams: [[],[]] });
 
+  function broadcastGameState(newGameState) {
+    // Broadcast gameState Changes
+    socket.emit('broadcastGameState', newGameState, () => {
+      console.log("Broadcasting GameState: ", newGameState.roomCode);
+    });
+  }
+
   useEffect(() => {
-    if(!isHost) {
-      socket.on('updateGameState', (newGameState) => {
+    socket.on('updateGameState', (newGameState) => {
         console.log("UPDATING GAME STATE");
+        console.log(newGameState);
         setGameState(newGameState);
-      });
-    }
+    });
   });
 
   return (
@@ -61,8 +67,8 @@ function App() {
                 socket={socket}
                 socketId={socketId}
                 isHost={isHost}
-                hostJoined={hostJoined}
-                setHostJoined={setHostJoined}
+                hasJoined={hasJoined}
+                setHasJoined={setHasJoined}
                 roomCode={roomCode}
                 setRoomCode={setRoomCode}
                 playerName={playerName}
@@ -71,6 +77,7 @@ function App() {
                 setGameState={setGameState}
                 playerTeam={playerTeam}
                 setPlayerTeam={setPlayerTeam}
+                broadcastGameState={broadcastGameState}
             />
           </Route>
           <Route exact path="/game" component={GamePage}>
@@ -84,6 +91,7 @@ function App() {
                 numberOfTeams={numberOfTeams}
                 gameState={gameState}
                 setGameState={setGameState}
+                broadcastGameState={broadcastGameState}
             />
           </Route>  
         </Switch>  

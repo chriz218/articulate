@@ -6,9 +6,9 @@ import {CREATE_ROOM} from '../properties';
 import PlayerListContainer from './PlayerListContainer';
 
 function RoomLobbyPage(
-    { socket, isHost, hostJoined, setHostJoined, socketId, playerName,
+    { socket, isHost, hasJoined, setHasJoined, socketId, playerName,
       numberOfTeams, roomCode, setRoomCode, gameState, setGameState,
-      playerTeam, setPlayerTeam }
+      playerTeam, setPlayerTeam, broadcastGameState }
     ) {
   let history = useHistory();
 
@@ -20,6 +20,12 @@ function RoomLobbyPage(
       joinRoom({ playerName, socketId, roomCode });
     }
   }, []);
+
+  useEffect(() => {
+    if(gameState.hasOwnProperty("currentState") && gameState.currentState === "newgameStart") {
+      history.push("/game");
+    }
+  }, [gameState]);
 
   // FOR HOST
   // New Player Joins Lobby
@@ -34,18 +40,12 @@ function RoomLobbyPage(
             socketId: socketId
           }
         );
-        return { ...prev, teams };
+        const newGameState = { ...prev, teams }
+        if(isHost) broadcastGameState(newGameState)
+        return newGameState;
       });
     });
   });
-  // Broadcast gameState Changes
-  useEffect(() => {
-    if(isHost && hostJoined) {
-      socket.emit('broadcastGameState', gameState, () => {
-        console.log("Broadcasting GameState: ", gameState.roomCode);
-      });
-    }
-  }, [gameState]);
 
   // HOST FUNCTIONS
   // Create Room and GameState
@@ -65,6 +65,7 @@ function RoomLobbyPage(
         setGameState(data);
         setRoomCode(data.roomCode);
         joinRoom({ playerName, socketId, roomCode: data.roomCode });
+        broadcastGameState(data);
     })
   };
 
@@ -73,8 +74,16 @@ function RoomLobbyPage(
   const joinRoom = (joinPayload) => {
     socket.emit('joinRoom', joinPayload, error => {
       if(error) alert(error);
-      if (isHost) setHostJoined(true);
+      setHasJoined(true);
       setPlayerTeam(0);
+    });
+  };
+
+  const handleStartGame = () => {
+    setGameState(prevGameState => {
+      const newGameState = { ...prevGameState, currentState: "newgameStart"};
+      broadcastGameState(newGameState);
+      return newGameState;
     });
   };
 
@@ -92,15 +101,17 @@ function RoomLobbyPage(
             <label>No. of Teams: {`${numberOfTeams}`}</label>
             <label>List of Players:</label>
             <PlayerListContainer
+                socket={socket}
                 socketId={socketId}
                 gameState={gameState}
                 setGameState={setGameState}
                 setPlayerTeam={setPlayerTeam}
                 playerTeam={playerTeam}
+                broadcastGameState={broadcastGameState}
             />
           </div>
           <div className="BtnDiv">
-            { isHost && <button type="submit" id="PlayBtn">Play!</button>}
+            { isHost && <button type="button" id="PlayBtn" onClick={handleStartGame}>Play!</button>}
             <button id="CancelBtn" onClick={handleCancel}>Cancel</button>
           </div>
         </form>
