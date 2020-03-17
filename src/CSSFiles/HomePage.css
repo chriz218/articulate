@@ -1,4 +1,4 @@
-#ArticulateTitle {
+.ArticulateTitle {
     margin-top: 10px;
     margin-bottom: 0px;
     height: 5vh;
@@ -70,4 +70,9 @@
 
 .HomeBtns:focus {
     background-color: #8800FF;
+}
+
+#Connection {
+    font-size: 3vmin;
+    text-align: center;
 }

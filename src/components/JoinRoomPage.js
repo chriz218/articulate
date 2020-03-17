@@ -18,7 +18,7 @@ function JoinRoomPage({ setRoomCode, playerName, setPlayerName }) {
 
     return (
         <div>
-            <h1>Articulate</h1>
+            <h1 className="ArticulateTitle">Articulate</h1>
             <div>
                 <div className="form">
                     <label>Room Code:</label>

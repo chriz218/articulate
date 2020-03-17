@@ -1,4 +1,4 @@
-h1 {
+.ArticulateTitle {
     margin-top: 10px;
     margin-bottom: 0px;
     height: 5vh;
@@ -15,15 +15,15 @@ h1 {
 label {
     color: purple;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 3vh;
     display: block;
     margin-bottom: 10px;
 }
 
 input {
-    height: 30px;
-    line-height: 30px;
-    font-size: 1.2em;
+    height: 4vh;
+    line-height: 3vh;
+    font-size: 3vh;
     width: 75vw;
     margin-bottom: 10px;
 }
@@ -36,31 +36,28 @@ input {
     margin-right: 0px;
 }
 
+.selectTeamNo {
+    height: 4vh;
+    line-height: 3vh;
+    font-size: 3vh;
+}
+
 button {
-    height: 7vh;
-    width: 25vw;
-    font-size: 1.2em;
     display: inline-block;
-    margin-left: 5px;
-    margin-right: 5px;
+    height: 8vh;
+    width: 40vw;
+    margin: 10px;
+    font-size: 4vmin;
+    font-weight: bold;
+    color: white;
     font-weight: bold;
     font-family: 'Roboto Slab', serif;
 }
 
 .CreateBtn {
     background-color: purple;
-    color: white;
-}
-
-.PlayBtn:focus {
-    background-color: #8800FF;
 }
 
 .CancelBtn {
     background-color: #EE6EF2;
-    color: white
-}
-
-.CancelBtn:active {
-    background-color: #F700FF;
 }

@@ -13,10 +13,10 @@ function Board({ boardBlock, index }) {
 function GamePage() {
     const [boardBlocks, setBoardBlocks] = useState(['', '', '', '', '', '',
         '', '', '', '', '', '',
-        '', '', '', '', 'B', 'C',
         '', '', '', '', '', '',
-        '', 'A', '', '', '', '',
-        '', '', '', '', 'D', '',
+        '', '', '', 'D', '', '',
+        '', 'AB', '', '', '', '',
+        '', '', '', 'C', '', '',
         '', '', '', '', '', '']);
 
 
@@ -24,7 +24,7 @@ function GamePage() {
 
     return (
         <div>
-            <h1>Articulate</h1>
+            <h1 className="ArticulateTitle">Articulate</h1>
             <div className="board">
                 {boardBlocks.map((boardBlock, index) => (
                     <Board index={index} boardBlock={boardBlock} />

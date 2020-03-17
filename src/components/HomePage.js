@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { Route, Link, useHistory } from "react-router-dom"
 import '../CSSFiles/HomePage.css';
 
-// NEED TO FIX THE HEIGHT
-
 function HomePage({ socket, setIsHost, socketId, setSocketId }) {
     let history = useHistory();
 
@@ -38,7 +36,7 @@ function HomePage({ socket, setIsHost, socketId, setSocketId }) {
 
     return (
         <div>
-            <h1 id="ArticulateTitle">Articulate</h1>
+            <h1 className="ArticulateTitle">Articulate</h1>
             <h2 id="RuleTitle">Rules</h2>
             <div id="Description">
                 Describe the generated word(s) for your teammates to guess. You cannot spell or rhyme the word, nor can you say the word or parts of the word. Each teammate will take turns being the describer and guesser. Each word guessed correctly moves your board piece by 1 position. Move your board piece to the end position to win. The color of the box where your board piece is on determines the word category.
@@ -61,7 +59,7 @@ function HomePage({ socket, setIsHost, socketId, setSocketId }) {
                 <button className="HomeBtns" onClick={handleCreateRoom}>Create Room</button>
                 <button className="HomeBtns" onClick={handleJoinRoom}>Join Room</button>
             </div>
-            <p>Connected: { socketId ? 'YES' : 'NO' }</p>
+            <p id="Connection">Connected: { socketId ? 'YES' : 'NO' }</p>
         </div>
     );
 

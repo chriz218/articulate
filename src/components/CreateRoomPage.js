@@ -18,14 +18,13 @@ function CreateRoomPage({ playerName, setPlayerName, setNumberOfTeams }) {
 
   return (
       <div>
-        <h1>Articulate</h1>
+        <h1 className="ArticulateTitle">Articulate</h1>
         <div>
           <div className="form">
             <label>Your name:</label>
             <input type="text" name="Your name" placeholder="Enter your name here..." onChange={e => setPlayerName(e.target.value)}/>
             <label>No. of Teams:</label>
-            <select name="No. of Teams" defaultValue="2" onChange={e => setNumberOfTeams(e.target.value)}>
-              <option value="1">1</option>
+            <select className="selectTeamNo" name="No. of Teams" defaultValue="2" onChange={e => setNumberOfTeams(e.target.value)}>
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4">4</option>

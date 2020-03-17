@@ -1,4 +1,4 @@
-h1 {
+.ArticulateTitle {
     margin-top: 10px;
     margin-bottom: 0px;
     height: 5vh;
@@ -14,11 +14,12 @@ h1 {
     width: calc(100vw - 10px - 10px); 
     height: calc(100vw - 10px - 10px);
     border: 2px solid black;
+    margin-top: 10px;
     margin-left: auto; 
     margin-right: auto; 
     padding: 0px;
-    margin-bottom: 20px;
-  }
+    margin-bottom: 10px;
+}
   
 .boardBlock { 
     width: calc((100vw - 10px - 10px)/6 - 2px - 2px);
@@ -28,7 +29,7 @@ h1 {
     border: 2px solid black;
     margin: 0px;
     padding: 0px;
-    font-size: 1.2em;
+    font-size: 5vmin;
     font-weight: bold;
 }
 
@@ -61,19 +62,19 @@ h1 {
 }
 
 #teamRoleDiv {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #team {
     display: inline-block;
-    font-size: 1.4em;
+    font-size: 5vmin;
     margin-left: 10px;
     font-weight: bold;
     color: black;
 }
 
 #role {
-    font-size: 1.4em;
+    font-size: 5vmin;
     float: right;
     margin-right: 10px;
     font-weight: bold;
@@ -82,28 +83,28 @@ h1 {
 
 #wordCategory {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 5.5vmin;
     font-weight: bold;
     color: black;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #time {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 5.5vmin;
     font-weight: bold;
     color: black;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #generatedWordDiv {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 #word {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 5.5vmin;
     border: 3px solid black;
     display: inline-block;
     padding: 3px;
@@ -120,7 +121,7 @@ h1 {
     margin-left: 10px;
     margin-right: 10px;
     width: calc((100vw - 60px)/3);
-    font-size: 1.5em;
+    font-size: 5vmin;
     color: white;
 }
 
