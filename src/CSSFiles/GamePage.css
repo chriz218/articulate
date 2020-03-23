@@ -42,7 +42,7 @@
 }
 
 #boardBlock2, #boardBlock9, #boardBlock16, #boardBlock23, #boardBlock30, #boardBlock37 {
-    background-color: green;
+    background-color: white;
 }
 
 #boardBlock3, #boardBlock10, #boardBlock17, #boardBlock24, #boardBlock31, #boardBlock38 {
@@ -58,7 +58,7 @@
 }
 
 #boardBlock6, #boardBlock13, #boardBlock20, #boardBlock27, #boardBlock34, #boardBlock41 {
-    background-color: grey;
+    background-color: green;
 }
 
 #teamRoleDiv {
