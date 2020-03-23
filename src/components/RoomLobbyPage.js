@@ -22,7 +22,7 @@ function RoomLobbyPage(
   }, []);
 
   useEffect(() => {
-    if(gameState.hasOwnProperty("currentState") && gameState.currentState === "newgameStart") {
+    if(gameState.hasOwnProperty("currentState") && gameState.currentState !== "lobby") {
       history.push("/game");
     }
   }, [gameState]);
@@ -40,8 +40,8 @@ function RoomLobbyPage(
             socketId: socketId
           }
         );
-        const newGameState = { ...prev, teams }
-        if(isHost) broadcastGameState(newGameState)
+        const newGameState = { ...prev, teams };
+        if(isHost) broadcastGameState(newGameState);
         return newGameState;
       });
     });
@@ -81,7 +81,26 @@ function RoomLobbyPage(
 
   const handleStartGame = () => {
     setGameState(prevGameState => {
-      const newGameState = { ...prevGameState, currentState: "newgameStart"};
+      const currentTurn = {
+        status: "planning",
+        team: 0,
+        category: "Object",
+        word: "",
+        describer: ["DESCRIBER_JOHN"],
+        guesser: ["GUESSSING NICK"]
+      };
+
+      const gamePositions = [];
+      for(let i = 0; i < numberOfTeams; i++) {
+        gamePositions.push(0);
+      }
+
+      const newGameState = {
+        ...prevGameState,
+        currentState: "planning",
+        currentTurn,
+        gamePositions
+      };
       broadcastGameState(newGameState);
       return newGameState;
     });

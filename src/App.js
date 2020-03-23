@@ -88,6 +88,7 @@ function App() {
                 roomCode={roomCode}
                 setRoomCode={setRoomCode}
                 playerName={playerName}
+                playerTeam={playerTeam}
                 numberOfTeams={numberOfTeams}
                 gameState={gameState}
                 setGameState={setGameState}
