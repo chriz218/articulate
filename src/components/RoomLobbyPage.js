@@ -86,8 +86,8 @@ function RoomLobbyPage(
         team: 0,
         category: "Object",
         word: "",
-        describer: ["DESCRIBER_JOHN"],
-        guesser: ["GUESSSING NICK"]
+        describer: [],
+        guesser: []
       };
 
       const gamePositions = [];

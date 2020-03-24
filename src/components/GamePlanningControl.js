@@ -1,6 +1,6 @@
 import React from 'react';
 
-function GamePlanningControl({ playerName, playerState, setPlayerState, setGameState, gameState}) {
+function GamePlanningControl({ playerName, playerState, setPlayerState, setGameState, gameState, broadcastGameState}) {
 
   const SelectDescriber = () => {
     console.log("SELECTING DESCRIBER");
@@ -12,9 +12,11 @@ function GamePlanningControl({ playerName, playerState, setPlayerState, setGameS
       newCurrentTurn.describer.push(playerName);
       let index = newCurrentTurn.guesser.indexOf(playerName);
       if (index !== -1) newCurrentTurn.guesser.splice(index, 1);
-      return {
+      const newGameState = {
         ...prevGameState, currentTurn: newCurrentTurn
-      }
+      };
+      broadcastGameState(newGameState);
+      return newGameState;
     });
   };
 
@@ -28,9 +30,11 @@ function GamePlanningControl({ playerName, playerState, setPlayerState, setGameS
       newCurrentTurn.guesser.push(playerName);
       let index = newCurrentTurn.describer.indexOf(playerName);
       if (index !== -1) newCurrentTurn.describer.splice(index, 1);
-      return {
+      const newGameState = {
         ...prevGameState, currentTurn: newCurrentTurn
-      }
+      };
+      broadcastGameState(newGameState);
+      return newGameState;
     });
   };
 
@@ -41,11 +45,29 @@ function GamePlanningControl({ playerName, playerState, setPlayerState, setGameS
         ...nextTurn,
         status: "articulating"
       };
-      return {
+      const newGameState = {
         ...prevGameState,
+        currentState: "articulating",
         currentTurn: nextTurn
-      }
+      };
+      broadcastGameState(newGameState);
+      return newGameState;
     });
+  };
+
+  const RenderButtons = () => {
+    if(playerState.role === "Opponent") return (<React.Fragment />)
+    return (
+      <React.Fragment>
+        <div id="btnDiv">
+          <button className="btn" id="correctBtn" onClick={SelectDescriber}>Describer</button>
+          <button className="btn" id="skipBtn" onClick={SelectGuesser}>Guesser</button>
+        </div>
+        <div id="btnDiv">
+          <button className="btn" id="foulBtn" onClick={handlePlay} disabled={(playerState.role === '-')}>Play!</button>
+        </div>
+      </React.Fragment>
+    )
   };
 
   return (
@@ -66,13 +88,8 @@ function GamePlanningControl({ playerName, playerState, setPlayerState, setGameS
           return ", " + each;
         })}
         </div>
-        <div id="btnDiv">
-          <button className="btn" id="correctBtn" onClick={SelectDescriber}>Describer</button>
-          <button className="btn" id="skipBtn" onClick={SelectGuesser}>Guesser</button>
-        </div>
-        <div id="btnDiv">
-          <button className="btn" id="foulBtn" onClick={handlePlay}>Play!</button>
-        </div>
+        {RenderButtons()}
+
       </React.Fragment>
   )
 }

@@ -22,6 +22,14 @@ function App() {
   const [numberOfTeams, setNumberOfTeams] = useState(2);
   const [gameState, setGameState] = useState({ teams: [[],[]] });
 
+  const nextTeam = (team) => {
+    if (team === (numberOfTeams - 1)) {
+      return 0;
+    } else {
+      return (team + 1);
+    }
+  };
+
   function broadcastGameState(newGameState) {
     // Broadcast gameState Changes
     socket.emit('broadcastGameState', newGameState, () => {
@@ -93,6 +101,7 @@ function App() {
                 gameState={gameState}
                 setGameState={setGameState}
                 broadcastGameState={broadcastGameState}
+                nextTeam={nextTeam}
             />
           </Route>  
         </Switch>  
