@@ -26,7 +26,7 @@ function GameWordCard({ category }) {
 
   return (
     <div id="generatedWordDiv">
-      <div id="word" style={{"background-color": WordColor(category)}}>
+      <div id="word" style={{"backgroundColor": WordColor(category)}}>
         Rafael Nadal
       </div>
     </div>
