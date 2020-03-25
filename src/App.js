@@ -54,29 +54,30 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={HomePage}>
-            <HomePage
+          <Route exact path="/" render={() =>
+              <HomePage
                 socket={socket}
                 setSocketId={setSocketId}
                 socketId={socketId}
-                setIsHost={setIsHost}/>
-          </Route>
-          <Route exact path="/create" component={CreateRoomPage}>
-            <CreateRoomPage
+                setIsHost={setIsHost}
+              />}
+          />
+          <Route exact path="/create" render={() =>
+              <CreateRoomPage
                 playerName={playerName}
                 setPlayerName={setPlayerName}
                 setNumberOfTeams={setNumberOfTeams}
-            />
-          </Route>
-          <Route exact path="/join" component={JoinRoomPage}>
-            <JoinRoomPage
-                playerName={playerName}
-                setRoomCode={setRoomCode}
-                setPlayerName={setPlayerName}
-            />
-          </Route>
-          <Route exact path="/lobby" component={RoomLobbyPage}>
-            <RoomLobbyPage
+              />}
+          />
+          <Route exact path="/join" render={() =>
+              <JoinRoomPage
+                  playerName={playerName}
+                  setRoomCode={setRoomCode}
+                  setPlayerName={setPlayerName}
+              />}
+          />
+          <Route exact path="/lobby" render={() =>
+              <RoomLobbyPage
                 socket={socket}
                 socketId={socketId}
                 isHost={isHost}
@@ -89,25 +90,19 @@ function App() {
                 playerTeam={playerTeam}
                 setPlayerTeam={setPlayerTeam}
                 broadcastGameState={broadcastGameState}
-            />
-          </Route>
-          <Route exact path="/game" component={GamePage}>
-            <GamePage
-                socket={socket}
-                socketId={socketId}
-                isHost={isHost}
-                roomCode={roomCode}
-                setRoomCode={setRoomCode}
+              />}
+          />
+          <Route exact path="/game" render={() =>
+              <GamePage
                 playerName={playerName}
                 playerTeam={playerTeam}
-                numberOfTeams={numberOfTeams}
                 gameState={gameState}
                 setGameState={setGameState}
                 broadcastGameState={broadcastGameState}
                 nextTeam={nextTeam}
-            />
-          </Route>  
-        </Switch>  
+              />}
+          />
+        </Switch>
       </BrowserRouter>
     </div>
   );

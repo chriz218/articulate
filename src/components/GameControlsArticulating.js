@@ -61,7 +61,7 @@ function GameControlsArticulating({ role, gameState: { currentTurn }, setGameSta
   };
 
   /** Update board positions and go to next turn*/
-  const nextTurn = () => {
+  function nextTurn() {
     setGameState(prevGameState => {
       let newGamePositions  = prevGameState.gamePositions;
       newGamePositions[prevGameState.currentTurn.team] += correctlyAnswered;
