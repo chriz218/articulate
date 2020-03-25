@@ -1,12 +1,11 @@
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import { Route, Link, useHistory } from "react-router-dom"
-import '../CSSFiles/JoinRoomPage.css'
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import '../CSSFiles/JoinRoomPage.css';
 
 function JoinRoomPage({ setRoomCode, playerName, setPlayerName }) {
     let history = useHistory();
 
-    const handleJoin = async() => {
+    const handleJoin = () => {
         if(playerName) {
             history.push("/lobby")
         }

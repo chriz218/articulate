@@ -1,17 +1,18 @@
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import { Route, Link, useHistory } from "react-router-dom"
+import React, {useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 import '../CSSFiles/HomePage.css';
 
 function HomePage({ socket, setIsHost, socketId, setSocketId }) {
     let history = useHistory();
 
+    /** Request for a SocketId from server*/
     useEffect(() => {
         socket.emit('getSocketId', {}, (error) => {
             if(error) alert(error);
         });
     }, []);
 
+    /** Response from server containing the socketId*/
     useEffect(() => {
         socket.on("socketId", ({ socketId }, error) => {
             if(error) alert(error);

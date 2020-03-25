@@ -6,7 +6,9 @@ let myInterval;
 
 function GameControlsArticulating({ role, gameState: { currentTurn }, setGameState, broadcastGameState, nextTeam }) {
   const [secondsLeft, setSecondsLeft] = useState(TIME_PER_TURN);
+  const [correctlyAnswered, setCorrectlyAnswered] = useState(0);
 
+  /** Upon load start the countdown*/
   useEffect(() => {
     myInterval = setInterval(() => {
       if (secondsLeft > 0) {
@@ -18,14 +20,16 @@ function GameControlsArticulating({ role, gameState: { currentTurn }, setGameSta
     }
   }, []);
 
+  /** Upon timer countdown reaching zero, go to next turn*/
   useEffect(() => {
     if (secondsLeft === 0) {
       console.log("Times Up!");
       clearInterval(myInterval)
+      nextTurn();
     }
   }, [secondsLeft]);
 
-
+  /** Instruction Text for Opponents and Guessers*/
   const Instructions = ({role}) => {
     let describersString = "";
     currentTurn.describer.map((each, index) => {
@@ -56,17 +60,12 @@ function GameControlsArticulating({ role, gameState: { currentTurn }, setGameSta
     }
   };
 
-  const handleCorrect = () => {
-
-  };
-
-  const handleSkip = () => {
-
-  };
-
-  const handleFoul = () => {
-    clearInterval(myInterval);
+  /** Update board positions and go to next turn*/
+  const nextTurn = () => {
     setGameState(prevGameState => {
+      let newGamePositions  = prevGameState.gamePositions;
+      newGamePositions[prevGameState.currentTurn.team] += correctlyAnswered;
+
       const newTeam = nextTeam(prevGameState.currentTurn.team);
       const newGameState = {
         ...prevGameState,
@@ -76,11 +75,26 @@ function GameControlsArticulating({ role, gameState: { currentTurn }, setGameSta
           guesser: [],
           team: newTeam,
           phase: "planning"
-        }
+        },
+        gamePositions: newGamePositions
       };
       broadcastGameState(newGameState);
       return newGameState;
     });
+  };
+
+  const handleCorrect = () => {
+    setCorrectlyAnswered(prevCorrectlyAnswered => prevCorrectlyAnswered + 1)
+  };
+
+  const handleSkip = () => {
+
+  };
+
+  const handleFoul = () => {
+    clearInterval(myInterval);
+    setCorrectlyAnswered(0);
+    nextTurn();
   };
 
   return (

@@ -1,18 +1,19 @@
-import axios from 'axios'
-import React, {useState, useEffect, useLayoutEffect} from 'react';
-import { Route, Link, useHistory } from "react-router-dom"
+import React, {useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 import '../CSSFiles/RoomLobbyPage.css';
 import {CREATE_ROOM} from '../properties';
 import PlayerListContainer from './PlayerListContainer';
 
 function RoomLobbyPage(
-    { socket, isHost, hasJoined, setHasJoined, socketId, playerName,
+    { socket, isHost, socketId, playerName,
       numberOfTeams, roomCode, setRoomCode, gameState, setGameState,
       playerTeam, setPlayerTeam, broadcastGameState }
     ) {
   let history = useHistory();
 
-  // Initial Load
+  /**
+   * Initial Load
+   */
   useEffect(() => {
     if(isHost) {
       createRoom();
@@ -21,34 +22,41 @@ function RoomLobbyPage(
     }
   }, []);
 
+  /**
+   * When host starts the game, and upon an updated gameState received
+   * Checks gameState and redirects to GamePage to start the game
+   */
   useEffect(() => {
     if(gameState.hasOwnProperty("currentState") && gameState.currentState !== "lobby") {
       history.push("/game");
     }
   }, [gameState]);
 
-  // FOR HOST
-  // New Player Joins Lobby
+  /**
+   * Listens for new players joining the room
+   * As Host, updates gameState and broadcasts it
+   */
   useEffect(() => {
     socket.on("playerJoined", ({ playerName, socketId }) => {
       console.log("New Joiner: ", playerName);
-      setGameState(prev => {
-        const { teams } = prev;
-        teams[0].push(
-          {
-            playerName: playerName,
-            socketId: socketId
-          }
-        );
-        const newGameState = { ...prev, teams };
-        if(isHost) broadcastGameState(newGameState);
-        return newGameState;
-      });
+      if(isHost){
+        setGameState(prev => {
+          const { teams } = prev;
+          teams[0].push({playerName, socketId});
+          const newGameState = { ...prev, teams };
+          broadcastGameState(newGameState);
+          return newGameState;
+        });
+      }
     });
   });
 
-  // HOST FUNCTIONS
-  // Create Room and GameState
+  /**
+   * HOST ONLY
+   * Sends a POST request to the server
+   * Server generates a corresponding starting gameState
+   * Joins the room afterwards via socket.io
+   */
   const createRoom = () => {
     fetch(CREATE_ROOM, {
       method: 'POST',
@@ -65,41 +73,32 @@ function RoomLobbyPage(
         setGameState(data);
         setRoomCode(data.roomCode);
         joinRoom({ playerName, socketId, roomCode: data.roomCode });
-        broadcastGameState(data);
     })
   };
 
-  // ALL PLAYER FUNCTIONS
-  // Join Room
+  /**
+   * Runs for every player (including host) upon entering room
+   * In hosts case, runs after retrieving the gameState
+   * Defaults to Team 0
+   * @param joinPayload
+   */
   const joinRoom = (joinPayload) => {
     socket.emit('joinRoom', joinPayload, error => {
       if(error) alert(error);
-      setHasJoined(true);
       setPlayerTeam(0);
     });
   };
 
+  /**
+   * HOST ONLY
+   * Checks if player conditions are met
+   * Starts the game by updating gameState and broadcasting it
+   */
   const handleStartGame = () => {
     setGameState(prevGameState => {
-      const currentTurn = {
-        phase: "planning",
-        team: 0,
-        category: "Object",
-        word: "",
-        describer: [],
-        guesser: []
-      };
-
-      const gamePositions = [];
-      for(let i = 0; i < numberOfTeams; i++) {
-        gamePositions.push(0);
-      }
-
       const newGameState = {
         ...prevGameState,
-        currentState: "planning",
-        currentTurn,
-        gamePositions
+        currentState: "planning"
       };
       broadcastGameState(newGameState);
       return newGameState;

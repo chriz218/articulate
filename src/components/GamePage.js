@@ -1,12 +1,9 @@
-import axios from 'axios'
-import React, { useState, useEffect } from 'react'
-import { Route, Link, useHistory } from "react-router-dom"
-import '../CSSFiles/GamePage.css'
+import React, {useEffect, useState} from 'react';
+import '../CSSFiles/GamePage.css';
 import GameBoard from './GameBoard';
 import GameInstruction from './GameInstructions';
 import GameControlsArticulating from './GameControlsArticulating';
 import GameControlPlanning from './GameControlPlanning';
-
 
 function GamePage({ playerName, playerTeam, gameState, setGameState, broadcastGameState, nextTeam }) {
   const [playerState, setPlayerState] = useState({role: '-'});

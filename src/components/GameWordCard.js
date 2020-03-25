@@ -1,5 +1,6 @@
 import React from 'react';
 
+/** Color for each category*/
 const WordColor = (category) => {
   switch(category) {
     case "Object":
@@ -22,7 +23,7 @@ const WordColor = (category) => {
   }
 };
 
-function GameWordCard({ category }) {
+function GameWordCard({ category, word }) {
 
   return (
     <div id="generatedWordDiv">

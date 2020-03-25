@@ -1,7 +1,6 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import io from "socket.io-client";
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import io from 'socket.io-client';
 import './App.css';
 import HomePage from './components/HomePage.js';
 import RoomLobbyPage from './components/RoomLobbyPage';
@@ -10,11 +9,9 @@ import GamePage from './components/GamePage.js';
 import {BACKEND_ENDPOINT} from './properties';
 import CreateRoomPage from './components/CreateRoomPage';
 
-
 function App() {
   let socket = io(BACKEND_ENDPOINT, {transports: ['websocket']});
   const [isHost, setIsHost] = useState(false);
-  const [hasJoined, setHasJoined] = useState(false);
   const [socketId, setSocketId] = useState("");
   const [roomCode, setRoomCode] = useState("");
   const [playerName, setPlayerName] = useState("");
@@ -22,21 +19,30 @@ function App() {
   const [numberOfTeams, setNumberOfTeams] = useState(2);
   const [gameState, setGameState] = useState({ teams: [[],[]] });
 
-  const nextTeam = (team) => {
-    if (team === (numberOfTeams - 1)) {
+  /** Cycle to the next team */
+  const nextTeam = (currentTeam) => {
+    if (currentTeam === (numberOfTeams - 1)) {
       return 0;
     } else {
-      return (team + 1);
+      return (currentTeam + 1);
     }
   };
 
+  /**
+   * Broadcasts gameState updates so that all connected clients are in sync
+   * Usually used inside a setGameState function
+   * @param newGameState
+   */
   function broadcastGameState(newGameState) {
-    // Broadcast gameState Changes
     socket.emit('broadcastGameState', newGameState, () => {
       console.log("Broadcasting GameState: ", newGameState);
     });
   }
 
+  /**
+   * Receives a new gameState coming from another client that ran broadcastGameState()
+   * Updates our own gameState to be in sync with other clients
+   */
   useEffect(() => {
     socket.on('updateGameState', (newGameState) => {
         console.log("Updating GameState", newGameState);
@@ -74,8 +80,6 @@ function App() {
                 socket={socket}
                 socketId={socketId}
                 isHost={isHost}
-                hasJoined={hasJoined}
-                setHasJoined={setHasJoined}
                 roomCode={roomCode}
                 setRoomCode={setRoomCode}
                 playerName={playerName}

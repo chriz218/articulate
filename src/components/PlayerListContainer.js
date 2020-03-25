@@ -3,6 +3,7 @@ import '../CSSFiles/PlayerListContainer.css'
 
 function PlayerListContainer({ gameState, setGameState, playerTeam, setPlayerTeam, socketId, broadcastGameState }){
 
+  /** Removes player from current team and add them to the selected team*/
   function chooseTeam(newTeam) {
     setGameState(prevGameState => {
       let myPlayerObj = {};
@@ -21,6 +22,7 @@ function PlayerListContainer({ gameState, setGameState, playerTeam, setPlayerTea
     })
   }
 
+  /** Display a button to choose the team and lists its current members*/
   function renderTeam(i) {
     return (
         <React.Fragment>
