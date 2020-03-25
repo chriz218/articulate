@@ -15,7 +15,7 @@ function HomePage({ socket, setIsHost, socketId, setSocketId }) {
     useEffect(() => {
         socket.on("socketId", ({ socketId }, error) => {
             if(error) alert(error);
-            console.log("SocketId: ", socketId);
+            console.log("Registered SocketId: ", socketId);
             setSocketId(socketId);
         })
     });

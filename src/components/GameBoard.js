@@ -13,9 +13,10 @@ function GameBoard({ gamePositions }) {
     boardBlocks.push('');
   }
   gamePositions.map((position, team) => {
-    console.log(position, team);
     boardBlocks[position] = boardBlocks[position].toString() + team.toString();
   });
+
+  console.log("BoardPositions: ", boardBlocks);
 
   return (
       <React.Fragment>

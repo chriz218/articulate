@@ -31,7 +31,7 @@ function RoomLobbyPage(
   // New Player Joins Lobby
   useEffect(() => {
     socket.on("playerJoined", ({ playerName, socketId }) => {
-      console.log("PLAYER JOINS: ", playerName);
+      console.log("New Joiner: ", playerName);
       setGameState(prev => {
         const { teams } = prev;
         teams[0].push(
@@ -61,7 +61,7 @@ function RoomLobbyPage(
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        console.log("Room Created: ", data);
         setGameState(data);
         setRoomCode(data.roomCode);
         joinRoom({ playerName, socketId, roomCode: data.roomCode });
@@ -82,7 +82,7 @@ function RoomLobbyPage(
   const handleStartGame = () => {
     setGameState(prevGameState => {
       const currentTurn = {
-        status: "planning",
+        phase: "planning",
         team: 0,
         category: "Object",
         word: "",

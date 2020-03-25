@@ -3,18 +3,19 @@ import React, { useState, useEffect } from 'react'
 import { Route, Link, useHistory } from "react-router-dom"
 import '../CSSFiles/GamePage.css'
 import GameBoard from './GameBoard';
-import GamePlayerControls from './GamePlayerControls';
-import GamePlanningControl from './GamePlanningControl';
+import GameInstruction from './GameInstructions';
+import GameControlsArticulating from './GameControlsArticulating';
+import GameControlPlanning from './GameControlPlanning';
 
 
 function GamePage({ playerName, playerTeam, gameState, setGameState, broadcastGameState, nextTeam }) {
   const [playerState, setPlayerState] = useState({role: '-'});
 
   const GameControlPanel = () => {
-    switch(gameState.currentTurn.status){
+    switch(gameState.currentTurn.phase){
       case "planning":
         return (
-            <GamePlanningControl
+            <GameControlPlanning
                 playerName={playerName}
                 playerState={playerState}
                 setPlayerState={setPlayerState}
@@ -25,7 +26,7 @@ function GamePage({ playerName, playerTeam, gameState, setGameState, broadcastGa
         );
       case "articulating":
         return (
-            <GamePlayerControls
+            <GameControlsArticulating
                 role={playerState.role}
                 gameState={gameState}
                 setGameState={setGameState}
@@ -34,7 +35,7 @@ function GamePage({ playerName, playerTeam, gameState, setGameState, broadcastGa
             />
         );
       default:
-        console.log("ERROR: WRONG STATUS - ", gameState.currentTurn.status);
+        console.log("ERROR: Wrong phase input: ", gameState.currentTurn.phase);
         return;
     }
   };
@@ -47,12 +48,12 @@ function GamePage({ playerName, playerTeam, gameState, setGameState, broadcastGa
       });
     }else {
       setPlayerState({
-        role: "Opponent"
+        role: "OPPONENT"
       });
     }
 
     setGameState(prevGameState => {
-      console.log("NEW GAME STATE");
+      console.log("New Turn");
       const newCurrentTurn = {
         ...prevGameState.currentTurn,
         describer: [],
@@ -77,9 +78,10 @@ function GamePage({ playerName, playerTeam, gameState, setGameState, broadcastGa
             Your Team: {playerTeam}
           </div>
           <div id="role">
-            Your Role: {(playerTeam === gameState.currentTurn.team) ? playerState.role : "Opponent"}
+            Your Role: {playerState.role}
           </div>
         </div>
+        <GameInstruction playerState={playerState} currentTurn={gameState.currentTurn} />
         {GameControlPanel()}
       </div>
   );
