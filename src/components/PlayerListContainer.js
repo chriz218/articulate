@@ -25,14 +25,14 @@ function PlayerListContainer({ gameState, setGameState, playerTeam, setPlayerTea
   /** Display a button to choose the team and lists its current members*/
   function renderTeam(i) {
     return (
-        <React.Fragment>
+        <div key={i}>
           <button type="button" onClick={() => chooseTeam(i)}>Team {i}</button>
           <p>------------------</p>
-          {gameState.teams[i].map(player => {
-            return <p>{player.playerName}</p>
+          {gameState.teams[i].map((player, index) => {
+            return <p key={index}>{player.playerName}</p>
           })}
           <p>==========================</p>
-        </React.Fragment>
+        </div>
     )
   }
 

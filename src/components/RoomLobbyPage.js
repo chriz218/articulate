@@ -5,9 +5,9 @@ import {CREATE_ROOM} from '../properties';
 import PlayerListContainer from './PlayerListContainer';
 
 function RoomLobbyPage(
-    { socket, isHost, socketId, playerName,
-      numberOfTeams, roomCode, setRoomCode, gameState, setGameState,
-      playerTeam, setPlayerTeam, broadcastGameState }
+    { socket, socketId, isHost, playerName,
+      numberOfTeams, roomCode, setRoomCode, gameState,
+      setGameState, playerTeam, setPlayerTeam, broadcastGameState }
     ) {
   let history = useHistory();
 
