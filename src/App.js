@@ -33,14 +33,13 @@ function App() {
   function broadcastGameState(newGameState) {
     // Broadcast gameState Changes
     socket.emit('broadcastGameState', newGameState, () => {
-      console.log("Broadcasting GameState: ", newGameState.roomCode);
+      console.log("Broadcasting GameState: ", newGameState);
     });
   }
 
   useEffect(() => {
     socket.on('updateGameState', (newGameState) => {
-        console.log("UPDATING GAME STATE");
-        console.log(newGameState);
+        console.log("Updating GameState", newGameState);
         setGameState(newGameState);
     });
   });

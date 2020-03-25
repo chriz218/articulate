@@ -4,7 +4,7 @@ import { TIME_PER_TURN } from '../properties';
 
 let myInterval;
 
-function GamePlayerControls({ role, gameState: { currentTurn }, setGameState, broadcastGameState, nextTeam }) {
+function GameControlsArticulating({ role, gameState: { currentTurn }, setGameState, broadcastGameState, nextTeam }) {
   const [secondsLeft, setSecondsLeft] = useState(TIME_PER_TURN);
 
   useEffect(() => {
@@ -20,25 +20,33 @@ function GamePlayerControls({ role, gameState: { currentTurn }, setGameState, br
 
   useEffect(() => {
     if (secondsLeft === 0) {
-      console.log("TIMES UP");
+      console.log("Times Up!");
       clearInterval(myInterval)
     }
   }, [secondsLeft]);
 
 
   const Instructions = ({role}) => {
+    let describersString = "";
+    currentTurn.describer.map((each, index) => {
+      if(index === 0) {
+        describersString += each;
+      } else {
+        describersString += `, ${each}`;
+      }
+    });
     switch(role){
-      case 'Guesser':
+      case 'GUESSER':
         return (
             <div>
-              Your teammate, {currentTurn.describer[0]},
+              Your teammate(s), {describersString},
               is describing a word, guess the word!
             </div>
         );
-      case 'Opponent':
+      case 'OPPONENT':
         return (
             <div>
-              {currentTurn.describer[0]} from an opponent’s
+              {describersString} from an opponent’s
               team is describing a word, pay attention
               and catch the player if the player says the word
             </div>
@@ -67,7 +75,7 @@ function GamePlayerControls({ role, gameState: { currentTurn }, setGameState, br
           describer: [],
           guesser: [],
           team: newTeam,
-          status: "planning"
+          phase: "planning"
         }
       };
       broadcastGameState(newGameState);
@@ -83,9 +91,9 @@ function GamePlayerControls({ role, gameState: { currentTurn }, setGameState, br
       <div id="time">
         Seconds Left: {secondsLeft}
       </div>
-      {(role !== 'Guesser') && <GameWordCard category={currentTurn.category}/>}
+      {(role !== 'GUESSER') && <GameWordCard category={currentTurn.category}/>}
       <Instructions role={role}/>
-      {(role === 'Describer') && (
+      {(role === 'DESCRIBER') && (
         <div id="btnDiv">
           <button className="btn" id="correctBtn" onClick={handleCorrect}>Correct!</button>
           <button className="btn" id="skipBtn" onClick={handleSkip}>Skip</button>
@@ -97,4 +105,4 @@ function GamePlayerControls({ role, gameState: { currentTurn }, setGameState, br
   )
 }
 
-export default GamePlayerControls;
+export default GameControlsArticulating;
