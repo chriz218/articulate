@@ -53,7 +53,7 @@ function GameControlPlanning({ playerName, playerState, setPlayerState, setGameS
     });
   };
 
-  // Start Game if Allowed
+  /** Allow game to start if conditions met */
   useEffect(() => {
     const numOfDescribers = gameState.currentTurn.describer.length;
     const numOfGuessers = gameState.currentTurn.guesser.length;
@@ -64,6 +64,7 @@ function GameControlPlanning({ playerName, playerState, setPlayerState, setGameS
     setDisablePlayButton(!(allPlayersSelectedRole && atLeastOneOfEachRole));
   }, [gameState.currentTurn.describer, gameState.currentTurn.guesser]);
 
+  // TODO : Styling the buttons (visually disabled)
   const RenderButtons = () => {
     if(playerState.role === "OPPONENT") return (<React.Fragment />);
     return (
@@ -79,6 +80,7 @@ function GameControlPlanning({ playerName, playerState, setPlayerState, setGameS
     )
   };
 
+  // TODO: Make a new component to show the describer and guesser lists (styling)
   return (
       <React.Fragment>
         <div>

@@ -2,22 +2,22 @@ import React, {useEffect, useState} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import io from 'socket.io-client';
 import './App.css';
-import HomePage from './components/HomePage.js';
-import RoomLobbyPage from './components/RoomLobbyPage';
-import JoinRoomPage from './components/JoinRoomPage.js';
-import GamePage from './components/GamePage.js';
+import HomePage from './components/HomePage/HomePage.js';
+import RoomLobbyPage from './components/RoomLobbyPage/RoomLobbyPage';
+import JoinRoomPage from './components/JoinRoomPage/JoinRoomPage.js';
+import GamePage from './components/GamePage/GamePage.js';
+import CreateRoomPage from './components/CreateRoomPage/CreateRoomPage';
 import {BACKEND_ENDPOINT} from './properties';
-import CreateRoomPage from './components/CreateRoomPage';
 
 function App() {
   let socket = io(BACKEND_ENDPOINT, {transports: ['websocket']});
   const [isHost, setIsHost] = useState(false);
-  const [socketId, setSocketId] = useState("");
-  const [roomCode, setRoomCode] = useState("");
-  const [playerName, setPlayerName] = useState("");
+  const [socketId, setSocketId] = useState('');
+  const [roomCode, setRoomCode] = useState('');
+  const [playerName, setPlayerName] = useState('');
   const [playerTeam, setPlayerTeam] = useState(0);
   const [numberOfTeams, setNumberOfTeams] = useState(2);
-  const [gameState, setGameState] = useState({ teams: [[],[]] });
+  const [gameState, setGameState] = useState({teams: [[], []]});
 
   /** Cycle to the next team */
   const nextTeam = (currentTeam) => {
@@ -35,7 +35,7 @@ function App() {
    */
   function broadcastGameState(newGameState) {
     socket.emit('broadcastGameState', newGameState, () => {
-      console.log("Broadcasting GameState: ", newGameState);
+      console.log('Broadcasting GameState: ', newGameState);
     });
   }
 
@@ -45,8 +45,8 @@ function App() {
    */
   useEffect(() => {
     socket.on('updateGameState', (newGameState) => {
-        console.log("Updating GameState", newGameState);
-        setGameState(newGameState);
+      console.log('Updating GameState', newGameState);
+      setGameState(newGameState);
     });
   });
 
@@ -55,52 +55,53 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" render={() =>
-              <HomePage
-                socket={socket}
-                setSocketId={setSocketId}
-                socketId={socketId}
-                setIsHost={setIsHost}
-              />}
+            <HomePage
+              socket={socket}
+              setSocketId={setSocketId}
+              socketId={socketId}
+              setIsHost={setIsHost}
+            />}
           />
           <Route exact path="/create" render={() =>
-              <CreateRoomPage
-                playerName={playerName}
-                setPlayerName={setPlayerName}
-                setNumberOfTeams={setNumberOfTeams}
-              />}
+            <CreateRoomPage
+              playerName={playerName}
+              setPlayerName={setPlayerName}
+              setNumberOfTeams={setNumberOfTeams}
+            />}
           />
           <Route exact path="/join" render={() =>
-              <JoinRoomPage
-                  playerName={playerName}
-                  setRoomCode={setRoomCode}
-                  setPlayerName={setPlayerName}
-              />}
+            <JoinRoomPage
+              playerName={playerName}
+              setRoomCode={setRoomCode}
+              setPlayerName={setPlayerName}
+            />}
           />
           <Route exact path="/lobby" render={() =>
-              <RoomLobbyPage
-                socket={socket}
-                socketId={socketId}
-                isHost={isHost}
-                roomCode={roomCode}
-                setRoomCode={setRoomCode}
-                playerName={playerName}
-                numberOfTeams={numberOfTeams}
-                gameState={gameState}
-                setGameState={setGameState}
-                playerTeam={playerTeam}
-                setPlayerTeam={setPlayerTeam}
-                broadcastGameState={broadcastGameState}
-              />}
+            <RoomLobbyPage
+              socket={socket}
+              socketId={socketId}
+              isHost={isHost}
+              roomCode={roomCode}
+              setRoomCode={setRoomCode}
+              playerName={playerName}
+              numberOfTeams={numberOfTeams}
+              gameState={gameState}
+              setGameState={setGameState}
+              playerTeam={playerTeam}
+              setPlayerTeam={setPlayerTeam}
+              broadcastGameState={broadcastGameState}
+            />}
           />
           <Route exact path="/game" render={() =>
-              <GamePage
-                playerName={playerName}
-                playerTeam={playerTeam}
-                gameState={gameState}
-                setGameState={setGameState}
-                broadcastGameState={broadcastGameState}
-                nextTeam={nextTeam}
-              />}
+            <GamePage
+              isHost={isHost}
+              playerName={playerName}
+              playerTeam={playerTeam}
+              gameState={gameState}
+              setGameState={setGameState}
+              broadcastGameState={broadcastGameState}
+              nextTeam={nextTeam}
+            />}
           />
         </Switch>
       </BrowserRouter>

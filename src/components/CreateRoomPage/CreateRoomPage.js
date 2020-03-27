@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import '../CSSFiles/CreateRoomPage.css';
+import '../../CSSFiles/CreateRoomPage.css';
 
 function CreateRoomPage({ playerName, setPlayerName, setNumberOfTeams }) {
   let history = useHistory();

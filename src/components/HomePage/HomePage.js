@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
-import '../CSSFiles/HomePage.css';
+import '../../CSSFiles/HomePage.css';
 
 function HomePage({ socket, setIsHost, socketId, setSocketId }) {
     let history = useHistory();
