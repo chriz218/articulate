@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import GameWordCard from './GameWordCard';
-import { TIME_PER_TURN } from '../properties';
+import { TIME_PER_TURN } from '../../properties';
 
 let myInterval;
+let correctlyAnswered;
+let alreadySkipped;
 
-function GameControlsArticulating({ role, gameState: { currentTurn }, setGameState, broadcastGameState, nextTeam }) {
+function GameControlsArticulating({ isHost, role, gameState: { currentTurn }, setGameState, broadcastGameState, nextTeam }) {
   const [secondsLeft, setSecondsLeft] = useState(TIME_PER_TURN);
-  const [correctlyAnswered, setCorrectlyAnswered] = useState(0);
 
-  /** Upon load start the countdown*/
+  /** Upon load, initialise variables and start the countdown*/
   useEffect(() => {
+    correctlyAnswered = 0;
+    alreadySkipped = false;
+
+    /** Set the first word*/
+    changeWord();
+
     myInterval = setInterval(() => {
       if (secondsLeft > 0) {
         setSecondsLeft(prevSecondsLeft => (prevSecondsLeft - 1));
@@ -24,7 +31,7 @@ function GameControlsArticulating({ role, gameState: { currentTurn }, setGameSta
   useEffect(() => {
     if (secondsLeft === 0) {
       console.log("Times Up!");
-      clearInterval(myInterval)
+      clearInterval(myInterval);
       nextTurn();
     }
   }, [secondsLeft]);
@@ -64,6 +71,7 @@ function GameControlsArticulating({ role, gameState: { currentTurn }, setGameSta
   function nextTurn() {
     setGameState(prevGameState => {
       let newGamePositions  = prevGameState.gamePositions;
+      console.log("INCREASE POS: ", correctlyAnswered);
       newGamePositions[prevGameState.currentTurn.team] += correctlyAnswered;
 
       const newTeam = nextTeam(prevGameState.currentTurn.team);
@@ -81,19 +89,45 @@ function GameControlsArticulating({ role, gameState: { currentTurn }, setGameSta
       broadcastGameState(newGameState);
       return newGameState;
     });
-  };
+  }
 
+  /** TODO: Implement fetching a random word from server
+   * NEED TO FIGURE OUT HOW TO MAKE SURE EVERYONE HAS THE SAME WORD
+  */
+  function changeWord() {
+    setGameState(prevGameState => {
+      const newGameState = {
+        ...prevGameState,
+        currentTurn: {
+          ...prevGameState.currentTurn,
+          word: "Chair",
+          category: "Object"
+        }
+      };
+      return newGameState
+    })
+  }
+
+  // TODO use changeWord function
+  /** Plus one point*/
   const handleCorrect = () => {
-    setCorrectlyAnswered(prevCorrectlyAnswered => prevCorrectlyAnswered + 1)
+    correctlyAnswered = correctlyAnswered + 1;
+    console.log("INCREASE POINT: ", correctlyAnswered);
+    changeWord();
   };
 
+  // TODO Add nextWord function implementation
   const handleSkip = () => {
-
+    if(!alreadySkipped) {
+      alreadySkipped = true;
+      changeWord();
+    }
   };
 
+  /** Stops timer, goes to nextTurn with no points*/
   const handleFoul = () => {
     clearInterval(myInterval);
-    setCorrectlyAnswered(0);
+    correctlyAnswered = 0;
     nextTurn();
   };
 
@@ -105,7 +139,7 @@ function GameControlsArticulating({ role, gameState: { currentTurn }, setGameSta
       <div id="time">
         Seconds Left: {secondsLeft}
       </div>
-      {(role !== 'GUESSER') && <GameWordCard category={currentTurn.category}/>}
+      {(role !== 'GUESSER') && <GameWordCard category={currentTurn.category} word={currentTurn.word}/>}
       <Instructions role={role}/>
       {(role === 'DESCRIBER') && (
         <div id="btnDiv">

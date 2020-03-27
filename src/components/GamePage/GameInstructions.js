@@ -1,5 +1,7 @@
 import React from 'react';
 
+// TODO : Styling
+
 function GameInstruction({ playerState: { role }, currentTurn }) {
 
   function PlanningInstruction() {

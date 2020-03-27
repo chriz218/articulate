@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import '../CSSFiles/JoinRoomPage.css';
+import '../../CSSFiles/JoinRoomPage.css';
 
 function JoinRoomPage({ setRoomCode, playerName, setPlayerName }) {
     let history = useHistory();

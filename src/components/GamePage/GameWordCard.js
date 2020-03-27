@@ -28,7 +28,7 @@ function GameWordCard({ category, word }) {
   return (
     <div id="generatedWordDiv">
       <div id="word" style={{"backgroundColor": WordColor(category)}}>
-        Rafael Nadal
+        {word === "" ? "Chair" : word}
       </div>
     </div>
   )

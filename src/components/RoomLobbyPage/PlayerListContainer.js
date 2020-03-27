@@ -1,25 +1,27 @@
 import React from 'react';
-import '../CSSFiles/PlayerListContainer.css'
+import '../../CSSFiles/PlayerListContainer.css'
 
 function PlayerListContainer({ gameState, setGameState, playerTeam, setPlayerTeam, socketId, broadcastGameState }){
 
   /** Removes player from current team and add them to the selected team*/
   function chooseTeam(newTeam) {
-    setGameState(prevGameState => {
-      let myPlayerObj = {};
-      const { teams } = prevGameState;
-      teams[playerTeam].forEach((player, index, object) => {
-        if(player.socketId === socketId) {
-          myPlayerObj = player;
-          object.splice(index, 1);
-        }
-      });
-      teams[newTeam].push(myPlayerObj);
-      setPlayerTeam(newTeam);
-      const newGameState = { ...prevGameState, teams };
-      broadcastGameState(newGameState);
-      return newGameState;
-    })
+    if(newTeam !== playerTeam) {
+      setGameState(prevGameState => {
+        let myPlayerObj = {};
+        const {teams} = prevGameState;
+        teams[playerTeam].forEach((player, index, object) => {
+          if (player.socketId === socketId) {
+            myPlayerObj = player;
+            object.splice(index, 1);
+          }
+        });
+        teams[newTeam].push(myPlayerObj);
+        setPlayerTeam(newTeam);
+        const newGameState = {...prevGameState, teams};
+        broadcastGameState(newGameState);
+        return newGameState;
+      })
+    }
   }
 
   /** Display a button to choose the team and lists its current members*/

@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import '../CSSFiles/GamePage.css';
+import '../../CSSFiles/GamePage.css';
 import GameBoard from './GameBoard';
 import GameInstruction from './GameInstructions';
 import GameControlsArticulating from './GameControlsArticulating';
 import GameControlPlanning from './GameControlPlanning';
 
-function GamePage({ playerName, playerTeam, gameState, setGameState, broadcastGameState, nextTeam }) {
+function GamePage({ isHost, playerName, playerTeam, gameState, setGameState, broadcastGameState, nextTeam }) {
   const [playerState, setPlayerState] = useState({role: '-'});
 
   const GameControlPanel = () => {
@@ -24,6 +24,7 @@ function GamePage({ playerName, playerTeam, gameState, setGameState, broadcastGa
       case "articulating":
         return (
             <GameControlsArticulating
+                isHost={isHost}
                 role={playerState.role}
                 gameState={gameState}
                 setGameState={setGameState}
@@ -37,7 +38,7 @@ function GamePage({ playerName, playerTeam, gameState, setGameState, broadcastGa
     }
   };
 
-  // New Turn
+  /** New Turn: Reset currentTurn values in gameState*/
   useEffect(() => {
     if(playerTeam === gameState.currentTurn.team){
       setPlayerState({

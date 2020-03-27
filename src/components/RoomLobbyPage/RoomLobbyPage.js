@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
-import '../CSSFiles/RoomLobbyPage.css';
-import {CREATE_ROOM} from '../properties';
+import '../../CSSFiles/RoomLobbyPage.css';
+import {CREATE_ROOM} from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
+
+// TODO : Check if number of players in each team are enough before allowing game to start
 
 function RoomLobbyPage(
     { socket, socketId, isHost, playerName,
@@ -30,7 +32,7 @@ function RoomLobbyPage(
     if(gameState.hasOwnProperty("currentState") && gameState.currentState !== "lobby") {
       history.push("/game");
     }
-  }, [gameState]);
+  }, [gameState.currentState]);
 
   /**
    * Listens for new players joining the room
