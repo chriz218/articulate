@@ -85,6 +85,7 @@ function RoomLobbyPage(
    * @param joinPayload
    */
   const joinRoom = (joinPayload) => {
+    console.log(numberOfTeams); //
     socket.emit('joinRoom', joinPayload, error => {
       if(error) alert(error);
       setPlayerTeam(0);
@@ -113,13 +114,14 @@ function RoomLobbyPage(
 
   return (
       <div>
-        <h1>Articulate</h1>
+        <h1 className="ArticulateTitle">Articulate</h1>
         <form action="#" method="POST">
           <div className="form-content">
-            <label>Room Code: {`${roomCode}`}</label>
-            <label>Your name: {`${playerName}`}</label>
-            <label>No. of Teams: {`${numberOfTeams}`}</label>
-            <label>List of Players:</label>
+            <label className="lobbyLabel">Room Code: {`${roomCode}`}</label>
+            <label className="lobbyLabel">Your name: {`${playerName}`}</label>
+            {/* <label className="lobbyLabel">Host name: {`${hostName}`}</label> */}
+            <label className="lobbyLabel">No. of Teams: {`${numberOfTeams}`}</label>
+            <label className="lobbyLabel">List of Players:</label>
             <PlayerListContainer
                 socket={socket}
                 socketId={socketId}
