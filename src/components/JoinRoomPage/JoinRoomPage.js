@@ -1,18 +1,22 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, {useEffect} from 'react';
 import '../../CSSFiles/JoinRoomPage.css';
 
-function JoinRoomPage({ setRoomCode, playerName, setPlayerName }) {
-    let history = useHistory();
+function JoinRoomPage({ setPage, setRoomCode, playerName, setPlayerName }) {
+
+    /** Reset Prop Values*/
+    useEffect(() => {
+        setRoomCode("");
+        setPlayerName("");
+    }, []);
 
     const handleJoin = () => {
         if(playerName) {
-            history.push("/lobby")
+            setPage("lobby");
         }
     };
 
     const handleCancel = () => {
-        history.push("/")
+        setPage("home");
     };
 
     return (

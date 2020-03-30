@@ -18,7 +18,7 @@ const WordColor = (category) => {
     case "All":
       return "grey";
     default:
-      console.log("Wrong Category: ", category);
+      console.error("Wrong Category: ", category);
       return "white";
   }
 };

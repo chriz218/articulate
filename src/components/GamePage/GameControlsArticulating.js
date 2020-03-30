@@ -63,7 +63,7 @@ function GameControlsArticulating({ isHost, role, gameState: { currentTurn }, se
             </div>
         );
       default:
-        return <React.Fragment />;
+        return null;
     }
   };
 

@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
 import '../../CSSFiles/RoomLobbyPage.css';
 import {CREATE_ROOM} from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
@@ -7,11 +6,10 @@ import PlayerListContainer from './PlayerListContainer';
 // TODO : Check if number of players in each team are enough before allowing game to start
 
 function RoomLobbyPage(
-    { socket, socketId, isHost, playerName,
+    { setPage, socket, socketId, isHost, playerName,
       numberOfTeams, roomCode, setRoomCode, gameState,
       setGameState, playerTeam, setPlayerTeam, broadcastGameState }
     ) {
-  let history = useHistory();
 
   /**
    * Initial Load
@@ -30,7 +28,7 @@ function RoomLobbyPage(
    */
   useEffect(() => {
     if(gameState.hasOwnProperty("currentState") && gameState.currentState !== "lobby") {
-      history.push("/game");
+      setPage("game");
     }
   }, [gameState.currentState]);
 
@@ -100,7 +98,7 @@ function RoomLobbyPage(
     setGameState(prevGameState => {
       const newGameState = {
         ...prevGameState,
-        currentState: "planning"
+        currentState: "game"
       };
       broadcastGameState(newGameState);
       return newGameState;
@@ -108,7 +106,7 @@ function RoomLobbyPage(
   };
 
   const handleCancel = () => {
-    history.push("/")
+    setPage("home");
   };
 
   return (

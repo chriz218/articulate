@@ -1,9 +1,7 @@
 import React, {useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
 import '../../CSSFiles/HomePage.css';
 
-function HomePage({ socket, setIsHost, socketId, setSocketId }) {
-    let history = useHistory();
+function HomePage({ setPage, socket, setIsHost, socketId, setSocketId }) {
 
     /** Request for a SocketId from server*/
     useEffect(() => {
@@ -24,14 +22,14 @@ function HomePage({ socket, setIsHost, socketId, setSocketId }) {
     const handleCreateRoom = () => {
         if (socketId) {
             setIsHost(true);
-            history.push("/create");
+            setPage("create");
         }
     };
 
     const handleJoinRoom = () => {
         if (socketId) {
             setIsHost(false);
-            history.push("/join");
+            setPage('join');
         }
     };
 
