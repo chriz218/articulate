@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import io from 'socket.io-client';
 import './App.css';
 import HomePage from './components/HomePage/HomePage.js';
@@ -18,6 +17,7 @@ function App() {
   const [playerTeam, setPlayerTeam] = useState(0);
   const [numberOfTeams, setNumberOfTeams] = useState(2);
   const [gameState, setGameState] = useState({teams: [[], []]});
+  const [page, setPage] = useState("home");
 
   /** Cycle to the next team */
   const nextTeam = (currentTeam) => {
@@ -50,61 +50,72 @@ function App() {
     });
   });
 
+  function RenderPage() {
+    switch(page){
+      case "create":
+        return (
+          <CreateRoomPage
+            setPage={setPage}
+            playerName={playerName}
+            setPlayerName={setPlayerName}
+            setNumberOfTeams={setNumberOfTeams}
+          />
+        );
+      case "join":
+        return (
+          <JoinRoomPage
+            setPage={setPage}
+            playerName={playerName}
+            setRoomCode={setRoomCode}
+            setPlayerName={setPlayerName}
+          />
+        );
+      case "lobby":
+        return (
+          <RoomLobbyPage
+            setPage={setPage}
+            socket={socket}
+            socketId={socketId}
+            isHost={isHost}
+            roomCode={roomCode}
+            setRoomCode={setRoomCode}
+            playerName={playerName}
+            numberOfTeams={numberOfTeams}
+            gameState={gameState}
+            setGameState={setGameState}
+            playerTeam={playerTeam}
+            setPlayerTeam={setPlayerTeam}
+            broadcastGameState={broadcastGameState}
+          />
+        );
+      case "game":
+        return (
+          <GamePage
+            isHost={isHost}
+            playerName={playerName}
+            playerTeam={playerTeam}
+            gameState={gameState}
+            setGameState={setGameState}
+            broadcastGameState={broadcastGameState}
+            nextTeam={nextTeam}
+          />
+        );
+      default:
+        return (
+          <HomePage
+            setPage={setPage}
+            socket={socket}
+            setSocketId={setSocketId}
+            socketId={socketId}
+            setIsHost={setIsHost}
+          />
+        );
+    }
+  }
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" render={() =>
-            <HomePage
-              socket={socket}
-              setSocketId={setSocketId}
-              socketId={socketId}
-              setIsHost={setIsHost}
-            />}
-          />
-          <Route exact path="/create" render={() =>
-            <CreateRoomPage
-              playerName={playerName}
-              setPlayerName={setPlayerName}
-              setNumberOfTeams={setNumberOfTeams}
-            />}
-          />
-          <Route exact path="/join" render={() =>
-            <JoinRoomPage
-              playerName={playerName}
-              setRoomCode={setRoomCode}
-              setPlayerName={setPlayerName}
-            />}
-          />
-          <Route exact path="/lobby" render={() =>
-            <RoomLobbyPage
-              socket={socket}
-              socketId={socketId}
-              isHost={isHost}
-              roomCode={roomCode}
-              setRoomCode={setRoomCode}
-              playerName={playerName}
-              numberOfTeams={numberOfTeams}
-              gameState={gameState}
-              setGameState={setGameState}
-              playerTeam={playerTeam}
-              setPlayerTeam={setPlayerTeam}
-              broadcastGameState={broadcastGameState}
-            />}
-          />
-          <Route exact path="/game" render={() =>
-            <GamePage
-              isHost={isHost}
-              playerName={playerName}
-              playerTeam={playerTeam}
-              gameState={gameState}
-              setGameState={setGameState}
-              broadcastGameState={broadcastGameState}
-              nextTeam={nextTeam}
-            />}
-          />
-        </Switch>
-      </BrowserRouter>
+      {RenderPage()}
     </div>
   );
 }

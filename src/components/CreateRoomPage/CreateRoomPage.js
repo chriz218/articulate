@@ -1,18 +1,16 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import '../../CSSFiles/CreateRoomPage.css';
 
-function CreateRoomPage({ playerName, setPlayerName, setNumberOfTeams }) {
-  let history = useHistory();
+function CreateRoomPage({ setPage, playerName, setPlayerName, setNumberOfTeams }) {
 
   const handleCreate = () => {
     if(playerName) {
-      history.push("/lobby");
+      setPage("lobby");
     }
   };
 
   const handleCancel = () => {
-    history.push("/")
+    setPage("home");
   };
 
   return (
