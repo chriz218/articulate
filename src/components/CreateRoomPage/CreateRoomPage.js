@@ -1,7 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import '../../CSSFiles/CreateRoomPage.css';
 
 function CreateRoomPage({setPage, playerName, setPlayerName, setNumberOfTeams}) {
+
+    /** Reset Prop Values*/
+    useEffect(() => {
+        setPlayerName('');
+        setNumberOfTeams(2);
+    }, []);
 
     const handleCreate = () => {
         if (playerName) {
