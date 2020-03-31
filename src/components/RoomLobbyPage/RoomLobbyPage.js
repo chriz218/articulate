@@ -5,6 +5,8 @@ import PlayerListContainer from './PlayerListContainer';
 
 // TODO : Check if number of players in each team are enough before allowing game to start
 
+// TODO : Check if the Room doesn't exist
+
 function RoomLobbyPage(
     {
         setPage, socket, socketId, isHost, playerName,
@@ -20,7 +22,7 @@ function RoomLobbyPage(
         if (isHost) {
             createRoom();
         } else {
-            joinRoom({playerName, socketId, roomCode});
+            joinRoom({isHost, playerName, socketId, roomCode});
         }
     }, []);
 
@@ -55,6 +57,18 @@ function RoomLobbyPage(
     });
 
     /**
+     * For joiners, fail if they entered a wrong room code
+     */
+    useEffect(() => {
+        socket.on('playerJoinedFailed', (res) => {
+            if (res.playerName === playerName && res.socketId === socketId) {
+                console.log(`Room Code ${roomCode} doesn't exist`);
+                setPage('join');
+            }
+        });
+    });
+
+    /**
      * HOST ONLY
      * Sends a POST request to the server
      * Server generates a corresponding starting gameState
@@ -73,7 +87,7 @@ function RoomLobbyPage(
             console.log('Room Created: ', data);
             setGameState(data);
             setRoomCode(data.roomCode);
-            joinRoom({playerName, socketId, roomCode: data.roomCode});
+            joinRoom({isHost, playerName, socketId, roomCode: data.roomCode});
         });
     };
 
@@ -84,7 +98,6 @@ function RoomLobbyPage(
      * @param joinPayload
      */
     const joinRoom = (joinPayload) => {
-        console.log(numberOfTeams); //
         socket.emit('joinRoom', joinPayload, error => {
             if (error) alert(error);
             setPlayerTeam(0);
