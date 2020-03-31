@@ -17,7 +17,22 @@ p {
     height: 6vh;
 }
 
-.PlayerListSection {
+.PlayerListSectionDynamicStyle1 {
+    text-align: center;
+    width: calc((100vw - 15px - 15px)/2);
+    height: 55vh;
+    font-size: 3.5vmin;
+    font-weight: bold;
+}
+
+.PlayerListSubSectionDynamicStyle1 {
+    overflow:scroll;
+    margin:0px;
+    width: calc((100vw - 15px - 15px)/2);
+    height: calc(55vh - 6vh - 10px - 10px - 2px - 2px);
+}
+
+.PlayerListSectionDynamicStyle2 {
     text-align: center;
     width: calc((100vw - 15px - 15px)/2);
     height: calc(55vh/2);
@@ -25,7 +40,7 @@ p {
     font-weight: bold;
 }
 
-.PlayerListSubSection {
+.PlayerListSubSectionDynamicStyle2 {
     overflow:scroll;
     margin:0px;
     width: calc((100vw - 15px - 15px)/2);

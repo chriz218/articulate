@@ -119,8 +119,7 @@ function RoomLobbyPage(
           <div className="form-content">
             <label className="lobbyLabel">Room Code: {`${roomCode}`}</label>
             <label className="lobbyLabel">Your name: {`${playerName}`}</label>
-            {/* <label className="lobbyLabel">Host name: {`${hostName}`}</label> */}
-            <label className="lobbyLabel">No. of Teams: {`${numberOfTeams}`}</label>
+            <label className="lobbyLabel">No. of Teams: {`${gameState.numberOfTeams}`}</label>
             <label className="lobbyLabel">List of Players:</label>
             <PlayerListContainer
                 socket={socket}

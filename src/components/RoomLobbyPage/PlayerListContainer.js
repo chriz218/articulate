@@ -28,15 +28,22 @@ function PlayerListContainer({ gameState, setGameState, playerTeam, setPlayerTea
   function renderTeam(i) {
     console.log(gameState.teams)
     console.log(gameState.teams.length)
+    let PlayerListSectionDynamicStyle
+    let PlayerListSubSectionDynamicStyle
+    if (gameState.teams.length === 2) {
+      PlayerListSectionDynamicStyle = "PlayerListSectionDynamicStyle1"
+      PlayerListSubSectionDynamicStyle = "PlayerListSubSectionDynamicStyle1"
+    } else {
+      PlayerListSectionDynamicStyle = "PlayerListSectionDynamicStyle2"
+      PlayerListSubSectionDynamicStyle = "PlayerListSubSectionDynamicStyle2"
+    }
     return (
-      <div key={i} id={`team${i}`} className="PlayerListSection">
+      <div key={i} id={`team${i}`} className={PlayerListSectionDynamicStyle}>
         <button type="button" id="PlayerListTeamBtn" onClick={() => chooseTeam(i)}>Team {i}</button>
-        <div className="PlayerListSubSection">
-          {/* <p>------------------</p> */}
+        <div className={PlayerListSubSectionDynamicStyle}>
           {gameState.teams[i].map((player, index) => {
             return <p key={index}>{player.playerName}</p>
           })}
-          {/* <p>==========================</p> */}
         </div>
       </div>
     )
