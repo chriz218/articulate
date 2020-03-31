@@ -1,15 +1,10 @@
-h1 {
+.ArticulateTitle {
     margin-top: 10px;
     margin-bottom: 0px;
     height: 5vh;
     text-align: center;
     color: purple;
     font-size: 4vh;
-}
-
-form {
-    padding-left: 30px;
-    padding-right: 30px;
 }
 
 label {
@@ -20,25 +15,8 @@ label {
     margin-bottom: 10px;
 }
 
-input {
-    height: 30px;
-    line-height: 30px;
-    font-size: 1.2em;
-    width: 75vw;
-    margin-bottom: 10px;
-}
-
-select {
-    height: 30px;
-    width: 20vw;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.players-list {
-    height: 40vh;
-    background-color: white;
-    margin: 0px;
+.lobbyLabel {
+    padding-left: 30px;
 }
 
 .BtnDiv {
@@ -50,12 +28,13 @@ select {
 }
 
 button {
-    height: 7vh;
-    width: 25vw;
-    font-size: 1.2em;
     display: inline-block;
-    margin-left: 5px;
-    margin-right: 5px;
+    height: 8vh;
+    width: 40vw;
+    margin: 10px;
+    font-size: 4vmin;
+    font-weight: bold;
+    color: white;
     font-weight: bold;
     font-family: 'Roboto Slab', serif;
 }

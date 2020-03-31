@@ -2,3 +2,47 @@ p {
     margin-block-start: 0;
     margin-block-end: 0;
 }
+
+.players-list {
+    height: 55vh;
+    width: calc(100vw - 15px - 15px);
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#PlayerListTeamBtn {
+    background-color: rgb(78, 46, 219);
+    height: 6vh;
+}
+
+.PlayerListSectionDynamicStyle1 {
+    text-align: center;
+    width: calc((100vw - 15px - 15px)/2);
+    height: 55vh;
+    font-size: 3.5vmin;
+    font-weight: bold;
+}
+
+.PlayerListSubSectionDynamicStyle1 {
+    overflow:scroll;
+    margin:0px;
+    width: calc((100vw - 15px - 15px)/2);
+    height: calc(55vh - 6vh - 10px - 10px - 2px - 2px);
+}
+
+.PlayerListSectionDynamicStyle2 {
+    text-align: center;
+    width: calc((100vw - 15px - 15px)/2);
+    height: calc(55vh/2);
+    font-size: 3.5vmin;
+    font-weight: bold;
+}
+
+.PlayerListSubSectionDynamicStyle2 {
+    overflow:scroll;
+    margin:0px;
+    width: calc((100vw - 15px - 15px)/2);
+    height: calc((55vh/2) - 6vh - 10px - 10px - 2px - 2px);
+}
