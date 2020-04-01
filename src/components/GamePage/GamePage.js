@@ -25,7 +25,7 @@ function GamePage({isHost, playerName, playerTeam, gameState, setGameState, broa
                 return (
                     <GameControlsArticulating
                         isHost={isHost}
-                        role={playerState.role}
+                        playerState={playerState}
                         gameState={gameState}
                         setGameState={setGameState}
                         broadcastGameState={broadcastGameState}
