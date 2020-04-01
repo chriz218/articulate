@@ -1,12 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import GameWordCard from './GameWordCard';
-import {TIME_PER_TURN} from '../../properties';
+import {
+    CREATE_ROOM,
+    RANDOM_WORD_GIVEN_USED,
+    TIME_PER_TURN,
+} from '../../properties';
 
 let myInterval;
 let correctlyAnswered;
 let alreadySkipped;
 
-function GameControlsArticulating({isHost, role, gameState: {currentTurn}, setGameState, broadcastGameState, nextTeam}) {
+function GameControlsArticulating({isHost, playerState, gameState: {usedWords, currentTurn}, setGameState, broadcastGameState, nextTeam}) {
     const [secondsLeft, setSecondsLeft] = useState(TIME_PER_TURN);
 
     /** Upon load, initialise variables and start the countdown*/
@@ -15,7 +19,7 @@ function GameControlsArticulating({isHost, role, gameState: {currentTurn}, setGa
         alreadySkipped = false;
 
         /** Set the first word*/
-        changeWord();
+        if (playerState.role === 'DESCRIBER') changeWord();
 
         myInterval = setInterval(() => {
             if (secondsLeft > 0) {
@@ -37,7 +41,7 @@ function GameControlsArticulating({isHost, role, gameState: {currentTurn}, setGa
     }, [secondsLeft]);
 
     /** Instruction Text for Opponents and Guessers*/
-    const Instructions = ({role}) => {
+    const Instructions = ({playerState}) => {
         let describersString = '';
         currentTurn.describer.map((each, index) => {
             if (index === 0) {
@@ -46,7 +50,7 @@ function GameControlsArticulating({isHost, role, gameState: {currentTurn}, setGa
                 describersString += `, ${each}`;
             }
         });
-        switch (role) {
+        switch (playerState.role) {
             case 'GUESSER':
                 return (
                     <div>
@@ -95,25 +99,41 @@ function GameControlsArticulating({isHost, role, gameState: {currentTurn}, setGa
      * NEED TO FIGURE OUT HOW TO MAKE SURE EVERYONE HAS THE SAME WORD
      */
     function changeWord() {
-        setGameState(prevGameState => {
-            const newGameState = {
-                ...prevGameState,
-                currentTurn: {
-                    ...prevGameState.currentTurn,
-                    word: 'Chair',
-                    category: 'Object',
-                },
-            };
-            return newGameState;
+        const categoryKey = currentTurn.category.toLowerCase();
+        fetch(RANDOM_WORD_GIVEN_USED + categoryKey, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(usedWords),
+        }).then(response => {
+            if (response.status === 200) return response.text();
+            throw new Error('No words left');
+        }).then(data => {
+            console.log('Random Word Chosen : ', data);
+            setGameState(prevGameState => {
+                const newUsedWords = prevGameState.usedWords;
+                newUsedWords[categoryKey].push(data);
+                const newGameState = {
+                    ...prevGameState,
+                    usedWords: newUsedWords,
+                    currentTurn: {
+                        ...prevGameState.currentTurn,
+                        word: data,
+                    },
+                };
+                broadcastGameState(newGameState);
+                return newGameState;
+            });
+        }).catch(error => {
+            console.error('Error: ', error);
         });
     }
 
-    // TODO use changeWord function
+    // TODO : Handle properly if no words left
     /** Plus one point*/
     const handleCorrect = () => {
+        changeWord();
         correctlyAnswered = correctlyAnswered + 1;
         console.log('INCREASE POINT: ', correctlyAnswered);
-        changeWord();
     };
 
     // TODO Add nextWord function implementation
@@ -139,11 +159,11 @@ function GameControlsArticulating({isHost, role, gameState: {currentTurn}, setGa
             <div id="time">
                 Seconds Left: {secondsLeft}
             </div>
-            {(role !== 'GUESSER') &&
+            {(playerState.role !== 'GUESSER') &&
             <GameWordCard category={currentTurn.category}
                           word={currentTurn.word}/>}
-            <Instructions role={role}/>
-            {(role === 'DESCRIBER') && (
+            <Instructions playerState={playerState}/>
+            {(playerState.role === 'DESCRIBER') && (
                 <div id="btnDiv">
                     <button className="btn" id="correctBtn"
                             onClick={handleCorrect}>Correct!

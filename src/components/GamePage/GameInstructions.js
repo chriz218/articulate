@@ -33,7 +33,7 @@ function GameInstruction({playerState: {role}, currentTurn}) {
         case 'planning':
             return PlanningInstruction();
         default:
-            return (<React.Fragment/>);
+            return null;
     }
 }
 
