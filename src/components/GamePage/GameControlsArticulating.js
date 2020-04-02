@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import GameWordCard from './GameWordCard';
+import {CapitaliseFirstLetter, NextTeam} from '../Util/util';
 import {
-    CREATE_ROOM,
     RANDOM_WORD_GIVEN_USED,
     TIME_PER_TURN,
 } from '../../properties';
@@ -10,7 +10,7 @@ let myInterval;
 let correctlyAnswered;
 let alreadySkipped;
 
-function GameControlsArticulating({isHost, playerState, gameState: {usedWords, currentTurn}, setGameState, broadcastGameState, nextTeam}) {
+function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWords, currentTurn}, setGameState, broadcastGameState}) {
     const [secondsLeft, setSecondsLeft] = useState(TIME_PER_TURN);
 
     /** Upon load, initialise variables and start the countdown*/
@@ -19,7 +19,7 @@ function GameControlsArticulating({isHost, playerState, gameState: {usedWords, c
         alreadySkipped = false;
 
         /** Set the first word*/
-        if (playerState.role === 'DESCRIBER') changeWord();
+        if (playerRole === 'describer') changeWord();
 
         myInterval = setInterval(() => {
             if (secondsLeft > 0) {
@@ -41,7 +41,7 @@ function GameControlsArticulating({isHost, playerState, gameState: {usedWords, c
     }, [secondsLeft]);
 
     /** Instruction Text for Opponents and Guessers*/
-    const Instructions = ({playerState}) => {
+    const Instructions = ({playerRole}) => {
         let describersString = '';
         currentTurn.describer.map((each, index) => {
             if (index === 0) {
@@ -50,15 +50,15 @@ function GameControlsArticulating({isHost, playerState, gameState: {usedWords, c
                 describersString += `, ${each}`;
             }
         });
-        switch (playerState.role) {
-            case 'GUESSER':
+        switch (playerRole) {
+            case 'guesser':
                 return (
                     <div>
                         Your teammate(s), {describersString},
                         is describing a word, guess the word!
                     </div>
                 );
-            case 'OPPONENT':
+            case 'opponent':
                 return (
                     <div>
                         {describersString} from an opponent’s
@@ -78,7 +78,8 @@ function GameControlsArticulating({isHost, playerState, gameState: {usedWords, c
             console.log('INCREASE POS: ', correctlyAnswered);
             newGamePositions[prevGameState.currentTurn.team] += correctlyAnswered;
 
-            const newTeam = nextTeam(prevGameState.currentTurn.team);
+            const newTeam = NextTeam(prevGameState.currentTurn.team,
+                numberOfTeams);
             const newGameState = {
                 ...prevGameState,
                 currentTurn: {
@@ -111,15 +112,20 @@ function GameControlsArticulating({isHost, playerState, gameState: {usedWords, c
             console.log('Random Word Chosen : ', data);
             setGameState(prevGameState => {
                 const newUsedWords = prevGameState.usedWords;
-                newUsedWords[categoryKey].push(data);
+
+                /** TODO : Only disabled for development
+                 * To be uncommented once we have enough words
+                 */
+                    // newUsedWords[categoryKey].push(data);
+
                 const newGameState = {
-                    ...prevGameState,
-                    usedWords: newUsedWords,
-                    currentTurn: {
-                        ...prevGameState.currentTurn,
-                        word: data,
-                    },
-                };
+                        ...prevGameState,
+                        usedWords: newUsedWords,
+                        currentTurn: {
+                            ...prevGameState.currentTurn,
+                            word: data,
+                        },
+                    };
                 broadcastGameState(newGameState);
                 return newGameState;
             });
@@ -154,16 +160,16 @@ function GameControlsArticulating({isHost, playerState, gameState: {usedWords, c
     return (
         <React.Fragment>
             <div id="Game-WordCategory">
-                Word Category: {currentTurn.category}
+                Word Category: {CapitaliseFirstLetter(currentTurn.category)}
             </div>
             <div id="Game-Time">
                 Seconds Left: {secondsLeft}
             </div>
-            {(playerState.role !== 'GUESSER') &&
+            {(playerRole !== 'guesser') &&
             <GameWordCard category={currentTurn.category}
                           word={currentTurn.word}/>}
-            <Instructions playerState={playerState}/>
-            {(playerState.role === 'DESCRIBER') && (
+            <Instructions playerRole={playerRole}/>
+            {(playerRole === 'describer') && (
                 <div id="btnDiv">
                     <button className="Game-Btns" id="Game-CorrectBtn"
                             onClick={handleCorrect}>Correct!

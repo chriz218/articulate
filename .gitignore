@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# properties.js file as it is rarely changed
+properties.js
+
 # dependencies
 /node_modules
 /.pnp

@@ -3,19 +3,19 @@ import React from 'react';
 /** Color for each category*/
 const WordColor = (category) => {
     switch (category) {
-        case 'Object':
+        case 'object':
             return 'cyan';
-        case 'Action':
+        case 'action':
             return '#FF7B00';
-        case 'Nature':
+        case 'nature':
             return 'green';
-        case 'World':
+        case 'world':
             return 'blue';
-        case 'Person':
+        case 'person':
             return 'yellow';
-        case 'Random':
+        case 'random':
             return 'red';
-        case 'All':
+        case 'all':
             return 'grey';
         default:
             console.error('Wrong Category: ', category);

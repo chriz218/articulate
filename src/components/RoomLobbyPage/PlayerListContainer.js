@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../CSSFiles/PlayerListContainer.css';
+import {TranslateTeamDisplayed} from '../Util/util';
 
 function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam, socketId, broadcastGameState}) {
 
@@ -32,7 +33,9 @@ function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam
                      'PlayerList-SectionDynamicStyle1' :
                      'PlayerList-SectionDynamicStyle2'}>
                 <button type="button" className="PlayerList-TeamBtn"
-                        onClick={() => chooseTeam(i)}>Team {i}</button>
+                        onClick={() => chooseTeam(i)}>
+                    Team {TranslateTeamDisplayed(i)}
+                </button>
                 <div className={gameState.teams.length === 2 ?
                     'PlayerList-SubSectionDynamicStyle1' :
                     'PlayerList-SubSectionDynamicStyle2'}>

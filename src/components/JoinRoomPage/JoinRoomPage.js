@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import {ToastContainer, toast, Zoom, Bounce} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {ToastContainer, toast, Zoom, Bounce} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../CSSFiles/JoinRoomPage.css';
 
 function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
@@ -29,7 +29,7 @@ function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
                     draggable={false}
                     transition={Zoom}
                     autoClose={1950}
-                    className="Join-FailJoinToast" />
+                    className="Join-FailJoinToast"/>
             </>
             <div>
                 <div className="Join-Form">
@@ -43,7 +43,8 @@ function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
                            onChange={e => setPlayerName(e.target.value)}/>
                 </div>
                 <div id="Join-BtnDiv">
-                    <button id="Join-JoinBtn" className="Join-Btns" onClick={handleJoin}>Join
+                    <button id="Join-JoinBtn" className="Join-Btns"
+                            onClick={handleJoin}>Join
                     </button>
                     <button id="Join-CancelBtn" className="Join-Btns"
                             onClick={handleCancel}>Cancel

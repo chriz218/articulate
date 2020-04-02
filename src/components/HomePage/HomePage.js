@@ -51,10 +51,12 @@ function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
                 table)
             </div>
             <div className="Home-Squares" style={{backgroundColor: '#FF7B00'}}/>
-            <div className="Home-ColorDescription">Action (e.g., singing, driving)
+            <div className="Home-ColorDescription">Action (e.g., singing,
+                driving)
             </div>
             <div className="Home-Squares" style={{backgroundColor: 'green'}}/>
-            <div className="Home-ColorDescription">Nature (e.g., tulip, rose)</div>
+            <div className="Home-ColorDescription">Nature (e.g., tulip, rose)
+            </div>
             <div className="Home-Squares" style={{backgroundColor: 'blue'}}/>
             <div className="Home-ColorDescription">World (e.g., The Louvre,
                 Senegal)
@@ -67,7 +69,8 @@ function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
             <div className="Home-ColorDescription">Random (e.g., chapter, wedge)
             </div>
             <div className="Home-Squares" style={{backgroundColor: 'grey'}}/>
-            <div className="Home-ColorDescription">Everything (All categories)</div>
+            <div className="Home-ColorDescription">Everything (All categories)
+            </div>
             <div id="Home-BtnsDiv">
                 <button className="Home-Btns" onClick={handleCreateRoom}>Create
                     Room

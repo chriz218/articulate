@@ -19,15 +19,6 @@ function App() {
     const [gameState, setGameState] = useState({teams: [[], []]});
     const [page, setPage] = useState('home');
 
-    /** Cycle to the next team */
-    const nextTeam = (currentTeam) => {
-        if (currentTeam === (numberOfTeams - 1)) {
-            return 0;
-        } else {
-            return (currentTeam + 1);
-        }
-    };
-
     /**
      * Broadcasts gameState updates so that all connected clients are in sync
      * Usually used inside a setGameState function
@@ -91,13 +82,12 @@ function App() {
             case 'game':
                 return (
                     <GamePage
-                        isHost={isHost}
+                        numberOfTeams={numberOfTeams}
                         playerName={playerName}
                         playerTeam={playerTeam}
                         gameState={gameState}
                         setGameState={setGameState}
                         broadcastGameState={broadcastGameState}
-                        nextTeam={nextTeam}
                     />
                 );
             default:
