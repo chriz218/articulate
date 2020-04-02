@@ -66,7 +66,7 @@ function RoomLobbyPage(
             if (res.playerName === playerName && res.socketId === socketId) {
                 console.log(`Room Code ${roomCode} doesn't exist`);
                 setPage('join');
-                toast.warn(`Room ${roomCode} does not exist`)
+                toast.error(`Room ${roomCode} does not exist`)
             }
         });
     });

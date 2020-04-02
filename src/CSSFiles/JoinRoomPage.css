@@ -57,5 +57,7 @@
 }
 
 .Join-FailJoinToast {
-    color: green;
+    color: white;
+    font-size: 4.2vmin;
+    text-align: center;
 }

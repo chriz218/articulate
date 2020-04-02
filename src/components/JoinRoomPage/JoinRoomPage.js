@@ -28,7 +28,7 @@ function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
                 <ToastContainer
                     draggable={false}
                     transition={Zoom}
-                    autoClose={3000}
+                    autoClose={1950}
                     className="Join-FailJoinToast" />
             </>
             <div>
