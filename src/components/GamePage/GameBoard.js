@@ -1,4 +1,5 @@
 import React from 'react';
+import {TranslateTeamDisplayed} from '../Util/util';
 
 function BoardTile({boardBlock, index}) {
     return (
@@ -14,7 +15,7 @@ function GameBoard({gamePositions}) {
     }
     gamePositions.forEach((position, team) => {
         boardBlocks[position] = boardBlocks[position].toString() +
-            team.toString();
+            TranslateTeamDisplayed(team);
     });
 
     console.log('GamePositions: ', gamePositions);
