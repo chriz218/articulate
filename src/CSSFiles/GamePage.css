@@ -7,7 +7,7 @@
     font-size: 4vh;
 }
 
-.board { 
+#Game-Board { 
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -21,7 +21,7 @@
     margin-bottom: 10px;
 }
   
-.boardBlock { 
+.Game-BoardBlock { 
     width: calc((100vw - 10px - 10px)/6 - 2px - 2px);
     height: calc((100vw - 10px - 10px)/7 - 2px - 2px);
     text-align: center;
@@ -33,39 +33,39 @@
     font-weight: bold;
 }
 
-#boardBlock0, #boardBlock7, #boardBlock14, #boardBlock21, #boardBlock28, #boardBlock35 {
+#Game-BoardBlock0, #Game-BoardBlock7, #Game-BoardBlock14, #Game-BoardBlock21, #Game-BoardBlock28, #Game-BoardBlock35 {
     background-color: cyan;
 }
 
-#boardBlock1, #boardBlock8, #boardBlock15, #boardBlock22, #boardBlock29, #boardBlock36 {
+#Game-BoardBlock1, #Game-BoardBlock8, #Game-BoardBlock15, #Game-BoardBlock22, #Game-BoardBlock29, #Game-BoardBlock36 {
     background-color: #FF7B00;
 }
 
-#boardBlock2, #boardBlock9, #boardBlock16, #boardBlock23, #boardBlock30, #boardBlock37 {
+#Game-BoardBlock2, #Game-BoardBlock9, #Game-BoardBlock16, #Game-BoardBlock23, #Game-BoardBlock30, #Game-BoardBlock37 {
     background-color: white;
 }
 
-#boardBlock3, #boardBlock10, #boardBlock17, #boardBlock24, #boardBlock31, #boardBlock38 {
+#Game-BoardBlock3, #Game-BoardBlock10, #Game-BoardBlock17, #Game-BoardBlock24, #Game-BoardBlock31, #Game-BoardBlock38 {
     background-color: blue;
 }
 
-#boardBlock4, #boardBlock11, #boardBlock18, #boardBlock25, #boardBlock32, #boardBlock39 {
+#Game-BoardBlock4, #Game-BoardBlock11, #Game-BoardBlock18, #Game-BoardBlock25, #Game-BoardBlock32, #Game-BoardBlock39 {
     background-color: yellow;
 }
 
-#boardBlock5, #boardBlock12, #boardBlock19, #boardBlock26, #boardBlock33, #boardBlock40 {
+#Game-BoardBlock5, #Game-BoardBlock12, #Game-BoardBlock19, #Game-BoardBlock26, #Game-BoardBlock33, #Game-BoardBlock40 {
     background-color: red;
 }
 
-#boardBlock6, #boardBlock13, #boardBlock20, #boardBlock27, #boardBlock34, #boardBlock41 {
+#Game-BoardBlock6, #Game-BoardBlock13, #Game-BoardBlock20, #Game-BoardBlock27, #Game-BoardBlock34, #Game-BoardBlock41 {
     background-color: green;
 }
 
-#teamRoleDiv {
+#Game-TeamRoleDiv {
     margin-bottom: 10px;
 }
 
-#team {
+.Game-Team {
     display: inline-block;
     font-size: 5vmin;
     margin-left: 10px;
@@ -73,7 +73,7 @@
     color: black;
 }
 
-#role {
+#Game-Role {
     font-size: 5vmin;
     float: right;
     margin-right: 10px;
@@ -81,7 +81,7 @@
     color: black;
 }
 
-#wordCategory {
+#Game-WordCategory {
     text-align: center;
     font-size: 5.5vmin;
     font-weight: bold;
@@ -89,7 +89,7 @@
     margin-bottom: 10px;
 }
 
-#time {
+#Game-Time {
     text-align: center;
     font-size: 5.5vmin;
     font-weight: bold;
@@ -97,12 +97,12 @@
     margin-bottom: 10px;
 }
 
-#generatedWordDiv {
+#Game-GeneratedWordDiv {
     text-align: center;
     margin-bottom: 10px;
 }
 
-#word {
+#Game-Word {
     text-align: center;
     font-size: 5.5vmin;
     border: 3px solid black;
@@ -112,11 +112,11 @@
     font-weight: bold;
 }
 
-#btnDiv {
+.Game-BtnDiv {
     text-align: center;
 }
 
-.btn {
+.Game-Btns {
     height: 7.5vh;
     margin-left: 10px;
     margin-right: 10px;
@@ -125,15 +125,27 @@
     color: white;
 }
 
-#correctBtn {
+#Game-DescriberBtn {
     background-color: purple;
 }
 
-#skipBtn {
+#Game-GuesserBtn {
     background-color: #F700FF;
 }
 
-#foulBtn {
+#Game-PlayBtn {
+    background-color: rgb(78, 46, 219);
+}
+
+#Game-CorrectBtn {
+    background-color: purple;
+}
+
+#Game-SkipBtn {
+    background-color: #F700FF;
+}
+
+#Game-FoulBtn {
     background-color: grey;
 }
 

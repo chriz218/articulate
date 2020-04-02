@@ -26,8 +26,8 @@ const WordColor = (category) => {
 function GameWordCard({category, word}) {
 
     return (
-        <div id="generatedWordDiv">
-            <div id="word" style={{'backgroundColor': WordColor(category)}}>
+        <div id="Game-GeneratedWordDiv">
+            <div id="Game-Word" style={{'backgroundColor': WordColor(category)}}>
                 {word === '' ? 'Chair' : word}
             </div>
         </div>

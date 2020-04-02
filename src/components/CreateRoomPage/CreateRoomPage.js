@@ -23,13 +23,13 @@ function CreateRoomPage({setPage, playerName, setPlayerName, setNumberOfTeams}) 
         <div>
             <h1 className="ArticulateTitle">Articulate</h1>
             <div>
-                <div className="form">
-                    <label>Your name:</label>
-                    <input type="text" name="Your name"
+                <div className="Create-Form">
+                    <label className="Create-Label">Your name:</label>
+                    <input className="Create-Input" type="text" name="Your name"
                            placeholder="Enter your name here..."
                            onChange={e => setPlayerName(e.target.value)}/>
-                    <label>No. of Teams:</label>
-                    <select className="selectTeamNo" name="No. of Teams"
+                    <label className="Create-Label">No. of Teams:</label>
+                    <select className="Create-SelectTeamNo" name="No. of Teams"
                             defaultValue="2"
                             onChange={e => setNumberOfTeams(e.target.value)}>
                         <option value="2">2</option>
@@ -37,11 +37,11 @@ function CreateRoomPage({setPage, playerName, setPlayerName, setNumberOfTeams}) 
                         <option value="4">4</option>
                     </select>
                 </div>
-                <div className="BtnDiv">
-                    <button className="CreateBtn"
+                <div id="Create-BtnDiv">
+                    <button className="Create-Btns" id="Create-CreateBtn"
                             onClick={handleCreate}>Create
                     </button>
-                    <button className="CancelBtn"
+                    <button className="Create-Btns" id="Create-CancelBtn"
                             onClick={handleCancel}>Cancel
                     </button>
                 </div>

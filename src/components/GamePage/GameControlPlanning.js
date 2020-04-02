@@ -70,16 +70,16 @@ function GameControlPlanning({playerName, playerState, setPlayerState, setGameSt
         if (playerState.role === 'OPPONENT') return (<React.Fragment/>);
         return (
             <React.Fragment>
-                <div id="btnDiv">
-                    <button className="btn" id="correctBtn"
+                <div className="Game-BtnDiv">
+                    <button className="Game-Btns" id="Game-DescriberBtn"
                             onClick={SelectDescriber}>Describer
                     </button>
-                    <button className="btn" id="skipBtn"
+                    <button className="Game-Btns" id="Game-GuesserBtn"
                             onClick={SelectGuesser}>Guesser
                     </button>
                 </div>
-                <div id="btnDiv">
-                    <button className="btn" id="foulBtn" onClick={handlePlay}
+                <div className="Game-BtnDiv">
+                    <button className="Game-Btns" id="Game-PlayBtn" onClick={handlePlay}
                             disabled={disablePlayButton}>Play!
                     </button>
                 </div>

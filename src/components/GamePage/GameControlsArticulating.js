@@ -153,10 +153,10 @@ function GameControlsArticulating({isHost, playerState, gameState: {usedWords, c
 
     return (
         <React.Fragment>
-            <div id="wordCategory">
+            <div id="Game-WordCategory">
                 Word Category: {currentTurn.category}
             </div>
-            <div id="time">
+            <div id="Game-Time">
                 Seconds Left: {secondsLeft}
             </div>
             {(playerState.role !== 'GUESSER') &&
@@ -165,13 +165,13 @@ function GameControlsArticulating({isHost, playerState, gameState: {usedWords, c
             <Instructions playerState={playerState}/>
             {(playerState.role === 'DESCRIBER') && (
                 <div id="btnDiv">
-                    <button className="btn" id="correctBtn"
+                    <button className="Game-Btns" id="Game-CorrectBtn"
                             onClick={handleCorrect}>Correct!
                     </button>
-                    <button className="btn" id="skipBtn"
+                    <button className="Game-Btns" id="Game-SkipBtn"
                             onClick={handleSkip}>Skip
                     </button>
-                    <button className="btn" id="foulBtn"
+                    <button className="Game-Btns" id="Game-FoulBtn"
                             onClick={handleFoul}>Foul!
                     </button>
                 </div>

@@ -1,4 +1,6 @@
 import React, {useEffect} from 'react';
+import {ToastContainer, toast, Zoom, Bounce} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import '../../CSSFiles/JoinRoomPage.css';
 
 function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
@@ -22,21 +24,28 @@ function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
     return (
         <div>
             <h1 className="ArticulateTitle">Articulate</h1>
+            <>
+                <ToastContainer
+                    draggable={false}
+                    transition={Zoom}
+                    autoClose={1950}
+                    className="Join-FailJoinToast" />
+            </>
             <div>
-                <div className="form">
-                    <label>Room Code:</label>
-                    <input type="text" name="Room Code"
+                <div className="Join-Form">
+                    <label className="Join-Label">Room Code:</label>
+                    <input className="Join-Input" type="text" name="Room Code"
                            placeholder="Enter the room code..."
                            onChange={e => setRoomCode(e.target.value)}/>
-                    <label>Your name:</label>
-                    <input type="text" name="Your name"
+                    <label className="Join-Label">Your name:</label>
+                    <input className="Join-Input" type="text" name="Your name"
                            placeholder="Enter your name here..."
                            onChange={e => setPlayerName(e.target.value)}/>
                 </div>
-                <div className="BtnDiv">
-                    <button className="JoinBtn" onClick={handleJoin}>Join
+                <div id="Join-BtnDiv">
+                    <button id="Join-JoinBtn" className="Join-Btns" onClick={handleJoin}>Join
                     </button>
-                    <button className="CancelBtn"
+                    <button id="Join-CancelBtn" className="Join-Btns"
                             onClick={handleCancel}>Cancel
                     </button>
                 </div>

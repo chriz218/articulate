@@ -36,8 +36,8 @@ function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
     return (
         <div>
             <h1 className="ArticulateTitle">Articulate</h1>
-            <h2 id="RuleTitle">Rules</h2>
-            <div id="Description">
+            <h2 id="Home-RuleTitle">Rules</h2>
+            <div id="Home-Description">
                 Describe the generated word(s) for your teammates to guess. You
                 cannot spell or rhyme the word, nor can you say the word or
                 parts of the word. Each teammate will take turns being the
@@ -46,33 +46,33 @@ function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
                 position to win. The color of the box where your board piece is
                 on determines the word category.
             </div>
-            <div className="Squares" style={{backgroundColor: 'cyan'}}/>
-            <div className="ColorDescription">Object (e.g., tool box, pool
+            <div className="Home-Squares" style={{backgroundColor: 'cyan'}}/>
+            <div className="Home-ColorDescription">Object (e.g., tool box, pool
                 table)
             </div>
-            <div className="Squares" style={{backgroundColor: '#FF7B00'}}/>
-            <div className="ColorDescription">Action (e.g., singing, driving)
+            <div className="Home-Squares" style={{backgroundColor: '#FF7B00'}}/>
+            <div className="Home-ColorDescription">Action (e.g., singing, driving)
             </div>
-            <div className="Squares" style={{backgroundColor: 'green'}}/>
-            <div className="ColorDescription">Nature (e.g., tulip, rose)</div>
-            <div className="Squares" style={{backgroundColor: 'blue'}}/>
-            <div className="ColorDescription">World (e.g., The Louvre,
+            <div className="Home-Squares" style={{backgroundColor: 'green'}}/>
+            <div className="Home-ColorDescription">Nature (e.g., tulip, rose)</div>
+            <div className="Home-Squares" style={{backgroundColor: 'blue'}}/>
+            <div className="Home-ColorDescription">World (e.g., The Louvre,
                 Senegal)
             </div>
-            <div className="Squares" style={{backgroundColor: 'yellow'}}/>
-            <div className="ColorDescription">Person (e.g., Peter Griffin,
+            <div className="Home-Squares" style={{backgroundColor: 'yellow'}}/>
+            <div className="Home-ColorDescription">Person (e.g., Peter Griffin,
                 Cain)
             </div>
-            <div className="Squares" style={{backgroundColor: 'red'}}/>
-            <div className="ColorDescription">Random (e.g., chapter, wedge)
+            <div className="Home-Squares" style={{backgroundColor: 'red'}}/>
+            <div className="Home-ColorDescription">Random (e.g., chapter, wedge)
             </div>
-            <div className="Squares" style={{backgroundColor: 'grey'}}/>
-            <div className="ColorDescription">Everything (All categories)</div>
-            <div id="HomeBtnsDiv">
-                <button className="HomeBtns" onClick={handleCreateRoom}>Create
+            <div className="Home-Squares" style={{backgroundColor: 'grey'}}/>
+            <div className="Home-ColorDescription">Everything (All categories)</div>
+            <div id="Home-BtnsDiv">
+                <button className="Home-Btns" onClick={handleCreateRoom}>Create
                     Room
                 </button>
-                <button className="HomeBtns" onClick={handleJoinRoom}>Join
+                <button className="Home-Btns" onClick={handleJoinRoom}>Join
                     Room
                 </button>
             </div>

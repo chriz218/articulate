@@ -29,13 +29,13 @@ function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam
         return (
             <div key={i} id={`team${i}`}
                  className={gameState.teams.length === 2 ?
-                     'PlayerListSectionDynamicStyle1' :
-                     'PlayerListSectionDynamicStyle2'}>
-                <button type="button" id="PlayerListTeamBtn"
+                     'PlayerList-SectionDynamicStyle1' :
+                     'PlayerList-SectionDynamicStyle2'}>
+                <button type="button" className="PlayerList-TeamBtn"
                         onClick={() => chooseTeam(i)}>Team {i}</button>
                 <div className={gameState.teams.length === 2 ?
-                    'PlayerListSubSectionDynamicStyle1' :
-                    'PlayerListSubSectionDynamicStyle2'}>
+                    'PlayerList-SubSectionDynamicStyle1' :
+                    'PlayerList-SubSectionDynamicStyle2'}>
                     {gameState.teams[i].map((player, index) => {
                         return <p key={index}>{player.playerName}</p>;
                     })}
@@ -46,7 +46,7 @@ function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam
 
     return (
         <React.Fragment>
-            <div className="players-list">
+            <div className="PlayerList-PlayerList">
                 {gameState.teams.map((team, index) => renderTeam(index))}
             </div>
         </React.Fragment>

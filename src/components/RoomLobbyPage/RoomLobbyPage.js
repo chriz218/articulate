@@ -1,4 +1,6 @@
 import React, {useEffect} from 'react';
+import {ToastContainer, toast, Zoom, Bounce} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import '../../CSSFiles/RoomLobbyPage.css';
 import {CREATE_ROOM} from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
@@ -64,6 +66,7 @@ function RoomLobbyPage(
             if (res.playerName === playerName && res.socketId === socketId) {
                 console.log(`Room Code ${roomCode} doesn't exist`);
                 setPage('join');
+                toast.error(`Room ${roomCode} does not exist`)
             }
         });
     });
@@ -97,6 +100,7 @@ function RoomLobbyPage(
      */
     const joinRoom = (joinPayload) => {
         socket.emit('joinRoom', joinPayload, error => {
+            console.log(joinPayload);
             if (error) alert(error);
             setPlayerTeam(0);
         });
@@ -127,13 +131,13 @@ function RoomLobbyPage(
             <h1 className="ArticulateTitle">Articulate</h1>
             <form action="#" method="POST">
                 <div className="form-content">
-                    <label className="lobbyLabel">Room
+                    <label className="Lobby-Label">Room
                         Code: {`${roomCode}`}</label>
-                    <label className="lobbyLabel">Your
+                    <label className="Lobby-Label">Your
                         name: {`${playerName}`}</label>
-                    <label className="lobbyLabel">No. of
+                    <label className="Lobby-Label">No. of
                         Teams: {`${gameState.numberOfTeams}`}</label>
-                    <label className="lobbyLabel">List of Players:</label>
+                    <label className="Lobby-Label">List of Players:</label>
                     <PlayerListContainer
                         socket={socket}
                         socketId={socketId}
@@ -144,10 +148,10 @@ function RoomLobbyPage(
                         broadcastGameState={broadcastGameState}
                     />
                 </div>
-                <div className="BtnDiv">
-                    {isHost && <button type="button" id="PlayBtn"
+                <div id="Lobby-BtnDiv">
+                    {isHost && <button className="Lobby-Btns" type="button" id="Lobby-PlayBtn"
                                        onClick={handleStartGame}>Play!</button>}
-                    <button id="CancelBtn" onClick={handleCancel}>Cancel
+                    <button className="Lobby-Btns" id="Lobby-CancelBtn" onClick={handleCancel}>Cancel
                     </button>
                 </div>
             </form>

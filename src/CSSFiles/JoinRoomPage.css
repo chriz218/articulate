@@ -7,12 +7,12 @@
     font-size: 4vh;
 }
 
-.form {
+.Join-Form {
     padding-left: 30px;
     padding-right: 30px;
 }
 
-label {
+.Join-Label {
     color: purple;
     font-weight: bold;
     font-size: 3vh;
@@ -20,7 +20,7 @@ label {
     margin-bottom: 10px;
 }
 
-input {
+.Join-Input {
     height: 4vh;
     line-height: 3vh;
     font-size: 3vh;
@@ -28,7 +28,7 @@ input {
     margin-bottom: 10px;
 }
 
-.BtnDiv {
+#Join-BtnDiv {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -36,7 +36,7 @@ input {
     margin-right: 0px;
 }
 
-button {
+.Join-Btns {
     display: inline-block;
     height: 8vh;
     width: 40vw;
@@ -48,10 +48,16 @@ button {
     font-family: 'Roboto Slab', serif;
 }
 
-.JoinBtn {
+#Join-JoinBtn {
     background-color: purple;
 }
 
-.CancelBtn {
+#Join-CancelBtn {
     background-color: #EE6EF2;
+}
+
+.Join-FailJoinToast {
+    color: white;
+    font-size: 4.2vmin;
+    text-align: center;
 }

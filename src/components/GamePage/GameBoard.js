@@ -2,7 +2,7 @@ import React from 'react';
 
 function BoardTile({boardBlock, index}) {
     return (
-        <div className="boardBlock" id={'boardBlock' + index}>{boardBlock}</div>
+        <div className="Game-BoardBlock" id={'Game-BoardBlock' + index}>{boardBlock}</div>
     );
 }
 
@@ -21,7 +21,7 @@ function GameBoard({gamePositions}) {
 
     return (
         <React.Fragment>
-            <div className="board">
+            <div id="Game-Board">
                 {boardBlocks.map((boardBlock, index) => (
                     <BoardTile key={index} index={index}
                                boardBlock={boardBlock}/>
