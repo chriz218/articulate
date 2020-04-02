@@ -7,19 +7,16 @@
     font-size: 4vh;
 }
 
-label {
+.Lobby-Label {
     color: purple;
     font-weight: bold;
     font-size: 1.5em;
     display: block;
     margin-bottom: 10px;
-}
-
-.lobbyLabel {
     padding-left: 30px;
 }
 
-.BtnDiv {
+#Lobby-BtnDiv {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -27,7 +24,7 @@ label {
     margin-right: 0px;
 }
 
-button {
+.Lobby-Btns {
     display: inline-block;
     height: 8vh;
     width: 40vw;
@@ -39,20 +36,11 @@ button {
     font-family: 'Roboto Slab', serif;
 }
 
-#PlayBtn {
+#Lobby-PlayBtn {
     background-color: purple;
     color: white;
 }
 
-#PlayBtn:focus {
-    background-color: #8800FF;
-}
-
-#CancelBtn {
+#Lobby-CancelBtn {
     background-color: #EE6EF2;
-    color: white
-}
-
-#CancelBtn:active {
-    background-color: #F700FF;
 }

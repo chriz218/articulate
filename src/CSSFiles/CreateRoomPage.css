@@ -7,12 +7,12 @@
     font-size: 4vh;
 }
 
-.form {
+.Create-Form {
     padding-left: 30px;
     padding-right: 30px;
 }
 
-label {
+.Create-Label {
     color: purple;
     font-weight: bold;
     font-size: 3vh;
@@ -20,7 +20,7 @@ label {
     margin-bottom: 10px;
 }
 
-input {
+.Create-Input {
     height: 4vh;
     line-height: 3vh;
     font-size: 3vh;
@@ -28,7 +28,7 @@ input {
     margin-bottom: 10px;
 }
 
-.BtnDiv {
+#Create-BtnDiv {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -36,13 +36,13 @@ input {
     margin-right: 0px;
 }
 
-.selectTeamNo {
+.Create-SelectTeamNo {
     height: 4vh;
     line-height: 3vh;
     font-size: 3vh;
 }
 
-button {
+.Create-Btns {
     display: inline-block;
     height: 8vh;
     width: 40vw;
@@ -54,10 +54,10 @@ button {
     font-family: 'Roboto Slab', serif;
 }
 
-.CreateBtn {
+#Create-CreateBtn {
     background-color: purple;
 }
 
-.CancelBtn {
+#Create-CancelBtn {
     background-color: #EE6EF2;
 }
