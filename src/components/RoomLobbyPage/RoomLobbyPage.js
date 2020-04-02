@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import {ToastContainer, toast, Zoom, Bounce} from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import {ToastContainer, toast, Zoom, Bounce} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../CSSFiles/RoomLobbyPage.css';
 import {CREATE_ROOM} from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
@@ -66,7 +66,7 @@ function RoomLobbyPage(
             if (res.playerName === playerName && res.socketId === socketId) {
                 console.log(`Room Code ${roomCode} doesn't exist`);
                 setPage('join');
-                toast.error(`Room ${roomCode} does not exist`)
+                toast.error(`Room ${roomCode} does not exist`);
             }
         });
     });
@@ -149,9 +149,11 @@ function RoomLobbyPage(
                     />
                 </div>
                 <div id="Lobby-BtnDiv">
-                    {isHost && <button className="Lobby-Btns" type="button" id="Lobby-PlayBtn"
+                    {isHost && <button className="Lobby-Btns" type="button"
+                                       id="Lobby-PlayBtn"
                                        onClick={handleStartGame}>Play!</button>}
-                    <button className="Lobby-Btns" id="Lobby-CancelBtn" onClick={handleCancel}>Cancel
+                    <button className="Lobby-Btns" id="Lobby-CancelBtn"
+                            onClick={handleCancel}>Cancel
                     </button>
                 </div>
             </form>

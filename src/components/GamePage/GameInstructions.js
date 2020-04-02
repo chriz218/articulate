@@ -1,22 +1,24 @@
 import React from 'react';
+import {TranslateTeamDisplayed} from '../Util/util';
 
 // TODO : Styling
 
-function GameInstruction({playerState: {role}, currentTurn}) {
+function GameInstruction({playerRole, currentTurn}) {
 
     function PlanningInstruction() {
-        switch (role) {
-            case 'OPPONENT':
+        switch (playerRole) {
+            case 'opponent':
                 return (
                     <React.Fragment>
-                        <div>Your Opponent: Team {currentTurn.team} is planning
-                            their turn.
+                        <div>
+                            Your Opponent: Team {TranslateTeamDisplayed(
+                            currentTurn.team)} is planning their turn.
                         </div>
                     </React.Fragment>
                 );
             case '-':
-            case 'DESCRIBER':
-            case 'GUESSER':
+            case 'describer':
+            case 'guesser':
                 return (
                     <React.Fragment>
                         <div>All players in team needs to pick a role</div>
@@ -24,7 +26,7 @@ function GameInstruction({playerState: {role}, currentTurn}) {
                     </React.Fragment>
                 );
             default:
-                console.log('ERROR: Wrong role : ', role);
+                console.log('ERROR: Wrong role : ', playerRole);
                 return (<React.Fragment/>);
         }
     }

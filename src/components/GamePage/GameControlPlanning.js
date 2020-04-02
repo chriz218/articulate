@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from 'react';
 
-function GameControlPlanning({playerName, playerState, setPlayerState, setGameState, gameState, broadcastGameState}) {
+function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameState, gameState, broadcastGameState}) {
     const [disablePlayButton, setDisablePlayButton] = useState(true);
 
     function Selector(roleFrom, roleTo) {
-        console.log('Selecting Role: ' + roleTo.toString().toUpperCase());
-        setPlayerState({
-            role: roleTo.toString().toUpperCase(),
-        });
+        console.log('Selecting Role: ' + roleTo.toString());
+        setPlayerRole(roleTo.toString());
         setGameState(prevGameState => {
             const newCurrentTurn = prevGameState.currentTurn;
             newCurrentTurn[roleTo].push(playerName);
@@ -67,7 +65,7 @@ function GameControlPlanning({playerName, playerState, setPlayerState, setGameSt
 
     // TODO : Styling the buttons (visually disabled)
     const RenderButtons = () => {
-        if (playerState.role === 'OPPONENT') return (<React.Fragment/>);
+        if (playerRole === 'opponent') return (<React.Fragment/>);
         return (
             <React.Fragment>
                 <div className="Game-BtnDiv">
@@ -79,7 +77,8 @@ function GameControlPlanning({playerName, playerState, setPlayerState, setGameSt
                     </button>
                 </div>
                 <div className="Game-BtnDiv">
-                    <button className="Game-Btns" id="Game-PlayBtn" onClick={handlePlay}
+                    <button className="Game-Btns" id="Game-PlayBtn"
+                            onClick={handlePlay}
                             disabled={disablePlayButton}>Play!
                     </button>
                 </div>

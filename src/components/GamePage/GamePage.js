@@ -4,9 +4,10 @@ import GameBoard from './GameBoard';
 import GameInstruction from './GameInstructions';
 import GameControlsArticulating from './GameControlsArticulating';
 import GameControlPlanning from './GameControlPlanning';
+import {CapitaliseFirstLetter, TranslateTeamDisplayed} from '../Util/util';
 
-function GamePage({isHost, playerName, playerTeam, gameState, setGameState, broadcastGameState, nextTeam}) {
-    const [playerState, setPlayerState] = useState({role: '-'});
+function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameState, broadcastGameState}) {
+    const [playerRole, setPlayerRole] = useState('-');
 
     const GameControlPanel = () => {
         switch (gameState.currentTurn.phase) {
@@ -14,8 +15,8 @@ function GamePage({isHost, playerName, playerTeam, gameState, setGameState, broa
                 return (
                     <GameControlPlanning
                         playerName={playerName}
-                        playerState={playerState}
-                        setPlayerState={setPlayerState}
+                        playerRole={playerRole}
+                        setPlayerRole={setPlayerRole}
                         gameState={gameState}
                         setGameState={setGameState}
                         broadcastGameState={broadcastGameState}
@@ -24,12 +25,11 @@ function GamePage({isHost, playerName, playerTeam, gameState, setGameState, broa
             case 'articulating':
                 return (
                     <GameControlsArticulating
-                        isHost={isHost}
-                        playerState={playerState}
+                        playerRole={playerRole}
                         gameState={gameState}
                         setGameState={setGameState}
                         broadcastGameState={broadcastGameState}
-                        nextTeam={nextTeam}
+                        numberOfTeams={numberOfTeams}
                     />
                 );
             default:
@@ -42,13 +42,9 @@ function GamePage({isHost, playerName, playerTeam, gameState, setGameState, broa
     /** New Turn: Reset currentTurn values in gameState*/
     useEffect(() => {
         if (playerTeam === gameState.currentTurn.team) {
-            setPlayerState({
-                role: '-',
-            });
+            setPlayerRole('-');
         } else {
-            setPlayerState({
-                role: 'OPPONENT',
-            });
+            setPlayerRole('opponent');
         }
 
         setGameState(prevGameState => {
@@ -71,16 +67,18 @@ function GamePage({isHost, playerName, playerTeam, gameState, setGameState, broa
         <div>
             <h1 className="ArticulateTitle">Articulate</h1>
             <GameBoard gamePositions={gameState.gamePositions}/>
-            <div className="Game-Team">Current Turn: Team {gameState.currentTurn.team}</div>
+            <div className="Game-Team">Current Turn:
+                Team {TranslateTeamDisplayed(gameState.currentTurn.team)}
+            </div>
             <div id="Game-TeamRoleDiv">
                 <div className="Game-Team">
-                    Your Team: {playerTeam}
+                    Your Team: {TranslateTeamDisplayed(playerTeam)}
                 </div>
                 <div id="Game-Role">
-                    Your Role: {playerState.role}
+                    Your Role: {CapitaliseFirstLetter(playerRole)}
                 </div>
             </div>
-            <GameInstruction playerState={playerState}
+            <GameInstruction playerRole={playerRole}
                              currentTurn={gameState.currentTurn}/>
             {GameControlPanel()}
         </div>
