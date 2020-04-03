@@ -67,11 +67,11 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
         <div>
             <h1 className="ArticulateTitle">Articulate</h1>
             <GameBoard gamePositions={gameState.gamePositions}/>
-            <div className="Game-Team">Current Turn:
+            <div id="Game-CurrentTurn">Current Turn:
                 Team {TranslateTeamDisplayed(gameState.currentTurn.team)}
             </div>
             <div id="Game-TeamRoleDiv">
-                <div className="Game-Team">
+                <div id="Game-Team">
                     Your Team: {TranslateTeamDisplayed(playerTeam)}
                 </div>
                 <div id="Game-Role">

@@ -75,8 +75,6 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
                     <button className="Game-Btns" id="Game-GuesserBtn"
                             onClick={SelectGuesser}>Guesser
                     </button>
-                </div>
-                <div className="Game-BtnDiv">
                     <button className="Game-Btns" id="Game-PlayBtn"
                             onClick={handlePlay}
                             disabled={disablePlayButton}>Play!
@@ -89,8 +87,8 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
     // TODO: Make a new component to show the describer and guesser lists (styling)
     return (
         <React.Fragment>
-            <div>
-                Describer: {gameState.currentTurn.describer.map(
+            <div id="Game-DescriberList">
+                Describer(s): {gameState.currentTurn.describer.map(
                 (each, index) => {
                     if (index === 0) {
                         return each;
@@ -98,8 +96,8 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
                     return ', ' + each;
                 })}
             </div>
-            <div>
-                Guesser: {gameState.currentTurn.guesser.map((each, index) => {
+            <div id="Game-GuesserList">
+                Guesser(s): {gameState.currentTurn.guesser.map((each, index) => {
                 if (index === 0) {
                     return each;
                 }
