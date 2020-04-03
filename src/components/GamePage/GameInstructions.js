@@ -10,9 +10,9 @@ function GameInstruction({playerRole, currentTurn}) {
             case 'opponent':
                 return (
                     <React.Fragment>
-                        <div>
-                            Your Opponent: Team {TranslateTeamDisplayed(
-                            currentTurn.team)} is planning their turn.
+                        <div className="Game-Instruction">
+                            Team {TranslateTeamDisplayed(
+                            currentTurn.team)} is selecting its describer(s) and guesser(s):
                         </div>
                     </React.Fragment>
                 );
@@ -21,8 +21,7 @@ function GameInstruction({playerRole, currentTurn}) {
             case 'guesser':
                 return (
                     <React.Fragment>
-                        <div>All players in team needs to pick a role</div>
-                        <div>At least one player per role</div>
+                        <div className="Game-Instruction">Pick a role. At least one player per role:</div>
                     </React.Fragment>
                 );
             default:

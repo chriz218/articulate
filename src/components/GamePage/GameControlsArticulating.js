@@ -42,6 +42,7 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
 
     /** Instruction Text for Opponents and Guessers*/
     const Instructions = ({playerRole}) => {
+        console.log(currentTurn);
         let describersString = '';
         currentTurn.describer.map((each, index) => {
             if (index === 0) {
@@ -53,17 +54,17 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
         switch (playerRole) {
             case 'guesser':
                 return (
-                    <div>
+                    <div className="Game-GuesserOpponentJobs">
                         Your teammate(s), {describersString},
                         is describing a word, guess the word!
                     </div>
                 );
             case 'opponent':
                 return (
-                    <div>
+                    <div className="Game-GuesserOpponentJobs">
                         {describersString} from an opponent’s
                         team is describing a word, pay attention
-                        and catch the player if the player says the word
+                        and catch the player if the player says the word!
                     </div>
                 );
             default:

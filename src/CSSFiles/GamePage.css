@@ -62,28 +62,65 @@
 }
 
 #Game-TeamRoleDiv {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
-.Game-Team {
+#Game-CurrentTurn {
+    text-align: center;
+    font-size: 4vmin;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 5px;
+}
+
+#Game-Team {
     display: inline-block;
-    font-size: 5vmin;
+    font-size: 4vmin;
     margin-left: 10px;
     font-weight: bold;
     color: black;
 }
 
 #Game-Role {
-    font-size: 5vmin;
+    font-size: 4vmin;
     float: right;
     margin-right: 10px;
     font-weight: bold;
     color: black;
 }
 
+.Game-Instruction {
+    font-size: 4vmin;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 5px;
+}
+
+#Game-DescriberList {
+    font-size: 4vmin;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 5px;
+    text-align: justify;
+}
+
+#Game-GuesserList {
+    font-size: 4vmin;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: black;   
+    margin-bottom: 5px;
+    text-align: justify;
+}
+
 #Game-WordCategory {
     text-align: center;
-    font-size: 5.5vmin;
+    font-size: 4.5vmin;
     font-weight: bold;
     color: black;
     margin-bottom: 10px;
@@ -91,7 +128,7 @@
 
 #Game-Time {
     text-align: center;
-    font-size: 5.5vmin;
+    font-size: 4.5vmin;
     font-weight: bold;
     color: black;
     margin-bottom: 10px;
@@ -104,16 +141,25 @@
 
 #Game-Word {
     text-align: center;
-    font-size: 5.5vmin;
+    font-size: 4.5vmin;
     border: 3px solid black;
     display: inline-block;
     padding: 3px;
-    background-color: yellow;
     font-weight: bold;
+}
+
+.Game-GuesserOpponentJobs {
+    font-size: 4vmin;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    color: black;   
+    text-align: justify;
 }
 
 .Game-BtnDiv {
     text-align: center;
+    margin-bottom: 5px;
 }
 
 .Game-Btns {
@@ -123,6 +169,7 @@
     width: calc((100vw - 60px)/3);
     font-size: 5vmin;
     color: white;
+    font-family: 'Roboto Slab', serif;
 }
 
 #Game-DescriberBtn {
@@ -137,6 +184,11 @@
     background-color: rgb(78, 46, 219);
 }
 
+#Game-PlayBtn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}
+
 #Game-CorrectBtn {
     background-color: purple;
 }
@@ -146,6 +198,6 @@
 }
 
 #Game-FoulBtn {
-    background-color: grey;
+    background-color: rgb(78, 46, 219);
 }
 
