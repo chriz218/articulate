@@ -1,10 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import GameWordCard from './GameWordCard';
 import {CapitaliseFirstLetter, NextTeam} from '../Util/util';
 import {
+    PHASE_PLANNING,
     RANDOM_WORD_GIVEN_USED,
+    ROLE_DESCRIBER,
+    ROLE_GUESSER,
     TIME_PER_TURN,
 } from '../../properties';
+import GameInstruction from './GameInstructions';
 
 let myInterval;
 let correctlyAnswered;
@@ -19,7 +23,7 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
         alreadySkipped = false;
 
         /** Set the first word*/
-        if (playerRole === 'describer') changeWord();
+        if (playerRole === ROLE_DESCRIBER) changeWord();
 
         myInterval = setInterval(() => {
             if (secondsLeft > 0) {
@@ -40,38 +44,6 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
         }
     }, [secondsLeft]);
 
-    /** Instruction Text for Opponents and Guessers*/
-    const Instructions = ({playerRole}) => {
-        console.log(currentTurn);
-        let describersString = '';
-        currentTurn.describer.map((each, index) => {
-            if (index === 0) {
-                describersString += each;
-            } else {
-                describersString += `, ${each}`;
-            }
-        });
-        switch (playerRole) {
-            case 'guesser':
-                return (
-                    <div className="Game-GuesserOpponentJobs">
-                        Your teammate(s), {describersString},
-                        is describing a word, guess the word!
-                    </div>
-                );
-            case 'opponent':
-                return (
-                    <div className="Game-GuesserOpponentJobs">
-                        {describersString} from an opponent’s
-                        team is describing a word, pay attention
-                        and catch the player if the player says the word!
-                    </div>
-                );
-            default:
-                return null;
-        }
-    };
-
     /** Update board positions and go to next turn*/
     function nextTurn() {
         setGameState(prevGameState => {
@@ -88,7 +60,7 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
                     describer: [],
                     guesser: [],
                     team: newTeam,
-                    phase: 'planning',
+                    phase: PHASE_PLANNING,
                 },
                 gamePositions: newGamePositions,
             };
@@ -145,10 +117,8 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
 
     // TODO Add nextWord function implementation
     const handleSkip = () => {
-        if (!alreadySkipped) {
-            alreadySkipped = true;
-            changeWord();
-        }
+        alreadySkipped = true;
+        changeWord();
     };
 
     /** Stops timer, goes to nextTurn with no points*/
@@ -166,23 +136,23 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
             <div id="Game-Time">
                 Seconds Left: {secondsLeft}
             </div>
-            {(playerRole !== 'guesser') &&
+            {(playerRole !== ROLE_GUESSER) &&
             <GameWordCard category={currentTurn.category}
                           word={currentTurn.word}/>}
-            <Instructions playerRole={playerRole}/>
-            {(playerRole === 'describer') && (
-                <div id="btnDiv">
-                    <button className="Game-Btns" id="Game-CorrectBtn"
-                            onClick={handleCorrect}>Correct!
-                    </button>
-                    <button className="Game-Btns" id="Game-SkipBtn"
-                            onClick={handleSkip}>Skip
-                    </button>
-                    <button className="Game-Btns" id="Game-FoulBtn"
-                            onClick={handleFoul}>Foul!
-                    </button>
-                </div>
-            )
+            <GameInstruction playerRole={playerRole} currentTurn={currentTurn}/>
+            {(playerRole === ROLE_DESCRIBER) &&
+            <div id="btnDiv">
+                <button className="Game-Btns" id="Game-CorrectBtn"
+                        onClick={handleCorrect}>Correct!
+                </button>
+                <button className="Game-Btns" id="Game-SkipBtn"
+                        onClick={handleSkip}
+                        disabled={alreadySkipped}>Skip
+                </button>
+                <button className="Game-Btns" id="Game-FoulBtn"
+                        onClick={handleFoul}>Foul!
+                </button>
+            </div>
             }
         </React.Fragment>
     );

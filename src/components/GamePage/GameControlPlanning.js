@@ -1,4 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
+import GameInstruction from './GameInstructions';
+import {
+    PHASE_ARTICULATING,
+    ROLE_DESCRIBER,
+    ROLE_GUESSER,
+    ROLE_OPPONENT,
+} from '../../properties';
 
 function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameState, gameState, broadcastGameState}) {
     const [disablePlayButton, setDisablePlayButton] = useState(true);
@@ -25,25 +32,26 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
     }
 
     const SelectDescriber = () => {
-        Selector('guesser', 'describer');
+        if (playerRole !== ROLE_DESCRIBER) {
+            Selector(ROLE_GUESSER, ROLE_DESCRIBER);
+        }
     };
 
     const SelectGuesser = () => {
-        Selector('describer', 'guesser');
+        if (playerRole !== ROLE_GUESSER) {
+            Selector(ROLE_DESCRIBER, ROLE_GUESSER);
+        }
     };
 
     const handlePlay = () => {
-        console.log('PlayButtonDisabled: ', disablePlayButton);
-
         setGameState(prevGameState => {
             let nextTurn = prevGameState.currentTurn;
             nextTurn = {
                 ...nextTurn,
-                phase: 'articulating',
+                phase: PHASE_ARTICULATING,
             };
             const newGameState = {
                 ...prevGameState,
-                currentState: 'articulating',
                 currentTurn: nextTurn,
             };
             broadcastGameState(newGameState);
@@ -65,7 +73,7 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
 
     // TODO : Styling the buttons (visually disabled)
     const RenderButtons = () => {
-        if (playerRole === 'opponent') return (<React.Fragment/>);
+        if (playerRole === ROLE_OPPONENT) return (<React.Fragment/>);
         return (
             <React.Fragment>
                 <div className="Game-BtnDiv">
@@ -87,6 +95,8 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
     // TODO: Make a new component to show the describer and guesser lists (styling)
     return (
         <React.Fragment>
+            <GameInstruction playerRole={playerRole}
+                             currentTurn={gameState.currentTurn}/>
             <div id="Game-DescriberList">
                 Describer(s): {gameState.currentTurn.describer.map(
                 (each, index) => {
@@ -97,12 +107,13 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
                 })}
             </div>
             <div id="Game-GuesserList">
-                Guesser(s): {gameState.currentTurn.guesser.map((each, index) => {
-                if (index === 0) {
-                    return each;
-                }
-                return ', ' + each;
-            })}
+                Guesser(s): {gameState.currentTurn.guesser.map(
+                (each, index) => {
+                    if (index === 0) {
+                        return each;
+                    }
+                    return ', ' + each;
+                })}
             </div>
             {RenderButtons()}
 

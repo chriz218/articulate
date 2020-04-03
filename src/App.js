@@ -6,7 +6,14 @@ import RoomLobbyPage from './components/RoomLobbyPage/RoomLobbyPage';
 import JoinRoomPage from './components/JoinRoomPage/JoinRoomPage.js';
 import GamePage from './components/GamePage/GamePage.js';
 import CreateRoomPage from './components/CreateRoomPage/CreateRoomPage';
-import {BACKEND_ENDPOINT} from './properties';
+import {
+    BACKEND_ENDPOINT,
+    PAGE_CREATE,
+    PAGE_GAME,
+    PAGE_HOME,
+    PAGE_JOIN,
+    PAGE_LOBBY,
+} from './properties';
 
 function App() {
     let socket = io(BACKEND_ENDPOINT, {transports: ['websocket']});
@@ -17,7 +24,7 @@ function App() {
     const [playerTeam, setPlayerTeam] = useState(0);
     const [numberOfTeams, setNumberOfTeams] = useState(2);
     const [gameState, setGameState] = useState({teams: [[], []]});
-    const [page, setPage] = useState('home');
+    const [page, setPage] = useState(PAGE_HOME);
 
     /**
      * Broadcasts gameState updates so that all connected clients are in sync
@@ -43,7 +50,7 @@ function App() {
 
     function RenderPage() {
         switch (page) {
-            case 'create':
+            case PAGE_CREATE:
                 return (
                     <CreateRoomPage
                         setPage={setPage}
@@ -52,7 +59,7 @@ function App() {
                         setNumberOfTeams={setNumberOfTeams}
                     />
                 );
-            case 'join':
+            case PAGE_JOIN:
                 return (
                     <JoinRoomPage
                         setPage={setPage}
@@ -61,7 +68,7 @@ function App() {
                         setPlayerName={setPlayerName}
                     />
                 );
-            case 'lobby':
+            case PAGE_LOBBY:
                 return (
                     <RoomLobbyPage
                         setPage={setPage}
@@ -79,7 +86,7 @@ function App() {
                         broadcastGameState={broadcastGameState}
                     />
                 );
-            case 'game':
+            case PAGE_GAME:
                 return (
                     <GamePage
                         numberOfTeams={numberOfTeams}

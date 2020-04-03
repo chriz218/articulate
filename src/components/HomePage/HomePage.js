@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import '../../CSSFiles/HomePage.css';
+import {PAGE_CREATE, PAGE_JOIN} from '../../properties';
 
 function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
 
@@ -20,17 +21,13 @@ function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
     });
 
     const handleCreateRoom = () => {
-        if (socketId) {
-            setIsHost(true);
-            setPage('create');
-        }
+        setIsHost(true);
+        setPage(PAGE_CREATE);
     };
 
     const handleJoinRoom = () => {
-        if (socketId) {
-            setIsHost(false);
-            setPage('join');
-        }
+        setIsHost(false);
+        setPage(PAGE_JOIN);
     };
 
     return (
@@ -72,10 +69,12 @@ function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
             <div className="Home-ColorDescription">Everything (All categories)
             </div>
             <div id="Home-BtnsDiv">
-                <button className="Home-Btns" onClick={handleCreateRoom}>Create
+                <button className="Home-Btns" onClick={handleCreateRoom}
+                        disabled={!socketId}>Create
                     Room
                 </button>
-                <button className="Home-Btns" onClick={handleJoinRoom}>Join
+                <button className="Home-Btns" onClick={handleJoinRoom}
+                        disabled={!socketId}>Join
                     Room
                 </button>
             </div>

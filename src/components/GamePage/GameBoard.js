@@ -3,7 +3,8 @@ import {TranslateTeamDisplayed} from '../Util/util';
 
 function BoardTile({boardBlock, index}) {
     return (
-        <div className="Game-BoardBlock" id={'Game-BoardBlock' + index}>{boardBlock}</div>
+        <div className="Game-BoardBlock"
+             id={'Game-BoardBlock' + index}>{boardBlock}</div>
     );
 }
 

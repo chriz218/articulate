@@ -1,13 +1,18 @@
 import React, {useEffect} from 'react';
-import {ToastContainer, toast, Zoom, Bounce} from 'react-toastify';
+import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../CSSFiles/RoomLobbyPage.css';
-import {CREATE_ROOM} from '../../properties';
+import {
+    CREATE_ROOM,
+    PAGE_GAME,
+    PAGE_HOME,
+    PAGE_JOIN,
+    STATE_GAME,
+    STATE_LOBBY,
+} from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
 
 // TODO : Check if number of players in each team are enough before allowing game to start
-
-// TODO : Check if the Room doesn't exist
 
 function RoomLobbyPage(
     {
@@ -34,8 +39,8 @@ function RoomLobbyPage(
      */
     useEffect(() => {
         if (gameState.hasOwnProperty('currentState') &&
-            gameState.currentState !== 'lobby') {
-            setPage('game');
+            gameState.currentState !== STATE_LOBBY) {
+            setPage(PAGE_GAME);
         }
     }, [gameState.currentState]);
 
@@ -65,7 +70,7 @@ function RoomLobbyPage(
         socket.on('playerJoinedFailed', (res) => {
             if (res.playerName === playerName && res.socketId === socketId) {
                 console.log(`Room Code ${roomCode} doesn't exist`);
-                setPage('join');
+                setPage(PAGE_JOIN);
                 toast.error(`Room ${roomCode} does not exist`);
             }
         });
@@ -100,7 +105,6 @@ function RoomLobbyPage(
      */
     const joinRoom = (joinPayload) => {
         socket.emit('joinRoom', joinPayload, error => {
-            console.log(joinPayload);
             if (error) alert(error);
             setPlayerTeam(0);
         });
@@ -115,7 +119,7 @@ function RoomLobbyPage(
         setGameState(prevGameState => {
             const newGameState = {
                 ...prevGameState,
-                currentState: 'game',
+                currentState: STATE_GAME,
             };
             broadcastGameState(newGameState);
             return newGameState;
@@ -123,7 +127,7 @@ function RoomLobbyPage(
     };
 
     const handleCancel = () => {
-        setPage('home');
+        setPage(PAGE_HOME);
     };
 
     return (

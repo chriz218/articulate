@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import '../../CSSFiles/CreateRoomPage.css';
+import {PAGE_HOME, PAGE_LOBBY} from '../../properties';
 
 function CreateRoomPage({setPage, playerName, setPlayerName, setNumberOfTeams}) {
 
@@ -11,12 +12,12 @@ function CreateRoomPage({setPage, playerName, setPlayerName, setNumberOfTeams}) 
 
     const handleCreate = () => {
         if (playerName) {
-            setPage('lobby');
+            setPage(PAGE_LOBBY);
         }
     };
 
     const handleCancel = () => {
-        setPage('home');
+        setPage(PAGE_HOME);
     };
 
     return (
