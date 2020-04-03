@@ -42,6 +42,7 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
 
     /** Instruction Text for Opponents and Guessers*/
     const Instructions = ({playerRole}) => {
+        console.log(currentTurn);
         let describersString = '';
         currentTurn.describer.map((each, index) => {
             if (index === 0) {
