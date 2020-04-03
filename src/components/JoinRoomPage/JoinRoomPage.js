@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
-import {ToastContainer, toast, Zoom, Bounce} from 'react-toastify';
+import {ToastContainer, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../CSSFiles/JoinRoomPage.css';
+import {PAGE_HOME, PAGE_LOBBY} from '../../properties';
 
 function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
 
@@ -13,12 +14,12 @@ function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
 
     const handleJoin = () => {
         if (playerName) {
-            setPage('lobby');
+            setPage(PAGE_LOBBY);
         }
     };
 
     const handleCancel = () => {
-        setPage('home');
+        setPage(PAGE_HOME);
     };
 
     return (

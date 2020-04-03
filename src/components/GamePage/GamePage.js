@@ -1,17 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import '../../CSSFiles/GamePage.css';
 import GameBoard from './GameBoard';
-import GameInstruction from './GameInstructions';
 import GameControlsArticulating from './GameControlsArticulating';
 import GameControlPlanning from './GameControlPlanning';
 import {CapitaliseFirstLetter, TranslateTeamDisplayed} from '../Util/util';
+import {
+    PHASE_ARTICULATING,
+    PHASE_PLANNING,
+    ROLE_OPPONENT,
+} from '../../properties';
 
 function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameState, broadcastGameState}) {
     const [playerRole, setPlayerRole] = useState('-');
 
     const GameControlPanel = () => {
         switch (gameState.currentTurn.phase) {
-            case 'planning':
+            case PHASE_PLANNING:
                 return (
                     <GameControlPlanning
                         playerName={playerName}
@@ -22,7 +26,7 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
                         broadcastGameState={broadcastGameState}
                     />
                 );
-            case 'articulating':
+            case PHASE_ARTICULATING:
                 return (
                     <GameControlsArticulating
                         playerRole={playerRole}
@@ -44,7 +48,7 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
         if (playerTeam === gameState.currentTurn.team) {
             setPlayerRole('-');
         } else {
-            setPlayerRole('opponent');
+            setPlayerRole(ROLE_OPPONENT);
         }
 
         setGameState(prevGameState => {
@@ -78,8 +82,6 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
                     Your Role: {CapitaliseFirstLetter(playerRole)}
                 </div>
             </div>
-            <GameInstruction playerRole={playerRole}
-                             currentTurn={gameState.currentTurn}/>
             {GameControlPanel()}
         </div>
     );
