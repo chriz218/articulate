@@ -13,6 +13,7 @@ import {
     PAGE_HOME,
     PAGE_JOIN,
     PAGE_LOBBY,
+    SOCKET_EMIT_BROADCAST_GAMESTATE, SOCKET_ON_UPDATE_GAMESTATE,
 } from './properties';
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
      * @param newGameState
      */
     function broadcastGameState(newGameState) {
-        socket.emit('broadcastGameState', newGameState, () => {
+        socket.emit(SOCKET_EMIT_BROADCAST_GAMESTATE, newGameState, () => {
             console.log('Broadcasting GameState: ', newGameState);
         });
     }
@@ -42,7 +43,7 @@ function App() {
      * Updates our own gameState to be in sync with other clients
      */
     useEffect(() => {
-        socket.on('updateGameState', (newGameState) => {
+        socket.on(SOCKET_ON_UPDATE_GAMESTATE, (newGameState) => {
             console.log('Updating GameState', newGameState);
             setGameState(newGameState);
         });

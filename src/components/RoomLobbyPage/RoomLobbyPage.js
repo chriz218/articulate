@@ -6,7 +6,7 @@ import {
     CREATE_ROOM,
     PAGE_GAME,
     PAGE_HOME,
-    PAGE_JOIN, RESPONSE_JSON,
+    PAGE_JOIN, RESPONSE_JSON, SOCKET_EMIT_JOIN_ROOM, SOCKET_ON_PLAYER_JOINED, SOCKET_ON_PLAYER_JOINED_FAILED,
     STATE_GAME,
     STATE_LOBBY,
 } from '../../properties';
@@ -50,7 +50,7 @@ function RoomLobbyPage(
      * As Host, updates gameState and broadcasts it
      */
     useEffect(() => {
-        socket.on('playerJoined', ({playerName, socketId}) => {
+        socket.on(SOCKET_ON_PLAYER_JOINED, ({playerName, socketId}) => {
             console.log('New Joiner: ', playerName);
             if (isHost) {
                 setGameState(prev => {
@@ -68,7 +68,7 @@ function RoomLobbyPage(
      * For joiners, fail if they entered a wrong room code
      */
     useEffect(() => {
-        socket.on('playerJoinedFailed', (res) => {
+        socket.on(SOCKET_ON_PLAYER_JOINED_FAILED, (res) => {
             if (res.playerName === playerName && res.socketId === socketId) {
                 console.log(`Room Code ${roomCode} doesn't exist`);
                 setPage(PAGE_JOIN);
@@ -101,7 +101,7 @@ function RoomLobbyPage(
      * @param joinPayload
      */
     const joinRoom = (joinPayload) => {
-        socket.emit('joinRoom', joinPayload, error => {
+        socket.emit(SOCKET_EMIT_JOIN_ROOM, joinPayload, error => {
             if (error) alert(error);
             setPlayerTeam(0);
         });
@@ -132,12 +132,15 @@ function RoomLobbyPage(
             <h1 className="ArticulateTitle">Articulate</h1>
             <form action="#" method="POST">
                 <div className="form-content">
-                    <label className="Lobby-Label">Room
-                        Code: {`${roomCode}`}</label>
-                    <label className="Lobby-Label">Your
-                        name: {`${playerName}`}</label>
-                    <label className="Lobby-Label">No. of
-                        Teams: {`${gameState.numberOfTeams}`}</label>
+                    <label className="Lobby-Label">
+                        Room Code: {`${roomCode}`}
+                    </label>
+                    <label className="Lobby-Label">
+                        Your name: {`${playerName}`}
+                    </label>
+                    <label className="Lobby-Label">
+                        No. of Teams: {`${gameState.numberOfTeams}`}
+                    </label>
                     <label className="Lobby-Label">List of Players:</label>
                     <PlayerListContainer
                         socket={socket}
@@ -153,8 +156,8 @@ function RoomLobbyPage(
                     {isHost && <button className="Lobby-Btns" type="button"
                                        id="Lobby-PlayBtn"
                                        onClick={handleStartGame}>Play!</button>}
-                    <button className="Lobby-Btns" id="Lobby-CancelBtn"
-                            onClick={handleCancel}>Cancel
+                    <button className="Lobby-Btns" id="Lobby-CancelBtn" onClick={handleCancel}>
+                        Cancel
                     </button>
                 </div>
             </form>

@@ -51,8 +51,7 @@ function GameControlArticulating({playerRole, numberOfTeams, gameState: {usedWor
             console.log('INCREASE POS: ', correctlyAnswered);
             newGamePositions[prevGameState.currentTurn.team] += correctlyAnswered;
 
-            const newTeam = NextTeam(prevGameState.currentTurn.team,
-                numberOfTeams);
+            const newTeam = NextTeam(prevGameState.currentTurn.team, numberOfTeams);
             const newGameState = {
                 ...prevGameState,
                 currentTurn: {
@@ -70,7 +69,7 @@ function GameControlArticulating({playerRole, numberOfTeams, gameState: {usedWor
     }
 
     /** TODO: Implement fetching a random word from server
-     * NEED TO FIGURE OUT HOW TO MAKE SURE EVERYONE HAS THE SAME WORD
+     *
      */
     function changeWord() {
         PostRequest(RANDOM_WORD_GIVEN_USED + currentTurn.category,

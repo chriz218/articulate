@@ -1,19 +1,19 @@
 import React, {useEffect} from 'react';
 import '../../CSSFiles/HomePage.css';
-import {PAGE_CREATE, PAGE_JOIN} from '../../properties';
+import {PAGE_CREATE, PAGE_JOIN, SOCKET_EMIT_SOCKETID, SOCKET_ON_SOCKETID} from '../../properties';
 
 function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
 
     /** Request for a SocketId from server*/
     useEffect(() => {
-        socket.emit('getSocketId', {}, (error) => {
+        socket.emit(SOCKET_EMIT_SOCKETID, {}, (error) => {
             if (error) alert(error);
         });
     }, []);
 
     /** Response from server containing the socketId*/
     useEffect(() => {
-        socket.on('socketId', ({socketId}, error) => {
+        socket.on(SOCKET_ON_SOCKETID, ({socketId}, error) => {
             if (error) alert(error);
             console.log('Registered SocketId: ', socketId);
             setSocketId(socketId);
