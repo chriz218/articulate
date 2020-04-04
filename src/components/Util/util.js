@@ -78,4 +78,14 @@ export const WordCategoryGivenPos = (gamePosition, team) => {
     }
 };
 
+export const CheckTeamsContainPlayer = (teams, name) => {
+    teams.map((team) => {
+        team.map((player) => {
+            if (player.playerName === name) {
+                return true;
+            }
+        });
+    });
+    return false;
+};
 

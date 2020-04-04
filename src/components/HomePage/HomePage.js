@@ -11,15 +11,6 @@ function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
         });
     }, []);
 
-    /** Response from server containing the socketId*/
-    useEffect(() => {
-        socket.on(SOCKET_ON_SOCKETID, ({socketId}, error) => {
-            if (error) alert(error);
-            console.log('Registered SocketId: ', socketId);
-            setSocketId(socketId);
-        });
-    });
-
     const handleCreateRoom = () => {
         setIsHost(true);
         setPage(PAGE_CREATE);
@@ -65,7 +56,7 @@ function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
             <div className="Home-Squares" style={{backgroundColor: 'red'}}/>
             <div className="Home-ColorDescription">Random (e.g., chapter, wedge)
             </div>
-            <div className="Home-Squares" style={{backgroundColor: 'grey'}}/>
+            <div className="Home-Squares" style={{backgroundColor: 'white'}}/>
             <div className="Home-ColorDescription">Everything (All categories)
             </div>
             <div id="Home-BtnsDiv">
