@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import GameWordCard from './GameWordCard';
-import {CapitaliseFirstLetter, NextTeam, PostRequest} from '../Util/util';
+import {CapitaliseFirstLetter, NextTeam, PostRequest, WordCategoryGivenPos} from '../Util/util';
 import {
     PHASE_PLANNING,
     RANDOM_WORD_GIVEN_USED, RESPONSE_TEXT,
@@ -56,6 +56,7 @@ function GameControlArticulating({playerRole, numberOfTeams, gameState: {usedWor
                 ...prevGameState,
                 currentTurn: {
                     ...prevGameState.currentTurn,
+                    category: WordCategoryGivenPos(newGamePositions, newTeam),
                     describer: [],
                     guesser: [],
                     team: newTeam,
@@ -63,7 +64,7 @@ function GameControlArticulating({playerRole, numberOfTeams, gameState: {usedWor
                 },
                 gamePositions: newGamePositions,
             };
-            broadcastGameState(newGameState);
+            if (playerRole === ROLE_DESCRIBER) broadcastGameState(newGameState);
             return newGameState;
         });
     }
