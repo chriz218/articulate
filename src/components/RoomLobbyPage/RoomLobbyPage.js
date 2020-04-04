@@ -6,11 +6,12 @@ import {
     CREATE_ROOM,
     PAGE_GAME,
     PAGE_HOME,
-    PAGE_JOIN,
+    PAGE_JOIN, RESPONSE_JSON,
     STATE_GAME,
     STATE_LOBBY,
 } from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
+import {PostRequest} from '../Util/util';
 
 // TODO : Check if number of players in each team are enough before allowing game to start
 
@@ -83,18 +84,14 @@ function RoomLobbyPage(
      * Joins the room afterwards via socket.io
      */
     const createRoom = () => {
-        fetch(CREATE_ROOM, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                host: {playerName, socketId}, numberOfTeams,
-            }),
-        }).then(response => response.json()).then(data => {
+        PostRequest(CREATE_ROOM, {
+            host: {playerName, socketId}, numberOfTeams,
+        }, RESPONSE_JSON, data => {
             console.log('Room Created: ', data);
             setGameState(data);
             setRoomCode(data.roomCode);
             joinRoom({isHost, playerName, socketId, roomCode: data.roomCode});
-        });
+        }, null);
     };
 
     /**

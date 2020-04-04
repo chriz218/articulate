@@ -5,7 +5,7 @@ import {
     CATEGORY_OBJECT,
     CATEGORY_PERSON,
     CATEGORY_RANDOM,
-    CATEGORY_WORLD,
+    CATEGORY_WORLD, RANDOM_WORD_GIVEN_USED, RESPONSE_JSON, RESPONSE_TEXT,
 } from '../../properties';
 
 export const NextTeam = (currentTeam, numberOfTeams) => {
@@ -30,6 +30,28 @@ export const CommaBetweenWords = (words) => {
         }
     });
     return concatenatedString;
+};
+
+export const PostRequest = (
+    URL, reqBody, responseType, handler, errorHandler) => {
+    fetch(URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(reqBody),
+    }).then(response => {
+        if (response.status === 200) {
+            switch (responseType) {
+                case RESPONSE_JSON:
+                    return response.json();
+                case RESPONSE_TEXT:
+                    return response.text();
+                default:
+                    console.error('responseType provided invalid: ', responseType);
+            }
+        }
+        throw new Error(response.statusText);
+    }).then(data => handler(data))
+    .catch(error => errorHandler(error));
 };
 
 export const WordCategoryGivenPos = (gamePosition, team) => {

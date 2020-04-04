@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import '../../CSSFiles/GamePage.css';
 import GameBoard from './GameBoard';
-import GameControlsArticulating from './GameControlsArticulating';
+import GameControlArticulating from './GameControlArticulating';
 import GameControlPlanning from './GameControlPlanning';
 import {CapitaliseFirstLetter, TranslateTeamDisplayed} from '../Util/util';
 import {
@@ -28,7 +28,7 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
                 );
             case PHASE_ARTICULATING:
                 return (
-                    <GameControlsArticulating
+                    <GameControlArticulating
                         playerRole={playerRole}
                         gameState={gameState}
                         setGameState={setGameState}

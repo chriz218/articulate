@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import GameWordCard from './GameWordCard';
-import {CapitaliseFirstLetter, NextTeam} from '../Util/util';
+import {CapitaliseFirstLetter, NextTeam, PostRequest} from '../Util/util';
 import {
     PHASE_PLANNING,
-    RANDOM_WORD_GIVEN_USED,
+    RANDOM_WORD_GIVEN_USED, RESPONSE_TEXT,
     ROLE_DESCRIBER,
     ROLE_GUESSER,
     TIME_PER_TURN,
@@ -14,7 +14,7 @@ let myInterval;
 let correctlyAnswered;
 let alreadySkipped;
 
-function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWords, currentTurn}, setGameState, broadcastGameState}) {
+function GameControlArticulating({playerRole, numberOfTeams, gameState: {usedWords, currentTurn}, setGameState, broadcastGameState}) {
     const [secondsLeft, setSecondsLeft] = useState(TIME_PER_TURN);
 
     /** Upon load, initialise variables and start the countdown*/
@@ -73,38 +73,34 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
      * NEED TO FIGURE OUT HOW TO MAKE SURE EVERYONE HAS THE SAME WORD
      */
     function changeWord() {
-        const categoryKey = currentTurn.category.toLowerCase();
-        fetch(RANDOM_WORD_GIVEN_USED + categoryKey, {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(usedWords),
-        }).then(response => {
-            if (response.status === 200) return response.text();
-            throw new Error('No words left');
-        }).then(data => {
-            console.log('Random Word Chosen : ', data);
-            setGameState(prevGameState => {
-                const newUsedWords = prevGameState.usedWords;
+        PostRequest(RANDOM_WORD_GIVEN_USED + currentTurn.category,
+            usedWords, RESPONSE_TEXT,
+            data => {
+                console.log('Random Word Chosen : ', data);
+                setGameState(prevGameState => {
+                    const newUsedWords = prevGameState.usedWords;
 
-                /** TODO : Only disabled for development
-                 * To be uncommented once we have enough words
-                 */
-                    // newUsedWords[categoryKey].push(data);
+                    /** TODO : Only disabled for development
+                     * To be uncommented once we have enough words
+                     */
+                        // newUsedWords[categoryKey].push(data);
 
-                const newGameState = {
-                        ...prevGameState,
-                        usedWords: newUsedWords,
-                        currentTurn: {
-                            ...prevGameState.currentTurn,
-                            word: data,
-                        },
-                    };
-                broadcastGameState(newGameState);
-                return newGameState;
-            });
-        }).catch(error => {
-            console.error('Error: ', error);
-        });
+                    const newGameState = {
+                            ...prevGameState,
+                            usedWords: newUsedWords,
+                            currentTurn: {
+                                ...prevGameState.currentTurn,
+                                word: data,
+                            },
+                        };
+                    broadcastGameState(newGameState);
+                    return newGameState;
+                });
+            },
+            error => {
+                console.error(error, 'No words left');
+            },
+        );
     }
 
     // TODO : Handle properly if no words left
@@ -158,4 +154,4 @@ function GameControlsArticulating({playerRole, numberOfTeams, gameState: {usedWo
     );
 }
 
-export default GameControlsArticulating;
+export default GameControlArticulating;

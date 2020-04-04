@@ -28,3 +28,5 @@ export const CATEGORY_WORLD = 'world';
 export const CATEGORY_PERSON = 'person';
 export const CATEGORY_RANDOM = 'random';
 export const CATEGORY_ALL = 'all';
+export const RESPONSE_JSON = 'RESPONSE_JSON';
+export const RESPONSE_TEXT = 'RESPONSE_TEXT';
