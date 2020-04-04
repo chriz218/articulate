@@ -19,7 +19,7 @@ const GameInstruction = ({playerRole, currentTurn}) => {
                     <React.Fragment>
                         <div className="Game-Instruction">
                             Team {TranslateTeamDisplayed(
-                            currentTurn.team)} is selecting its describer(s) and
+                            currentTurn.team)} is selecting its describer and
                             guesser(s):
                         </div>
                     </React.Fragment>
@@ -29,8 +29,7 @@ const GameInstruction = ({playerRole, currentTurn}) => {
             case ROLE_GUESSER:
                 return (
                     <React.Fragment>
-                        <div className="Game-Instruction">Pick a role. At least
-                            one player per role:
+                        <div className="Game-Instruction">Pick a role. Only ONE describer is allowed:
                         </div>
                     </React.Fragment>
                 );
@@ -47,15 +46,15 @@ const GameInstruction = ({playerRole, currentTurn}) => {
             case ROLE_GUESSER:
                 return (
                     <div className="Game-GuesserOpponentJobs">
-                        Your teammate(s), {describersString},
+                        Your teammate, {describersString},
                         is describing a word, guess the word!
                     </div>
                 );
             case ROLE_OPPONENT:
                 return (
                     <div className="Game-GuesserOpponentJobs">
-                        {describersString} from an opponent’s
-                        team is describing a word, pay attention
+                        {describersString} from Team {TranslateTeamDisplayed(
+                        currentTurn.team)} is describing a word, pay attention
                         and catch the player if the player says the word!
                     </div>
                 );
