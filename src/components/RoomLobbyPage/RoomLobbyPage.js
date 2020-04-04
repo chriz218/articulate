@@ -43,8 +43,7 @@ function RoomLobbyPage(
      * Checks gameState and redirects to GamePage to start the game
      */
     useEffect(() => {
-        if (gameState.hasOwnProperty('currentState') &&
-            gameState.currentState !== STATE_LOBBY) {
+        if (gameState.hasOwnProperty('currentState') && gameState.currentState !== STATE_LOBBY) {
             setPage(PAGE_GAME);
         }
     }, [gameState.currentState]);
@@ -54,16 +53,26 @@ function RoomLobbyPage(
      * As Host, updates gameState and broadcasts it
      */
     useEffect(() => {
-        socket.on(SOCKET_ON_PLAYER_JOINED, ({playerName, socketId}) => {
-            console.log('New Joiner: ', playerName);
+        socket.on(SOCKET_ON_PLAYER_JOINED, (res) => {
+            console.log('New Joiner: ', res.playerName);
             if (isHost) {
-                setGameState(prev => {
-                    const {teams} = prev;
-                    teams[0].push({playerName, socketId});
-                    const newGameState = {...prev, teams};
-                    broadcastGameState(newGameState);
-                    return newGameState;
-                });
+                if (playerName === res.playerName) {
+                    setGameState(prevGameState => {
+                        const {teams} = prevGameState;
+                        teams[0] = [{playerName: res.playerName, socketId: res.socketId}];
+                        const newGameState = {...prevGameState, teams};
+                        broadcastGameState(newGameState);
+                        return newGameState;
+                    });
+                } else {
+                    setGameState(prevGameState => {
+                        const {teams} = prevGameState;
+                        teams[0].push({playerName: res.playerName, socketId: res.socketId});
+                        const newGameState = {...prevGameState, teams};
+                        broadcastGameState(newGameState);
+                        return newGameState;
+                    });
+                }
             }
         });
     });

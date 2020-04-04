@@ -13,7 +13,7 @@ import {
     PAGE_HOME,
     PAGE_JOIN,
     PAGE_LOBBY,
-    SOCKET_EMIT_BROADCAST_GAMESTATE,
+    SOCKET_EMIT_BROADCAST_GAMESTATE, SOCKET_ON_SOCKETID,
     SOCKET_ON_UPDATE_GAMESTATE,
 } from './properties';
 
@@ -47,6 +47,15 @@ function App() {
         socket.on(SOCKET_ON_UPDATE_GAMESTATE, (newGameState) => {
             console.log('Updating GameState', newGameState);
             setGameState(newGameState);
+        });
+    });
+
+    /** Response from server containing the socketId*/
+    useEffect(() => {
+        socket.on(SOCKET_ON_SOCKETID, ({socketId}, error) => {
+            if (error) alert(error);
+            console.log('Registered SocketId: ', socketId);
+            setSocketId(socketId);
         });
     });
 
