@@ -67,7 +67,7 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
         const sizeOfTeam = gameState.teams[team].length;
         const allPlayersSelectedRole = ((numOfDescribers + numOfGuessers) ===
             sizeOfTeam);
-        const atLeastOneOfEachRole = (numOfDescribers > 0 && numOfGuessers > 0);
+        const atLeastOneOfEachRole = (numOfDescribers === 1 && numOfGuessers > 0);
         setDisablePlayButton(!(allPlayersSelectedRole && atLeastOneOfEachRole));
     }, [gameState.currentTurn.describer, gameState.currentTurn.guesser]);
 
