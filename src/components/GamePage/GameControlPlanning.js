@@ -6,6 +6,7 @@ import {
     ROLE_GUESSER,
     ROLE_OPPONENT,
 } from '../../properties';
+import {CommaBetweenWords} from '../Util/util';
 
 function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameState, gameState, broadcastGameState}) {
     const [disablePlayButton, setDisablePlayButton] = useState(true);
@@ -65,13 +66,11 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
         const numOfGuessers = gameState.currentTurn.guesser.length;
         const team = gameState.currentTurn.team;
         const sizeOfTeam = gameState.teams[team].length;
-        const allPlayersSelectedRole = ((numOfDescribers + numOfGuessers) ===
-            sizeOfTeam);
+        const allPlayersSelectedRole = ((numOfDescribers + numOfGuessers) === sizeOfTeam);
         const atLeastOneOfEachRole = (numOfDescribers === 1 && numOfGuessers > 0);
         setDisablePlayButton(!(allPlayersSelectedRole && atLeastOneOfEachRole));
     }, [gameState.currentTurn.describer, gameState.currentTurn.guesser]);
 
-    // TODO : Styling the buttons (visually disabled)
     const RenderButtons = () => {
         if (playerRole === ROLE_OPPONENT) return (<React.Fragment/>);
         return (
@@ -98,22 +97,10 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
             <GameInstruction playerRole={playerRole}
                              currentTurn={gameState.currentTurn}/>
             <div id="Game-DescriberList">
-                Describer(s): {gameState.currentTurn.describer.map(
-                (each, index) => {
-                    if (index === 0) {
-                        return each;
-                    }
-                    return ', ' + each;
-                })}
+                Describer(s): {CommaBetweenWords(gameState.currentTurn.describer)}
             </div>
             <div id="Game-GuesserList">
-                Guesser(s): {gameState.currentTurn.guesser.map(
-                (each, index) => {
-                    if (index === 0) {
-                        return each;
-                    }
-                    return ', ' + each;
-                })}
+                Guesser(s): {CommaBetweenWords(gameState.currentTurn.guesser)}
             </div>
             {RenderButtons()}
 

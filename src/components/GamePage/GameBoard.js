@@ -3,8 +3,7 @@ import {TranslateTeamDisplayed} from '../Util/util';
 
 function BoardTile({boardBlock, index}) {
     return (
-        <div className="Game-BoardBlock"
-             id={'Game-BoardBlock' + index}>{boardBlock}</div>
+        <div className="Game-BoardBlock" id={'Game-BoardBlock' + index}>{boardBlock}</div>
     );
 }
 
@@ -15,8 +14,7 @@ function GameBoard({gamePositions}) {
         boardBlocks.push('');
     }
     gamePositions.forEach((position, team) => {
-        boardBlocks[position] = boardBlocks[position].toString() +
-            TranslateTeamDisplayed(team);
+        boardBlocks[position] = boardBlocks[position].toString() + TranslateTeamDisplayed(team);
     });
 
     console.log('GamePositions: ', gamePositions);
@@ -25,8 +23,7 @@ function GameBoard({gamePositions}) {
         <React.Fragment>
             <div id="Game-Board">
                 {boardBlocks.map((boardBlock, index) => (
-                    <BoardTile key={index} index={index}
-                               boardBlock={boardBlock}/>
+                    <BoardTile key={index} index={index} boardBlock={boardBlock}/>
                 ))}
             </div>
         </React.Fragment>

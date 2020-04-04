@@ -25,7 +25,7 @@ const WordColor = (category) => {
         case CATEGORY_RANDOM:
             return 'red';
         case CATEGORY_ALL:
-            return 'grey';
+            return 'white';
         default:
             console.error('Wrong Category: ', category);
             return 'white';
