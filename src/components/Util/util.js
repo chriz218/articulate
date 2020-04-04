@@ -5,7 +5,9 @@ import {
     CATEGORY_OBJECT,
     CATEGORY_PERSON,
     CATEGORY_RANDOM,
-    CATEGORY_WORLD, RANDOM_WORD_GIVEN_USED, RESPONSE_JSON, RESPONSE_TEXT,
+    CATEGORY_WORLD,
+    RESPONSE_JSON,
+    RESPONSE_TEXT,
 } from '../../properties';
 
 export const NextTeam = (currentTeam, numberOfTeams) => {
@@ -50,8 +52,7 @@ export const PostRequest = (
             }
         }
         throw new Error(response.statusText);
-    }).then(data => handler(data))
-    .catch(error => errorHandler(error));
+    }).then(data => handler(data)).catch(error => errorHandler(error));
 };
 
 export const WordCategoryGivenPos = (gamePosition, team) => {

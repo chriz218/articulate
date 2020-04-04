@@ -3,7 +3,8 @@ import GameWordCard from './GameWordCard';
 import {CapitaliseFirstLetter, NextTeam, PostRequest, WordCategoryGivenPos} from '../Util/util';
 import {
     PHASE_PLANNING,
-    RANDOM_WORD_GIVEN_USED, RESPONSE_TEXT,
+    RANDOM_WORD_GIVEN_USED,
+    RESPONSE_TEXT,
     ROLE_DESCRIBER,
     ROLE_GUESSER,
     TIME_PER_TURN,

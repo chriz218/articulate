@@ -1,12 +1,6 @@
 import React from 'react';
 import {CommaBetweenWords, TranslateTeamDisplayed} from '../Util/util';
-import {
-    PHASE_ARTICULATING,
-    PHASE_PLANNING,
-    ROLE_DESCRIBER,
-    ROLE_GUESSER,
-    ROLE_OPPONENT,
-} from '../../properties';
+import {PHASE_ARTICULATING, PHASE_PLANNING, ROLE_DESCRIBER, ROLE_GUESSER, ROLE_OPPONENT} from '../../properties';
 
 // TODO : Styling
 
@@ -18,9 +12,7 @@ const GameInstruction = ({playerRole, currentTurn}) => {
                 return (
                     <React.Fragment>
                         <div className="Game-Instruction">
-                            Team {TranslateTeamDisplayed(
-                            currentTurn.team)} is selecting its describer and
-                            guesser(s):
+                            Team {TranslateTeamDisplayed(currentTurn.team)} is selecting its describer and guesser(s):
                         </div>
                     </React.Fragment>
                 );
@@ -29,8 +21,7 @@ const GameInstruction = ({playerRole, currentTurn}) => {
             case ROLE_GUESSER:
                 return (
                     <React.Fragment>
-                        <div className="Game-Instruction">Pick a role. Only ONE describer is allowed:
-                        </div>
+                        <div className="Game-Instruction">Pick a role. Only ONE describer is allowed:</div>
                     </React.Fragment>
                 );
             default:
