@@ -10,6 +10,8 @@ import {
     TIME_PER_TURN,
 } from '../../properties';
 import GameInstruction from './GameInstructions';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 let myInterval;
 let correctlyAnswered;
@@ -40,6 +42,7 @@ function GameControlArticulating({playerRole, numberOfTeams, gameState: {usedWor
     useEffect(() => {
         if (secondsLeft === 0) {
             console.log('Times Up!');
+            toast.info('Time\'s up!');
             clearInterval(myInterval);
             nextTurn();
         }

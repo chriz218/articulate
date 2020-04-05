@@ -42,7 +42,7 @@
 }
 
 #Game-BoardBlock2, #Game-BoardBlock9, #Game-BoardBlock16, #Game-BoardBlock23, #Game-BoardBlock30, #Game-BoardBlock37 {
-    background-color: white;
+    background-color: green;
 }
 
 #Game-BoardBlock3, #Game-BoardBlock10, #Game-BoardBlock17, #Game-BoardBlock24, #Game-BoardBlock31, #Game-BoardBlock38 {
@@ -58,7 +58,7 @@
 }
 
 #Game-BoardBlock6, #Game-BoardBlock13, #Game-BoardBlock20, #Game-BoardBlock27, #Game-BoardBlock34, #Game-BoardBlock41 {
-    background-color: green;
+    background-color: white;
 }
 
 #Game-TeamRoleDiv {
@@ -199,5 +199,11 @@
 
 #Game-FoulBtn {
     background-color: rgb(78, 46, 219);
+}
+
+.Game-Toast {
+    color: white;
+    font-size: 4.2vmin;
+    text-align: center;
 }
 
