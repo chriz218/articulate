@@ -197,6 +197,11 @@
     background-color: #F700FF;
 }
 
+#Game-SkipBtn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}
+
 #Game-FoulBtn {
     background-color: rgb(78, 46, 219);
 }

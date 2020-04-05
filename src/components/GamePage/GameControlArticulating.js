@@ -8,7 +8,6 @@ import {
     ROLE_DESCRIBER,
     ROLE_GUESSER,
     TIME_PER_TURN,
-    SOCKET_EMIT_BROADCAST_GAMESTATE,
 } from '../../properties';
 import GameInstruction from './GameInstructions';
 import {toast} from 'react-toastify';
@@ -115,22 +114,21 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
         console.log('INCREASE POINT: ', correctlyAnswered);
         const newToastObject = {
             roomCode: roomCode,
-            toastMessage: "Word guessed correctly!",
-            toastType: "success",
-            toastSenderName: playerName
+            toastMessage: 'Word guessed correctly!',
+            toastType: 'success',
+            toastSenderName: playerName,
         };
         broadcastToast(newToastObject);
     };
 
-    // TODO Add nextWord function implementation
     const handleSkip = () => {
         alreadySkipped = true;
         changeWord();
         const newToastObject = {
             roomCode: roomCode,
-            toastMessage: "Word has been skipped!",
-            toastType: "warn",
-            toastSenderName: playerName
+            toastMessage: 'Word has been skipped!',
+            toastType: 'warn',
+            toastSenderName: playerName,
         };
         broadcastToast(newToastObject);
     };
@@ -142,8 +140,8 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
         const newToastObject = {
             roomCode: roomCode,
             toastMessage: `${playerName} fouled!`,
-            toastType: "error",
-            toastSenderName: playerName
+            toastType: 'error',
+            toastSenderName: playerName,
         };
         broadcastToast(newToastObject);
         nextTurn();
@@ -157,23 +155,24 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
             <div id="Game-Time">
                 Seconds Left: {secondsLeft}
             </div>
-            {(playerRole !== ROLE_GUESSER) &&
-            <GameWordCard category={currentTurn.category}
-                          word={currentTurn.word}/>}
+            {
+                (playerRole !== ROLE_GUESSER) &&
+                <GameWordCard category={currentTurn.category} word={currentTurn.word}/>
+            }
             <GameInstruction playerRole={playerRole} currentTurn={currentTurn}/>
-            {(playerRole === ROLE_DESCRIBER) &&
-            <div id="btnDiv">
-                <button className="Game-Btns" id="Game-CorrectBtn"
-                        onClick={handleCorrect}>Correct!
-                </button>
-                <button className="Game-Btns" id="Game-SkipBtn"
-                        onClick={handleSkip}
-                        disabled={alreadySkipped}>Skip
-                </button>
-                <button className="Game-Btns" id="Game-FoulBtn"
-                        onClick={handleFoul}>Foul!
-                </button>
-            </div>
+            {
+                (playerRole === ROLE_DESCRIBER) &&
+                <div id="btnDiv">
+                    <button className="Game-Btns" id="Game-CorrectBtn" onClick={handleCorrect}>
+                        Correct!
+                    </button>
+                    <button className="Game-Btns" id="Game-SkipBtn" onClick={handleSkip} disabled={alreadySkipped}>
+                        Skip
+                    </button>
+                    <button className="Game-Btns" id="Game-FoulBtn" onClick={handleFoul}>
+                        Foul!
+                    </button>
+                </div>
             }
         </React.Fragment>
     );

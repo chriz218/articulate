@@ -1,11 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import GameInstruction from './GameInstructions';
-import {
-    PHASE_ARTICULATING,
-    ROLE_DESCRIBER,
-    ROLE_GUESSER,
-    ROLE_OPPONENT,
-} from '../../properties';
+import {PHASE_ARTICULATING, ROLE_DESCRIBER, ROLE_GUESSER, ROLE_OPPONENT} from '../../properties';
 import {CommaBetweenWords} from '../Util/util';
 
 function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameState, gameState, broadcastGameState}) {
