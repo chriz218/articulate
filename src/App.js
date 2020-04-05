@@ -15,6 +15,7 @@ import {
     PAGE_LOBBY,
     SOCKET_EMIT_BROADCAST_GAMESTATE,
     SOCKET_EMIT_BROADCAST_TOAST,
+    SOCKET_ON_GET_TOAST,
     SOCKET_ON_SOCKETID,
     SOCKET_ON_UPDATE_GAMESTATE,
 } from './properties';
@@ -54,7 +55,7 @@ function App() {
      * Sends a toast message to everyone else
      */
     useEffect(() => {
-        socket.on('getToast', (res) => {
+        socket.on(SOCKET_ON_GET_TOAST, (res) => {
             if (res.toastSenderName !== playerName) {
                 switch (res.toastType) {
                     case 'warn':
@@ -67,7 +68,7 @@ function App() {
                         toast.error(res.toastMessage);
                         return;
                     default:
-                        console.error("Wrong toastType: ", res.toastType);
+                        console.error('Wrong toastType: ', res.toastType);
                 }
             }
         });

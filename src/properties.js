@@ -38,3 +38,4 @@ export const SOCKET_ON_SOCKETID = 'socketId';
 export const SOCKET_ON_PLAYER_JOINED_FAILED = 'playerJoinedFailed';
 export const SOCKET_ON_PLAYER_JOINED = 'playerJoined';
 export const SOCKET_ON_UPDATE_GAMESTATE = 'updateGameState';
+export const SOCKET_ON_GET_TOAST = 'getToast';
