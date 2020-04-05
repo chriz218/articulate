@@ -5,6 +5,8 @@ import GameControlArticulating from './GameControlArticulating';
 import GameControlPlanning from './GameControlPlanning';
 import {CapitaliseFirstLetter, TranslateTeamDisplayed} from '../Util/util';
 import {PHASE_ARTICULATING, PHASE_PLANNING, ROLE_OPPONENT} from '../../properties';
+import {ToastContainer, Zoom} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameState, broadcastGameState}) {
     const [playerRole, setPlayerRole] = useState('-');
@@ -66,6 +68,13 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
     return (
         <div>
             <h1 className="ArticulateTitle">Articulate</h1>
+            <>
+                <ToastContainer
+                    draggable={false}
+                    transition={Zoom}
+                    autoClose={1500}
+                    className="Game-Toast"/>
+            </>
             <GameBoard gamePositions={gameState.gamePositions}/>
             <div id="Game-CurrentTurn">Current Turn:
                 Team {TranslateTeamDisplayed(gameState.currentTurn.team)}

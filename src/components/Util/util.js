@@ -63,7 +63,7 @@ export const WordCategoryGivenPos = (gamePosition, team) => {
         case 1:
             return CATEGORY_ACTION;
         case 2:
-            return CATEGORY_ALL;
+            return CATEGORY_NATURE;
         case 3:
             return CATEGORY_WORLD;
         case 4:
@@ -71,7 +71,7 @@ export const WordCategoryGivenPos = (gamePosition, team) => {
         case 5:
             return CATEGORY_RANDOM;
         case 6:
-            return CATEGORY_NATURE;
+            return CATEGORY_ALL;
         default:
             console.error('GamePosition Invalid: ', gamePosition);
             return '';
