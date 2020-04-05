@@ -15,7 +15,7 @@ import {
     STATE_LOBBY,
 } from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
-import {PostRequest} from '../Util/util';
+import {CheckEnoughPlayers, PostRequest} from '../Util/util';
 
 // TODO : Check if number of players in each team are enough before allowing game to start
 
@@ -166,9 +166,12 @@ function RoomLobbyPage(
                     />
                 </div>
                 <div id="Lobby-BtnDiv">
-                    {isHost && <button className="Lobby-Btns" type="button"
-                                       id="Lobby-PlayBtn"
-                                       onClick={handleStartGame}>Play!</button>}
+                    {
+                        isHost &&
+                        <button className="Lobby-Btns" type="button" id="Lobby-PlayBtn"
+                                onClick={handleStartGame} disabled={!CheckEnoughPlayers(numberOfTeams, gameState.teams)}>
+                            Play!
+                        </button>}
                     <button className="Lobby-Btns" id="Lobby-CancelBtn" onClick={handleCancel}>
                         Cancel
                     </button>

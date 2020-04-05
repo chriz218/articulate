@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import '../../CSSFiles/HomePage.css';
-import {PAGE_CREATE, PAGE_JOIN, SOCKET_EMIT_SOCKETID, SOCKET_ON_SOCKETID} from '../../properties';
+import {PAGE_CREATE, PAGE_JOIN, SOCKET_EMIT_SOCKETID} from '../../properties';
 
-function HomePage({setPage, socket, setIsHost, socketId, setSocketId}) {
+function HomePage({setPage, socket, setIsHost, socketId}) {
 
     /** Request for a SocketId from server*/
     useEffect(() => {

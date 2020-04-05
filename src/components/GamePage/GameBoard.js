@@ -17,8 +17,6 @@ function GameBoard({gamePositions}) {
         boardBlocks[position] = boardBlocks[position].toString() + TranslateTeamDisplayed(team);
     });
 
-    console.log('GamePositions: ', gamePositions);
-
     return (
         <React.Fragment>
             <div id="Game-Board">

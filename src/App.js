@@ -13,7 +13,9 @@ import {
     PAGE_HOME,
     PAGE_JOIN,
     PAGE_LOBBY,
-    SOCKET_EMIT_BROADCAST_GAMESTATE, SOCKET_ON_SOCKETID,
+    SOCKET_EMIT_BROADCAST_GAMESTATE,
+    SOCKET_EMIT_BROADCAST_TOAST,
+    SOCKET_ON_SOCKETID,
     SOCKET_ON_UPDATE_GAMESTATE,
 } from './properties';
 import {toast} from 'react-toastify';
@@ -42,7 +44,7 @@ function App() {
     }
 
     function broadcastToast(newToastObject) {
-        socket.emit('broadcastToast', newToastObject, () => {
+        socket.emit(SOCKET_EMIT_BROADCAST_TOAST, newToastObject, () => {
             console.log('Broadcasting toastObject: ', newToastObject);
         });
     }
@@ -54,12 +56,18 @@ function App() {
     useEffect(() => {
         socket.on('getToast', (res) => {
             if (res.toastSenderName !== playerName) {
-                if (res.toastType === 'warn') {
-                    toast.warn(res.toastMessage)
-                } else if (res.toastType === 'success') {
-                    toast.success(res.toastMessage)
-                } else if (res.toastType === 'error') {
-                    toast.error(res.toastMessage)
+                switch (res.toastType) {
+                    case 'warn':
+                        toast.warn(res.toastMessage);
+                        return;
+                    case 'success':
+                        toast.success(res.toastMessage);
+                        return;
+                    case 'error':
+                        toast.error(res.toastMessage);
+                        return;
+                    default:
+                        console.error("Wrong toastType: ", res.toastType);
                 }
             }
         });
@@ -140,7 +148,6 @@ function App() {
                     <HomePage
                         setPage={setPage}
                         socket={socket}
-                        setSocketId={setSocketId}
                         socketId={socketId}
                         setIsHost={setIsHost}
                     />

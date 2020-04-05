@@ -41,6 +41,11 @@
     color: white;
 }
 
+#Lobby-PlayBtn:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}
+
 #Lobby-CancelBtn {
     background-color: #EE6EF2;
 }
