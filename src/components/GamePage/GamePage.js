@@ -8,7 +8,7 @@ import {PHASE_ARTICULATING, PHASE_PLANNING, ROLE_OPPONENT} from '../../propertie
 import {ToastContainer, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameState, broadcastGameState}) {
+function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameState, broadcastGameState, broadcastToast}) {
     const [playerRole, setPlayerRole] = useState('-');
 
     const GameControlPanel = () => {
@@ -28,9 +28,11 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
                 return (
                     <GameControlArticulating
                         playerRole={playerRole}
+                        playerName={playerName}
                         gameState={gameState}
                         setGameState={setGameState}
                         broadcastGameState={broadcastGameState}
+                        broadcastToast={broadcastToast}
                         numberOfTeams={numberOfTeams}
                     />
                 );
@@ -72,7 +74,7 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
                 <ToastContainer
                     draggable={false}
                     transition={Zoom}
-                    autoClose={1500}
+                    autoClose={1200}
                     className="Game-Toast"/>
             </>
             <GameBoard gamePositions={gameState.gamePositions}/>

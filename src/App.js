@@ -16,6 +16,8 @@ import {
     SOCKET_EMIT_BROADCAST_GAMESTATE, SOCKET_ON_SOCKETID,
     SOCKET_ON_UPDATE_GAMESTATE,
 } from './properties';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     let socket = io(BACKEND_ENDPOINT, {transports: ['websocket']});
@@ -38,6 +40,30 @@ function App() {
             console.log('Broadcasting GameState: ', newGameState);
         });
     }
+
+    function broadcastToast(newToastObject) {
+        socket.emit('broadcastToast', newToastObject, () => {
+            console.log('Broadcasting toastObject: ', newToastObject);
+        });
+    }
+
+    /**
+     * When one presses the correct or skip button during game
+     * Sends a toast message to everyone else
+     */
+    useEffect(() => {
+        socket.on('getToast', (res) => {
+            if (res.toastSenderName !== playerName) {
+                if (res.toastType === 'warn') {
+                    toast.warn(res.toastMessage)
+                } else if (res.toastType === 'success') {
+                    toast.success(res.toastMessage)
+                } else if (res.toastType === 'error') {
+                    toast.error(res.toastMessage)
+                }
+            }
+        });
+    });
 
     /**
      * Receives a new gameState coming from another client that ran broadcastGameState()
@@ -106,6 +132,7 @@ function App() {
                         gameState={gameState}
                         setGameState={setGameState}
                         broadcastGameState={broadcastGameState}
+                        broadcastToast={broadcastToast}
                     />
                 );
             default:

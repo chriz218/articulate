@@ -204,6 +204,7 @@
 .Game-Toast {
     color: white;
     font-size: 4.2vmin;
+    font-weight: bold;
     text-align: center;
 }
 
