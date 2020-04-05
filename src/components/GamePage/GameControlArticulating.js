@@ -8,6 +8,7 @@ import {
     ROLE_DESCRIBER,
     ROLE_GUESSER,
     TIME_PER_TURN,
+    SOCKET_EMIT_BROADCAST_GAMESTATE,
 } from '../../properties';
 import GameInstruction from './GameInstructions';
 import {toast} from 'react-toastify';
@@ -17,7 +18,7 @@ let myInterval;
 let correctlyAnswered;
 let alreadySkipped;
 
-function GameControlArticulating({playerRole, numberOfTeams, gameState: {usedWords, currentTurn}, setGameState, broadcastGameState}) {
+function GameControlArticulating({playerRole, playerName, numberOfTeams, gameState: {usedWords, currentTurn, roomCode}, setGameState, broadcastGameState, broadcastToast}) {
     const [secondsLeft, setSecondsLeft] = useState(TIME_PER_TURN);
 
     /** Upon load, initialise variables and start the countdown*/
@@ -41,7 +42,6 @@ function GameControlArticulating({playerRole, numberOfTeams, gameState: {usedWor
     /** Upon timer countdown reaching zero, go to next turn*/
     useEffect(() => {
         if (secondsLeft === 0) {
-            console.log('Times Up!');
             toast.info('Time\'s up!');
             clearInterval(myInterval);
             nextTurn();
@@ -113,18 +113,39 @@ function GameControlArticulating({playerRole, numberOfTeams, gameState: {usedWor
         changeWord();
         correctlyAnswered = correctlyAnswered + 1;
         console.log('INCREASE POINT: ', correctlyAnswered);
+        const newToastObject = {
+            roomCode: roomCode,
+            toastMessage: "Word guessed correctly!",
+            toastType: "success",
+            toastSenderName: playerName
+        };
+        broadcastToast(newToastObject);
     };
 
     // TODO Add nextWord function implementation
     const handleSkip = () => {
         alreadySkipped = true;
         changeWord();
+        const newToastObject = {
+            roomCode: roomCode,
+            toastMessage: "Word has been skipped!",
+            toastType: "warn",
+            toastSenderName: playerName
+        };
+        broadcastToast(newToastObject);
     };
 
     /** Stops timer, goes to nextTurn with no points*/
     const handleFoul = () => {
         clearInterval(myInterval);
         correctlyAnswered = 0;
+        const newToastObject = {
+            roomCode: roomCode,
+            toastMessage: `${playerName} fouled!`,
+            toastType: "error",
+            toastSenderName: playerName
+        };
+        broadcastToast(newToastObject);
         nextTurn();
     };
 
