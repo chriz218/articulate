@@ -8,14 +8,14 @@ import {
     PAGE_HOME,
     PAGE_JOIN,
     RESPONSE_JSON,
-    SOCKET_EMIT_JOIN_ROOM,
+    SOCKET_EMIT_JOIN_ROOM, SOCKET_EMIT_LEAVE_ROOM, SOCKET_EMIT_REJECT_PLAYER,
     SOCKET_ON_PLAYER_JOINED,
-    SOCKET_ON_PLAYER_JOINED_FAILED,
+    SOCKET_ON_PLAYER_JOINED_FAILED, SOCKET_ON_PLAYER_REJECTED,
     STATE_GAME,
     STATE_LOBBY,
 } from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
-import {CheckEnoughPlayers, PostRequest} from '../Util/util';
+import {CheckEnoughPlayers, CheckTeamsContainPlayer, PostRequest} from '../Util/util';
 
 // TODO : Check if number of players in each team are enough before allowing game to start
 
@@ -54,9 +54,9 @@ function RoomLobbyPage(
      */
     useEffect(() => {
         socket.on(SOCKET_ON_PLAYER_JOINED, (res) => {
-            console.log('New Joiner: ', res.playerName);
             if (isHost) {
-                if (playerName === res.playerName) {
+                console.log('New Joiner: ', res.playerName);
+                if (res.isHost) {
                     setGameState(prevGameState => {
                         const {teams} = prevGameState;
                         teams[0] = [{playerName: res.playerName, socketId: res.socketId}];
@@ -66,11 +66,22 @@ function RoomLobbyPage(
                     });
                 } else {
                     setGameState(prevGameState => {
-                        const {teams} = prevGameState;
-                        teams[0].push({playerName: res.playerName, socketId: res.socketId});
-                        const newGameState = {...prevGameState, teams};
-                        broadcastGameState(newGameState);
-                        return newGameState;
+                        if (CheckTeamsContainPlayer(prevGameState.teams, res.playerName)) {
+                            console.log('Teams: ', prevGameState.teams);
+                            console.log('Name: ', res.playerName);
+                            /** Reject Player for having the same name*/
+                            socket.emit(SOCKET_EMIT_REJECT_PLAYER,
+                                {roomCode: prevGameState.roomCode, playerName: res.playerName}, () => {
+                                    console.log('Player Rejected: ', res.playerName);
+                                });
+                            return prevGameState;
+                        } else {
+                            const {teams} = prevGameState;
+                            teams[0].push({playerName: res.playerName, socketId: res.socketId});
+                            const newGameState = {...prevGameState, teams};
+                            broadcastGameState(newGameState);
+                            return newGameState;
+                        }
                     });
                 }
             }
@@ -88,7 +99,23 @@ function RoomLobbyPage(
                 toast.error(`Room ${roomCode} does not exist`);
             }
         });
+        socket.on(SOCKET_ON_PLAYER_REJECTED, (res) => {
+            getKicked(res);
+        });
     });
+
+    function getKicked(res) {
+        setGameState(prevGameState => {
+            if (res.playerName === playerName && !prevGameState.roomCode && prevGameState.roomCode !== res.roomCode) {
+                socket.emit(SOCKET_EMIT_LEAVE_ROOM, res.roomCode, () => {
+                    console.log('Kicked out of room!');
+                });
+                setPage(PAGE_JOIN);
+                toast.error(`Name ${playerName} has already been taken`);
+            }
+            return prevGameState;
+        });
+    }
 
     /**
      * HOST ONLY
@@ -169,7 +196,8 @@ function RoomLobbyPage(
                     {
                         isHost &&
                         <button className="Lobby-Btns" type="button" id="Lobby-PlayBtn"
-                                onClick={handleStartGame} disabled={!CheckEnoughPlayers(numberOfTeams, gameState.teams)}>
+                                onClick={handleStartGame}
+                                disabled={!CheckEnoughPlayers(numberOfTeams, gameState.teams)}>
                             Play!
                         </button>}
                     <button className="Lobby-Btns" id="Lobby-CancelBtn" onClick={handleCancel}>
