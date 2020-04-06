@@ -89,13 +89,13 @@ export const CheckEnoughPlayers = (numberOfTeams, teams) => {
 };
 
 export const CheckTeamsContainPlayer = (teams, name) => {
-    teams.map((team) => {
-        team.map((player) => {
-            if (player.playerName === name) {
+    for (let i = 0; i < teams.length; i++) {
+        for (let j = 0; j < teams[i].length; j++) {
+            if (teams[i][j].playerName === name) {
                 return true;
             }
-        });
-    });
+        }
+    }
     return false;
 };
 
