@@ -17,8 +17,6 @@ import {
 import PlayerListContainer from './PlayerListContainer';
 import {CheckEnoughPlayers, CheckTeamsContainPlayer, PostRequest} from '../Util/util';
 
-// TODO : Check if number of players in each team are enough before allowing game to start
-
 function RoomLobbyPage(
     {
         setPage, socket, socketId, isHost, playerName,
@@ -26,6 +24,10 @@ function RoomLobbyPage(
         setGameState, playerTeam, setPlayerTeam, broadcastGameState,
     },
 ) {
+    const gameStateRef = React.useRef(gameState);
+    useEffect(() => {
+        gameStateRef.current = gameState;
+    }, [gameState]);
 
     /**
      * Initial Load
@@ -57,32 +59,23 @@ function RoomLobbyPage(
             if (isHost) {
                 console.log('New Joiner: ', res.playerName);
                 if (res.isHost) {
-                    setGameState(prevGameState => {
-                        const {teams} = prevGameState;
-                        teams[0] = [{playerName: res.playerName, socketId: res.socketId}];
-                        const newGameState = {...prevGameState, teams};
-                        broadcastGameState(newGameState);
-                        return newGameState;
+                    setGameState(currentGameState => {
+                        currentGameState.teams[0] = [{playerName: res.playerName, socketId: res.socketId}];
+                        return currentGameState;
                     });
                 } else {
-                    setGameState(prevGameState => {
-                        if (CheckTeamsContainPlayer(prevGameState.teams, res.playerName)) {
-                            console.log('Teams: ', prevGameState.teams);
-                            console.log('Name: ', res.playerName);
-                            /** Reject Player for having the same name*/
-                            socket.emit(SOCKET_EMIT_REJECT_PLAYER,
-                                {roomCode: prevGameState.roomCode, playerName: res.playerName}, () => {
-                                    console.log('Player Rejected: ', res.playerName);
-                                });
-                            return prevGameState;
-                        } else {
-                            const {teams} = prevGameState;
-                            teams[0].push({playerName: res.playerName, socketId: res.socketId});
-                            const newGameState = {...prevGameState, teams};
-                            broadcastGameState(newGameState);
-                            return newGameState;
-                        }
-                    });
+                    if (CheckTeamsContainPlayer(gameStateRef.current.teams, res.playerName)) {
+                        /** Reject Player for having the same name*/
+                        socket.emit(SOCKET_EMIT_REJECT_PLAYER,
+                            {roomCode: gameStateRef.current.roomCode, playerName: res.playerName}, () => {});
+                    } else {
+                        /** Add Player to room and broadcast*/
+                        setGameState(currentGameState => {
+                            currentGameState.teams[0].push({playerName: res.playerName, socketId: res.socketId});
+                            broadcastGameState(currentGameState);
+                            return currentGameState;
+                        });
+                    }
                 }
             }
         });
@@ -93,29 +86,29 @@ function RoomLobbyPage(
      */
     useEffect(() => {
         socket.on(SOCKET_ON_PLAYER_JOINED_FAILED, (res) => {
-            if (res.playerName === playerName && res.socketId === socketId) {
+            if (res.playerName === playerName) {
                 console.log(`Room Code ${roomCode} doesn't exist`);
                 setPage(PAGE_JOIN);
                 toast.error(`Room ${roomCode} does not exist`);
             }
         });
-        socket.on(SOCKET_ON_PLAYER_REJECTED, (res) => {
-            getKicked(res);
-        });
     });
 
-    function getKicked(res) {
-        setGameState(prevGameState => {
-            if (res.playerName === playerName && !prevGameState.roomCode && prevGameState.roomCode !== res.roomCode) {
+    /**
+     * For joiners, fail if their name is already taken
+     */
+    useEffect(() => {
+        socket.on(SOCKET_ON_PLAYER_REJECTED, (res) => {
+            if (res.playerName === playerName && !gameStateRef.current.roomCode &&
+                gameStateRef.current.roomCode !== res.roomCode) {
                 socket.emit(SOCKET_EMIT_LEAVE_ROOM, res.roomCode, () => {
+                    setPage(PAGE_JOIN);
+                    toast.error(`Name ${playerName} has already been taken`);
                     console.log('Kicked out of room!');
                 });
-                setPage(PAGE_JOIN);
-                toast.error(`Name ${playerName} has already been taken`);
             }
-            return prevGameState;
         });
-    }
+    });
 
     /**
      * HOST ONLY
@@ -153,13 +146,10 @@ function RoomLobbyPage(
      * Starts the game by updating gameState and broadcasting it
      */
     const handleStartGame = () => {
-        setGameState(prevGameState => {
-            const newGameState = {
-                ...prevGameState,
-                currentState: STATE_GAME,
-            };
-            broadcastGameState(newGameState);
-            return newGameState;
+        setGameState(currentGameState => {
+            currentGameState.currentState = STATE_GAME;
+            broadcastGameState(currentGameState);
+            return currentGameState;
         });
     };
 
