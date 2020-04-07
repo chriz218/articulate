@@ -59,9 +59,10 @@ function RoomLobbyPage(
             if (isHost) {
                 console.log('New Joiner: ', res.playerName);
                 if (res.isHost) {
-                    setGameState(currentGameState => {
-                        currentGameState.teams[0] = [{playerName: res.playerName, socketId: res.socketId}];
-                        return currentGameState;
+                    setGameState(prevGameState => {
+                        const {teams} = prevGameState;
+                        teams[0] = [{playerName: res.playerName, socketId: res.socketId}];
+                        return {...prevGameState, teams};
                     });
                 } else {
                     if (CheckTeamsContainPlayer(gameStateRef.current.teams, res.playerName)) {
@@ -70,10 +71,12 @@ function RoomLobbyPage(
                             {roomCode: gameStateRef.current.roomCode, playerName: res.playerName}, () => {});
                     } else {
                         /** Add Player to room and broadcast*/
-                        setGameState(currentGameState => {
-                            currentGameState.teams[0].push({playerName: res.playerName, socketId: res.socketId});
-                            broadcastGameState(currentGameState);
-                            return currentGameState;
+                        setGameState(prevGameState => {
+                            const {teams} = prevGameState;
+                            teams[0].push({playerName: res.playerName, socketId: res.socketId});
+                            const newGameState = {...prevGameState, teams};
+                            broadcastGameState(newGameState);
+                            return newGameState;
                         });
                     }
                 }
@@ -142,14 +145,14 @@ function RoomLobbyPage(
 
     /**
      * HOST ONLY
-     * Checks if player conditions are met
      * Starts the game by updating gameState and broadcasting it
      */
     const handleStartGame = () => {
-        setGameState(currentGameState => {
-            currentGameState.currentState = STATE_GAME;
-            broadcastGameState(currentGameState);
-            return currentGameState;
+        setGameState(prevGameState => {
+            const currentState = STATE_GAME;
+            const newGameState = {...prevGameState, currentState}
+            broadcastGameState(newGameState);
+            return newGameState;
         });
     };
 
