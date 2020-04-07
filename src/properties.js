@@ -7,6 +7,7 @@ export const RANDOM_WORD_GIVEN_USED = BACKEND_ENDPOINT + 'word/';
 export const GET_ALL_WORDS = BACKEND_ENDPOINT + 'allWords';
 
 export const TIME_PER_TURN = 60;
+export const MIN_PLAYERS_PER_TEAM = 2;
 
 /** Key Strings Constants */
 export const PAGE_HOME = 'home';

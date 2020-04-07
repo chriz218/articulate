@@ -5,7 +5,7 @@ import {
     CATEGORY_OBJECT,
     CATEGORY_PERSON,
     CATEGORY_RANDOM,
-    CATEGORY_WORLD,
+    CATEGORY_WORLD, MIN_PLAYERS_PER_TEAM,
     RESPONSE_JSON,
     RESPONSE_TEXT,
 } from '../../properties';
@@ -80,12 +80,13 @@ export const WordCategoryGivenPos = (gamePosition, team) => {
 
 export const CheckEnoughPlayers = (numberOfTeams, teams) => {
     return true; // TODO: FOR DEVELOPMENT
-    const minPlayers = numberOfTeams * 2;
-    let numOfPlayers = 0;
-    teams.forEach(team => {
-        numOfPlayers = team.length;
-    });
-    return numOfPlayers >= minPlayers;
+
+    for (let i = 0; i < teams.length; i++) {
+        if (teams[i].length < MIN_PLAYERS_PER_TEAM) {
+            return false;
+        }
+    }
+    return true;
 };
 
 export const CheckTeamsContainPlayer = (teams, name) => {
