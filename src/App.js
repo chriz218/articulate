@@ -33,6 +33,11 @@ function App() {
     const [gameState, setGameState] = useState({teams: [[], []]});
     const [page, setPage] = useState(PAGE_HOME);
 
+    const playerNameRef = React.useRef(playerName);
+    useEffect(() => {
+        playerNameRef.current = playerName;
+    }, [playerName]);
+
     /**
      * Broadcasts gameState updates so that all connected clients are in sync
      * Usually used inside a setGameState function
@@ -56,7 +61,7 @@ function App() {
      */
     useEffect(() => {
         socket.on(SOCKET_ON_GET_TOAST, (res) => {
-            if (res.toastSenderName !== playerName) {
+            if (res.toastSenderName !== playerNameRef.current) {
                 switch (res.toastType) {
                     case 'warn':
                         toast.warn(res.toastMessage);
