@@ -4,29 +4,55 @@ import {PHASE_ARTICULATING, PHASE_PLANNING, ROLE_DESCRIBER, ROLE_GUESSER, ROLE_O
 
 // TODO : Styling
 
-const GameInstruction = ({playerRole, currentTurn}) => {
+const GameInstruction = ({whiteTileSpecialStatus, playerRole, currentTurn}) => {
 
     const PlanningInstruction = () => {
-        switch (playerRole) {
-            case ROLE_OPPONENT:
-                return (
-                    <React.Fragment>
-                        <div className="Game-Instruction">
-                            Team {TranslateTeamDisplayed(currentTurn.team)} is selecting its describer and guesser(s):
-                        </div>
-                    </React.Fragment>
-                );
-            case '-':
-            case ROLE_DESCRIBER:
-            case ROLE_GUESSER:
-                return (
-                    <React.Fragment>
-                        <div className="Game-Instruction">Pick a role. Only ONE describer is allowed:</div>
-                    </React.Fragment>
-                );
-            default:
-                console.log('ERROR: Wrong role : ', playerRole);
-                return null;
+        console.log(whiteTileSpecialStatus);
+        if (whiteTileSpecialStatus === true) {
+            switch (playerRole) {
+                case ROLE_OPPONENT:
+                    return (
+                        <React.Fragment>
+                            <div className="Game-Instruction">
+                                Team {TranslateTeamDisplayed(currentTurn.team)} has landed on a white tile. Team {TranslateTeamDisplayed(currentTurn.team)} is choosing their describer now. 
+                                Every team gets to guess the word. If Team {TranslateTeamDisplayed(currentTurn.team)} guesses the word first, Team {TranslateTeamDisplayed(currentTurn.team)} gets to go again.
+                            </div>    
+                        </React.Fragment>    
+                    );
+                case '-':
+                case ROLE_DESCRIBER:
+                case ROLE_GUESSER:
+                    return (
+                        <React.Fragment>
+                            <div className="Game-Instruction">
+                                Your team has landed on a white tile, choose your describer carefully. 
+                                Every team gets to guess the word. If your team guesses the word first, your team gets to go again.
+                            </div>
+                        </React.Fragment>    
+                    );          
+            }
+        } else {
+            switch (playerRole) {
+                case ROLE_OPPONENT:
+                    return (
+                        <React.Fragment>
+                            <div className="Game-Instruction">
+                                Team {TranslateTeamDisplayed(currentTurn.team)} is selecting its describer and guesser(s):
+                            </div>
+                        </React.Fragment>
+                    );
+                case '-':
+                case ROLE_DESCRIBER:
+                case ROLE_GUESSER:
+                    return (
+                        <React.Fragment>
+                            <div className="Game-Instruction">Pick a role. Only ONE describer is allowed:</div>
+                        </React.Fragment>
+                    );
+                default:
+                    console.log('ERROR: Wrong role : ', playerRole);
+                    return null;
+            }
         }
     };
 
