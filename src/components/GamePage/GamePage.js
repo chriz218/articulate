@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../CSSFiles/GamePage.css';
 import GameBoard from './GameBoard';
 import GameControlArticulating from './GameControlArticulating';
 import GameControlPlanning from './GameControlPlanning';
-import {CapitaliseFirstLetter, TranslateTeamDisplayed} from '../Util/util';
-import {PHASE_ARTICULATING, PHASE_PLANNING, ROLE_OPPONENT} from '../../properties';
-import {ToastContainer, Zoom} from 'react-toastify';
+import { CapitaliseFirstLetter, TranslateTeamDisplayed } from '../Util/util';
+import { PHASE_ARTICULATING, PHASE_PLANNING, ROLE_OPPONENT } from '../../properties';
+import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameState, broadcastGameState, broadcastToast}) {
+function GamePage({ playerName, playerTeam, numberOfTeams, gameState, setGameState, broadcastGameState, broadcastToast }) {
     const [playerRole, setPlayerRole] = useState('-');
 
     const GameControlPanel = () => {
@@ -75,9 +75,9 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
                     draggable={false}
                     transition={Zoom}
                     autoClose={1200}
-                    className="Game-Toast"/>
+                    className="Game-Toast" />
             </>
-            <GameBoard gamePositions={gameState.gamePositions}/>
+            <GameBoard gamePositions={gameState.gamePositions} />
             <div id="Game-CurrentTurn">Current Turn:
                 Team {TranslateTeamDisplayed(gameState.currentTurn.team)}
             </div>

@@ -89,7 +89,8 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
     // TODO: Make a new component to show the describer and guesser lists (styling)
     return (
         <React.Fragment>
-            <GameInstruction playerRole={playerRole}
+            <GameInstruction gameState={gameState}
+                             playerRole={playerRole}
                              currentTurn={gameState.currentTurn}/>
             <div id="Game-DescriberList">
                 Describer(s): {CommaBetweenWords(gameState.currentTurn.describer)}

@@ -4,11 +4,10 @@ import {PHASE_ARTICULATING, PHASE_PLANNING, ROLE_DESCRIBER, ROLE_GUESSER, ROLE_O
 
 // TODO : Styling
 
-const GameInstruction = ({whiteTileSpecialStatus, playerRole, currentTurn}) => {
+const GameInstruction = ({gameState, playerRole, currentTurn}) => {
 
     const PlanningInstruction = () => {
-        console.log(whiteTileSpecialStatus);
-        if (whiteTileSpecialStatus === true) {
+        if (gameState.currentTurn.whiteTileRule === true) {
             switch (playerRole) {
                 case ROLE_OPPONENT:
                     return (
@@ -59,24 +58,46 @@ const GameInstruction = ({whiteTileSpecialStatus, playerRole, currentTurn}) => {
     /** Instruction Text for Opponents and Guessers*/
     const ArticulatingInstruction = () => {
         const describersString = CommaBetweenWords(currentTurn.describer);
-        switch (playerRole) {
-            case ROLE_GUESSER:
-                return (
-                    <div className="Game-GuesserOpponentJobs">
-                        Your teammate, {describersString},
-                        is describing a word, guess the word!
-                    </div>
-                );
-            case ROLE_OPPONENT:
-                return (
-                    <div className="Game-GuesserOpponentJobs">
-                        {describersString} from Team {TranslateTeamDisplayed(
-                        currentTurn.team)} is describing a word, pay attention
-                        and catch the player if the player says the word!
-                    </div>
-                );
-            default:
-                return null;
+        if (gameState.currentTurn.whiteTileRule === true) {
+            switch (playerRole) {
+                case ROLE_GUESSER:
+                    return (
+                        <div className="Game-GuesserOpponentJobs">
+                            Your teammate, {describersString},
+                            is describing a word, guess the word first and your team gets to go again!
+                        </div>
+                    );
+                case ROLE_OPPONENT:
+                    return (
+                        <div className="Game-GuesserOpponentJobs">
+                            {describersString} from Team {TranslateTeamDisplayed(
+                            currentTurn.team)} is describing a word, guess the word first to stop Team {TranslateTeamDisplayed(
+                            currentTurn.team)} from going again!
+                        </div>
+                    );
+                default:
+                    return null;
+            }
+        } else {
+            switch (playerRole) {
+                case ROLE_GUESSER:
+                    return (
+                        <div className="Game-GuesserOpponentJobs">
+                            Your teammate, {describersString},
+                            is describing a word, guess the word!
+                        </div>
+                    );
+                case ROLE_OPPONENT:
+                    return (
+                        <div className="Game-GuesserOpponentJobs">
+                            {describersString} from Team {TranslateTeamDisplayed(
+                            currentTurn.team)} is describing a word, pay attention
+                            and catch the player if the player says the word!
+                        </div>
+                    );
+                default:
+                    return null;
+            }
         }
     };
 

@@ -17,13 +17,10 @@ let myInterval;
 let correctlyAnswered;
 let alreadySkipped;
 let whiteTileFirstArrivals = [];
+let goAgain = false;
 
-function GameControlArticulating({playerRole, playerName, numberOfTeams, gameState: {usedWords, currentTurn, roomCode}, setGameState, broadcastGameState, broadcastToast}) {
+function GameControlArticulating({playerRole, playerName, numberOfTeams, gameState, gameState: {usedWords, currentTurn, roomCode}, setGameState, broadcastGameState, broadcastToast}) {
     const [secondsLeft, setSecondsLeft] = useState(TIME_PER_TURN);
-    
-    const [whiteTileSpecialStatus, setWhiteTileSpecialStatus] = useState(false);
-
-    const [goAgain, setGoAgain] = useState(false)
 
     /** Upon load, initialise variables and start the countdown*/
     useEffect(() => {
@@ -53,7 +50,7 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
         if (secondsLeft === 0) {
             toast.info('Time\'s up!');
             clearInterval(myInterval);
-            setWhiteTileSpecialStatus(false);
+            // setWhiteTileSpecialStatus(false);
             nextTurn();
         }
     }, [secondsLeft]);
@@ -89,9 +86,9 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
 
                     console.log(whiteTileFirstArrivals[prevGameState.currentTurn.team][0]);
 
-                    setWhiteTileSpecialStatus(true)
+                    // setWhiteTileSpecialStatus(true)
 
-                    console.log(whiteTileSpecialStatus);
+                    // console.log(whiteTileSpecialStatus);
                     const sameTeam = prevGameState.currentTurn.team;
                     const newGameState = {
                         ...prevGameState,
@@ -102,6 +99,7 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
                             guesser: [],
                             team: sameTeam,
                             phase: PHASE_PLANNING,
+                            whiteTileRule: true,
                         },
                         gamePositions: newGamePositions,
                     };
@@ -119,11 +117,13 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
                             guesser: [],
                             team: sameTeam,
                             phase: PHASE_PLANNING,
+                            whiteTileRule: false,
                         },
                         gamePositions: newGamePositions,
                     };
                     if (playerRole === ROLE_DESCRIBER) broadcastGameState(newGameState);
-                    setGoAgain(false);
+                    console.log('Entered correctly')
+                    goAgain = false;
                     return newGameState
                 } else {
                     const newTeam = NextTeam(prevGameState.currentTurn.team, numberOfTeams);
@@ -136,6 +136,7 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
                             guesser: [],
                             team: newTeam,
                             phase: PHASE_PLANNING,
+                            whiteTileRule: false,
                         },
                         gamePositions: newGamePositions,
                     };
@@ -191,8 +192,8 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
             toastSenderName: playerName,
         };
         broadcastToast(newToastObject);
-        setWhiteTileSpecialStatus(false);
-        setGoAgain(true);
+        goAgain = true;
+        console.log(goAgain);
         nextTurn();
     }
 
@@ -206,12 +207,10 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
             toastSenderName: playerName,
         };
         broadcastToast(newToastObject);
-        setWhiteTileSpecialStatus(false);
-        setGoAgain(false);
+        goAgain = false;
+        console.log(goAgain);
         nextTurn();
     }
-
-
 
     // TODO : Handle properly if no words left
     /** Plus one point*/
@@ -263,16 +262,16 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
                 Seconds Left: {secondsLeft}
             </div>
             {
-                (playerRole !== ROLE_GUESSER && whiteTileSpecialStatus === false) &&
+                (playerRole !== ROLE_GUESSER && gameState.currentTurn.whiteTileRule === false) &&
                 <GameWordCard category={currentTurn.category} word={currentTurn.word}/>
             }
             {
-                (playerRole === ROLE_DESCRIBER && whiteTileSpecialStatus === true) &&
+                (playerRole === ROLE_DESCRIBER && gameState.currentTurn.whiteTileRule === true) &&
                 <GameWordCard category={currentTurn.category} word={currentTurn.word}/>
             }
-            <GameInstruction whiteTileSpecialStatus={whiteTileSpecialStatus} playerRole={playerRole} currentTurn={currentTurn}/>
+            <GameInstruction gameState={gameState} playerRole={playerRole} currentTurn={currentTurn}/>
             {
-                (playerRole === ROLE_DESCRIBER && whiteTileSpecialStatus === false) &&
+                (playerRole === ROLE_DESCRIBER && gameState.currentTurn.whiteTileRule === false) &&
                 <div id="btnDiv">
                     <button className="Game-Btns" id="Game-CorrectBtn" onClick={handleCorrect}>
                         Correct!
@@ -286,7 +285,7 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
                 </div>
             }
             {
-                (playerRole === ROLE_DESCRIBER && whiteTileSpecialStatus === true) &&
+                (playerRole === ROLE_DESCRIBER && gameState.currentTurn.whiteTileRule === true) &&
                 <div id="btnDiv">
                     <button className="Game-Btns" id="Game-SuccessBtn" onClick={handleSuccess}>
                         Success

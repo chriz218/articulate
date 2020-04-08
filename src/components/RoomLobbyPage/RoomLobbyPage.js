@@ -150,7 +150,7 @@ function RoomLobbyPage(
     const handleStartGame = () => {
         setGameState(prevGameState => {
             const currentState = STATE_GAME;
-            const newGameState = {...prevGameState, currentState}
+            const newGameState = {...prevGameState, currentState, currentTurn: {...prevGameState.currentTurn, whiteTileRule: false}}
             broadcastGameState(newGameState);
             return newGameState;
         });
