@@ -55,6 +55,10 @@ export const PostRequest = (
     }).then(data => handler(data)).catch(error => errorHandler(error));
 };
 
+export const IsWhiteTile = (gamePosition, team) => {
+    return (gamePosition[team] % 7 === 6);
+};
+
 export const WordCategoryGivenPos = (gamePosition, team) => {
     const posMod = gamePosition[team] % 7;
     switch (posMod) {

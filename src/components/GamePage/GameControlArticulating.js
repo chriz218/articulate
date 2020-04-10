@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import GameWordCard from './GameWordCard';
-import {CapitaliseFirstLetter, NextTeam, PostRequest, WordCategoryGivenPos} from '../Util/util';
+import {CapitaliseFirstLetter, NextTeam, PostRequest, WordCategoryGivenPos, IsWhiteTile} from '../Util/util';
 import {
-    PHASE_PLANNING,
+    PHASE_ARTICULATING,
+    PHASE_ARTICULATING_SPECIAL,
+    PHASE_PLANNING, PHASE_PLANNING_SPECIAL,
     RANDOM_WORD_GIVEN_USED,
     RESPONSE_TEXT,
     ROLE_DESCRIBER,
@@ -43,7 +45,7 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
         if (secondsLeft === 0) {
             toast.info('Time\'s up!');
             clearInterval(myInterval);
-            nextTurn();
+            if (playerRole === ROLE_DESCRIBER) nextTurn();
         }
     }, [secondsLeft]);
 
@@ -51,10 +53,23 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
     function nextTurn() {
         setGameState(prevGameState => {
             let newGamePositions = prevGameState.gamePositions;
-            console.log('INCREASE POS: ', correctlyAnswered);
+            let phase = PHASE_PLANNING;
+            let newTeam = NextTeam(prevGameState.currentTurn.team, numberOfTeams);
+
+            // Evaluate new pos
             newGamePositions[prevGameState.currentTurn.team] += correctlyAnswered;
 
-            const newTeam = NextTeam(prevGameState.currentTurn.team, numberOfTeams);
+            // Win white tile condition go again
+            if (prevGameState.currentTurn.phase === PHASE_ARTICULATING_SPECIAL && correctlyAnswered > 0) {
+                newTeam = prevGameState.currentTurn.team;
+            }
+
+            // Landed on white tile
+            if (prevGameState.currentTurn.phase === PHASE_ARTICULATING && IsWhiteTile(prevGameState.gamePositions, prevGameState.currentTurn.team)) {
+                newTeam = prevGameState.currentTurn.team;
+                phase = PHASE_PLANNING_SPECIAL;
+            }
+
             const newGameState = {
                 ...prevGameState,
                 currentTurn: {
@@ -63,11 +78,12 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
                     describer: [],
                     guesser: [],
                     team: newTeam,
-                    phase: PHASE_PLANNING,
+                    phase: phase,
+                    turn: (prevGameState.currentTurn.turn + 1),
                 },
-                gamePositions: newGamePositions,
+                gamePositions: newGamePositions
             };
-            if (playerRole === ROLE_DESCRIBER) broadcastGameState(newGameState);
+            broadcastGameState(newGameState);
             return newGameState;
         });
     }
@@ -147,6 +163,32 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
         nextTurn();
     };
 
+    const handleSpecialSuccess = () => {
+        clearInterval(myInterval);
+        correctlyAnswered = 1;
+        const newToastObject = {
+            roomCode: roomCode,
+            toastMessage: 'Word guessed by teammates!',
+            toastType: 'success',
+            toastSenderName: playerName,
+        };
+        broadcastToast(newToastObject);
+        nextTurn();
+    };
+
+    const handleSpecialFailure = () => {
+        clearInterval(myInterval);
+        correctlyAnswered = 0;
+        const newToastObject = {
+            roomCode: roomCode,
+            toastMessage: 'Word guessed by opponent!',
+            toastType: 'error',
+            toastSenderName: playerName,
+        };
+        broadcastToast(newToastObject);
+        nextTurn();
+    };
+
     return (
         <React.Fragment>
             <div id="Game-WordCategory">
@@ -161,7 +203,7 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
             }
             <GameInstruction playerRole={playerRole} currentTurn={currentTurn}/>
             {
-                (playerRole === ROLE_DESCRIBER) &&
+                (currentTurn.phase === PHASE_ARTICULATING && playerRole === ROLE_DESCRIBER) &&
                 <div id="btnDiv">
                     <button className="Game-Btns" id="Game-CorrectBtn" onClick={handleCorrect}>
                         Correct!
@@ -171,6 +213,17 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
                     </button>
                     <button className="Game-Btns" id="Game-FoulBtn" onClick={handleFoul}>
                         Foul!
+                    </button>
+                </div>
+            }
+            {
+                (currentTurn.phase === PHASE_ARTICULATING_SPECIAL && playerRole === ROLE_DESCRIBER) &&
+                <div id="btnDiv">
+                    <button className="Game-Btns" id="Game-SuccessBtn" onClick={handleSpecialSuccess}>
+                        Success
+                    </button>
+                    <button className="Game-Btns" id="Game-FailureBtn" onClick={handleSpecialFailure}>
+                        Failure
                     </button>
                 </div>
             }

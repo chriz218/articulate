@@ -206,6 +206,28 @@
     background-color: rgb(78, 46, 219);
 }
 
+#Game-SuccessBtn {
+    background-color: #0BDF0A;
+    height: 7.5vh;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: calc((100vw - 60px)/2);
+    font-size: 5vmin;
+    color: white;
+    font-family: 'Roboto Slab', serif;
+}
+
+#Game-FailureBtn {
+    background-color: red;
+    height: 7.5vh;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: calc((100vw - 60px)/2);
+    font-size: 5vmin;
+    color: white;
+    font-family: 'Roboto Slab', serif;
+}
+
 .Game-Toast {
     color: white;
     font-size: 4.2vmin;

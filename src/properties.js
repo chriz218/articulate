@@ -6,7 +6,7 @@ export const CREATE_ROOM = BACKEND_ENDPOINT + 'roomcreate';
 export const RANDOM_WORD_GIVEN_USED = BACKEND_ENDPOINT + 'word/';
 export const GET_ALL_WORDS = BACKEND_ENDPOINT + 'allWords';
 
-export const TIME_PER_TURN = 60;
+export const TIME_PER_TURN = 10;
 export const MIN_PLAYERS_PER_TEAM = 2;
 
 /** Key Strings Constants */
@@ -21,7 +21,9 @@ export const ROLE_DESCRIBER = 'describer';
 export const ROLE_GUESSER = 'guesser';
 export const ROLE_OPPONENT = 'opponent';
 export const PHASE_PLANNING = 'planning';
+export const PHASE_PLANNING_SPECIAL = 'PHASE_PLANNING_SPECIAL';
 export const PHASE_ARTICULATING = 'articulating';
+export const PHASE_ARTICULATING_SPECIAL = 'PHASE_ARTICULATING_SPECIAL';
 export const CATEGORY_OBJECT = 'object';
 export const CATEGORY_ACTION = 'action';
 export const CATEGORY_NATURE = 'nature';
