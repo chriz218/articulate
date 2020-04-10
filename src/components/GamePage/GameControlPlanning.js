@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import GameInstruction from './GameInstructions';
-import {PHASE_ARTICULATING, ROLE_DESCRIBER, ROLE_GUESSER, ROLE_OPPONENT} from '../../properties';
+import {
+    PHASE_ARTICULATING, PHASE_ARTICULATING_SPECIAL,
+    PHASE_PLANNING_SPECIAL,
+    ROLE_DESCRIBER,
+    ROLE_GUESSER,
+    ROLE_OPPONENT,
+} from '../../properties';
 import {CommaBetweenWords} from '../Util/util';
 
 function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameState, gameState, broadcastGameState}) {
@@ -42,10 +48,14 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
     const handlePlay = () => {
         setGameState(prevGameState => {
             let nextTurn = prevGameState.currentTurn;
+            let phase = PHASE_ARTICULATING;
+            if (prevGameState.currentTurn.phase === PHASE_PLANNING_SPECIAL) phase = PHASE_ARTICULATING_SPECIAL;
+
             nextTurn = {
                 ...nextTurn,
-                phase: PHASE_ARTICULATING,
+                phase: phase,
             };
+
             const newGameState = {
                 ...prevGameState,
                 currentTurn: nextTurn,

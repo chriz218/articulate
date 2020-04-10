@@ -4,7 +4,13 @@ import GameBoard from './GameBoard';
 import GameControlArticulating from './GameControlArticulating';
 import GameControlPlanning from './GameControlPlanning';
 import {CapitaliseFirstLetter, TranslateTeamDisplayed} from '../Util/util';
-import {PHASE_ARTICULATING, PHASE_PLANNING, ROLE_OPPONENT} from '../../properties';
+import {
+    PHASE_ARTICULATING,
+    PHASE_ARTICULATING_SPECIAL,
+    PHASE_PLANNING,
+    PHASE_PLANNING_SPECIAL,
+    ROLE_OPPONENT,
+} from '../../properties';
 import {ToastContainer, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,6 +20,7 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
     const GameControlPanel = () => {
         switch (gameState.currentTurn.phase) {
             case PHASE_PLANNING:
+            case PHASE_PLANNING_SPECIAL:
                 return (
                     <GameControlPlanning
                         playerName={playerName}
@@ -25,6 +32,7 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
                     />
                 );
             case PHASE_ARTICULATING:
+            case PHASE_ARTICULATING_SPECIAL:
                 return (
                     <GameControlArticulating
                         playerRole={playerRole}
@@ -50,22 +58,7 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
         } else {
             setPlayerRole(ROLE_OPPONENT);
         }
-
-        setGameState(prevGameState => {
-            console.log('New Turn');
-            const newCurrentTurn = {
-                ...prevGameState.currentTurn,
-                describer: [],
-                guesser: [],
-            };
-            const newGameState = {
-                ...prevGameState,
-                currentTurn: newCurrentTurn,
-            };
-            return newGameState;
-        });
-
-    }, [gameState.currentTurn.team]);
+    }, [gameState.currentTurn.turn]);
 
     return (
         <div>
