@@ -65,7 +65,10 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
             }
 
             // Landed on white tile
-            if (prevGameState.currentTurn.phase === PHASE_ARTICULATING && IsWhiteTile(prevGameState.gamePositions, prevGameState.currentTurn.team)) {
+            if (prevGameState.currentTurn.phase === PHASE_ARTICULATING &&
+                IsWhiteTile(prevGameState.gamePositions, prevGameState.currentTurn.team) &&
+                correctlyAnswered > 0
+            ) {
                 newTeam = prevGameState.currentTurn.team;
                 phase = PHASE_PLANNING_SPECIAL;
             }
