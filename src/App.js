@@ -23,7 +23,7 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-    let socket = io(BACKEND_ENDPOINT, {transports: ['websocket']});
+    const [socket, setSocket] = useState(io(BACKEND_ENDPOINT, {transports: ['websocket']}));
     const [isHost, setIsHost] = useState(false);
     const [socketId, setSocketId] = useState('');
     const [roomCode, setRoomCode] = useState('');
@@ -77,6 +77,9 @@ function App() {
                 }
             }
         });
+        return () => {
+            socket.off(SOCKET_ON_GET_TOAST);
+        };
     });
 
     /**
@@ -88,6 +91,9 @@ function App() {
             console.log('Updating GameState', newGameState);
             setGameState(newGameState);
         });
+        return () => {
+            socket.off(SOCKET_ON_UPDATE_GAMESTATE);
+        };
     });
 
     /** Response from server containing the socketId*/
@@ -97,6 +103,9 @@ function App() {
             console.log('Registered SocketId: ', socketId);
             setSocketId(socketId);
         });
+        return () => {
+            socket.off(SOCKET_ON_SOCKETID);
+        };
     });
 
     function RenderPage() {

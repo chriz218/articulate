@@ -2,7 +2,7 @@ import React from 'react';
 import '../../CSSFiles/PlayerListContainer.css';
 import {TranslateTeamDisplayed} from '../Util/util';
 
-function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam, socketId, broadcastGameState}) {
+function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam, playerName, broadcastGameState}) {
 
     /** Removes player from current team and add them to the selected team*/
     function chooseTeam(newTeam) {
@@ -11,7 +11,7 @@ function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam
                 let myPlayerObj = {};
                 const {teams} = prevGameState;
                 teams[playerTeam].forEach((player, index, object) => {
-                    if (player.socketId === socketId) {
+                    if (player.playerName === playerName) {
                         myPlayerObj = player;
                         object.splice(index, 1);
                     }

@@ -74,7 +74,7 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
         const allPlayersSelectedRole = ((numOfDescribers + numOfGuessers) === sizeOfTeam);
         const atLeastOneOfEachRole = (numOfDescribers === 1 && numOfGuessers > 0);
         setDisablePlayButton(!(allPlayersSelectedRole && atLeastOneOfEachRole));
-    }, [gameState.currentTurn.describer, gameState.currentTurn.guesser]);
+    }, [gameState]);
 
     const RenderButtons = () => {
         if (playerRole === ROLE_OPPONENT) return (<React.Fragment/>);

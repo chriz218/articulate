@@ -82,6 +82,9 @@ function RoomLobbyPage(
                 }
             }
         });
+        return () => {
+            socket.off(SOCKET_ON_PLAYER_JOINED);
+        };
     });
 
     /**
@@ -95,6 +98,9 @@ function RoomLobbyPage(
                 toast.error(`Room ${roomCode} does not exist`);
             }
         });
+        return () => {
+            socket.off(SOCKET_ON_PLAYER_JOINED_FAILED);
+        };
     });
 
     /**
@@ -111,6 +117,9 @@ function RoomLobbyPage(
                 });
             }
         });
+        return () => {
+            socket.off(SOCKET_ON_PLAYER_REJECTED);
+        };
     });
 
     /**
@@ -150,7 +159,7 @@ function RoomLobbyPage(
     const handleStartGame = () => {
         setGameState(prevGameState => {
             const currentState = STATE_GAME;
-            const newGameState = {...prevGameState, currentState}
+            const newGameState = {...prevGameState, currentState};
             broadcastGameState(newGameState);
             return newGameState;
         });
@@ -177,7 +186,7 @@ function RoomLobbyPage(
                     <label className="Lobby-Label">List of Players:</label>
                     <PlayerListContainer
                         socket={socket}
-                        socketId={socketId}
+                        playerName={playerName}
                         gameState={gameState}
                         setGameState={setGameState}
                         setPlayerTeam={setPlayerTeam}

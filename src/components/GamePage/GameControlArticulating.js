@@ -79,9 +79,9 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
                     guesser: [],
                     team: newTeam,
                     phase: phase,
-                    turn: (prevGameState.currentTurn.turn + 1),
                 },
-                gamePositions: newGamePositions
+                turns: (prevGameState.turns + 1),
+                gamePositions: newGamePositions,
             };
             broadcastGameState(newGameState);
             return newGameState;
