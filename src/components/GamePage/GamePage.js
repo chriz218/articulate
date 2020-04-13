@@ -53,12 +53,14 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
 
     /** New Turn: Reset currentTurn values in gameState*/
     useEffect(() => {
-        if (playerTeam === gameState.currentTurn.team) {
-            setPlayerRole('-');
-        } else {
-            setPlayerRole(ROLE_OPPONENT);
+        if (gameState.currentTurn.phase === PHASE_PLANNING || gameState.currentTurn.phase === PHASE_PLANNING_SPECIAL) {
+            if (playerTeam === gameState.currentTurn.team) {
+                setPlayerRole('-');
+            } else {
+                setPlayerRole(ROLE_OPPONENT);
+            }
         }
-    }, [gameState.currentTurn.turn]);
+    }, [gameState.turns]);
 
     return (
         <div>
