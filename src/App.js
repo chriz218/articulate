@@ -30,7 +30,7 @@ function App() {
     const [playerName, setPlayerName] = useState('');
     const [playerTeam, setPlayerTeam] = useState(0);
     const [numberOfTeams, setNumberOfTeams] = useState(2);
-    const [gameState, setGameState] = useState({teams: [[], []]});
+    const [gameState, setGameState] = useState({});
     const [page, setPage] = useState(PAGE_HOME);
 
     const playerNameRef = React.useRef(playerName);
