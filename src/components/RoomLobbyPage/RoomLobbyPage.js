@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../CSSFiles/RoomLobbyPage.css';
@@ -24,9 +24,13 @@ function RoomLobbyPage(
         setGameState, playerTeam, setPlayerTeam, broadcastGameState,
     },
 ) {
+    const [isLoading, setIsLoading] = useState(true);
     const gameStateRef = React.useRef(gameState);
     useEffect(() => {
         gameStateRef.current = gameState;
+        if (isLoading && gameState.hasOwnProperty('teams')) {
+            setIsLoading(false);
+        }
     }, [gameState]);
 
     /**
@@ -172,41 +176,48 @@ function RoomLobbyPage(
     return (
         <div>
             <h1 className="ArticulateTitle">Articulate</h1>
-            <form action="#" method="POST">
-                <div className="form-content">
-                    <label className="Lobby-Label">
-                        Room Code: {`${roomCode}`}
-                    </label>
-                    <label className="Lobby-Label">
-                        Your name: {`${playerName}`}
-                    </label>
-                    <label className="Lobby-Label">
-                        No. of Teams: {`${gameState.numberOfTeams}`}
-                    </label>
-                    <label className="Lobby-Label">List of Players:</label>
-                    <PlayerListContainer
-                        socket={socket}
-                        playerName={playerName}
-                        gameState={gameState}
-                        setGameState={setGameState}
-                        setPlayerTeam={setPlayerTeam}
-                        playerTeam={playerTeam}
-                        broadcastGameState={broadcastGameState}
-                    />
-                </div>
-                <div id="Lobby-BtnDiv">
-                    {
-                        isHost &&
-                        <button className="Lobby-Btns" type="button" id="Lobby-PlayBtn"
-                                onClick={handleStartGame}
-                                disabled={!CheckEnoughPlayers(numberOfTeams, gameState.teams)}>
-                            Play!
-                        </button>}
-                    <button className="Lobby-Btns" id="Lobby-CancelBtn" onClick={handleCancel}>
-                        Cancel
-                    </button>
-                </div>
-            </form>
+            {
+                isLoading ?
+                    <div>
+                        LOADING........
+                    </div>
+                    :
+                    <form action="#" method="POST">
+                        <div className="form-content">
+                            <label className="Lobby-Label">
+                                Room Code: {`${roomCode}`}
+                            </label>
+                            <label className="Lobby-Label">
+                                Your name: {`${playerName}`}
+                            </label>
+                            <label className="Lobby-Label">
+                                No. of Teams: {`${gameState.numberOfTeams}`}
+                            </label>
+                            <label className="Lobby-Label">List of Players:</label>
+                            <PlayerListContainer
+                                socket={socket}
+                                playerName={playerName}
+                                gameState={gameState}
+                                setGameState={setGameState}
+                                setPlayerTeam={setPlayerTeam}
+                                playerTeam={playerTeam}
+                                broadcastGameState={broadcastGameState}
+                            />
+                        </div>
+                        <div id="Lobby-BtnDiv">
+                            {
+                                isHost &&
+                                <button className="Lobby-Btns" type="button" id="Lobby-PlayBtn"
+                                        onClick={handleStartGame}
+                                        disabled={!CheckEnoughPlayers(numberOfTeams, gameState.teams)}>
+                                    Play!
+                                </button>}
+                            <button className="Lobby-Btns" id="Lobby-CancelBtn" onClick={handleCancel}>
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+            }
         </div>
     );
 
