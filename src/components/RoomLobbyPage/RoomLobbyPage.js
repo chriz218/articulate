@@ -3,16 +3,9 @@ import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../CSSFiles/RoomLobbyPage.css';
 import {
-    CREATE_ROOM,
-    PAGE_GAME,
-    PAGE_HOME,
-    PAGE_JOIN,
-    RESPONSE_JSON,
-    SOCKET_EMIT_JOIN_ROOM, SOCKET_EMIT_LEAVE_ROOM, SOCKET_EMIT_REJECT_PLAYER,
-    SOCKET_ON_PLAYER_JOINED,
-    SOCKET_ON_PLAYER_JOINED_FAILED, SOCKET_ON_PLAYER_REJECTED,
-    STATE_GAME,
-    STATE_LOBBY,
+    CREATE_ROOM, PAGE_GAME, PAGE_HOME, PAGE_JOIN, RESPONSE_JSON, SOCKET_EMIT_JOIN_ROOM,
+    SOCKET_EMIT_LEAVE_ROOM, SOCKET_EMIT_REJECT_PLAYER, SOCKET_ON_PLAYER_JOINED,
+    SOCKET_ON_PLAYER_JOINED_FAILED, SOCKET_ON_PLAYER_REJECTED, STATE_GAME, STATE_LOBBY,
 } from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
 import {CheckEnoughPlayers, CheckTeamsContainPlayer, PostRequest} from '../Util/util';
@@ -172,7 +165,7 @@ function RoomLobbyPage(
     return (
         <div>
             <h1 className="ArticulateTitle">Articulate</h1>
-            <form action="#" method="POST">
+            <div>
                 <div className="form-content">
                     <label className="Lobby-Label">
                         Room Code: {`${roomCode}`}
@@ -206,7 +199,7 @@ function RoomLobbyPage(
                         Cancel
                     </button>
                 </div>
-            </form>
+            </div>
         </div>
     );
 

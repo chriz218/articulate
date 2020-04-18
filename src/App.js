@@ -8,13 +8,8 @@ import JoinRoomPage from './components/JoinRoomPage/JoinRoomPage.js';
 import GamePage from './components/GamePage/GamePage.js';
 import CreateRoomPage from './components/CreateRoomPage/CreateRoomPage';
 import {
-    BACKEND_ENDPOINT,
-    PAGE_CREATE,
-    PAGE_GAME,
-    PAGE_HOME,
-    PAGE_JOIN,
-    PAGE_LOBBY,
-    SOCKET_EMIT_BROADCAST_TOAST,
+    BACKEND_ENDPOINT, PAGE_CREATE, PAGE_GAME, PAGE_HOME,
+    PAGE_JOIN, PAGE_LOBBY, SOCKET_EMIT_BROADCAST_TOAST,
 } from './properties';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -100,7 +95,6 @@ function App(
                 return (
                     <HomePage
                         setPage={setPage}
-                        socket={socket}
                         socketId={socketId}
                         setIsHost={setIsHost}
                     />
