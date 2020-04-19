@@ -52,7 +52,9 @@ export const PostRequest = (
             }
         }
         throw new Error(response.statusText);
-    }).then(data => handler(data)).catch(error => errorHandler(error));
+    }).then(data => handler(data)).catch(error => {
+        if (errorHandler) errorHandler(error);
+    });
 };
 
 export const IsWhiteTile = (gamePosition, team) => {

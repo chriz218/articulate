@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {SobaParentContainer} from 'soba';
 import io from 'socket.io-client';
+import {SobaParentContainer} from 'soba';
 import HomePage from './components/HomePage/HomePage.js';
 import RoomLobbyPage from './components/RoomLobbyPage/RoomLobbyPage';
 import JoinRoomPage from './components/JoinRoomPage/JoinRoomPage.js';
 import GamePage from './components/GamePage/GamePage.js';
 import CreateRoomPage from './components/CreateRoomPage/CreateRoomPage';
-import {
-    BACKEND_ENDPOINT, PAGE_CREATE, PAGE_GAME, PAGE_HOME,
-    PAGE_JOIN, PAGE_LOBBY, SOCKET_EMIT_BROADCAST_TOAST,
-} from './properties';
 import 'react-toastify/dist/ReactToastify.css';
+import {toast} from 'react-toastify';
+import {
+    BACKEND_ENDPOINT, PAGE_CREATE, PAGE_GAME,
+    PAGE_HOME, PAGE_JOIN, PAGE_LOBBY,
+    SOCKET_EMIT_BROADCAST_TOAST, SOCKET_ON_GET_TOAST
+} from './properties';
 
 const socketConnect = io(BACKEND_ENDPOINT, {transports: ['websocket']});
 
@@ -40,6 +42,33 @@ function App(
             console.log('Broadcasting toastObject: ', newToastObject);
         });
     }
+
+    /**
+     * When one presses the correct or skip button during game
+     * Sends a toast message to everyone else
+     */
+    useEffect(() => {
+        socket.on(SOCKET_ON_GET_TOAST, (res) => {
+            if (res.toastSenderName !== playerNameRef.current) {
+                switch (res.toastType) {
+                    case 'warn':
+                        toast.warn(res.toastMessage);
+                        return;
+                    case 'success':
+                        toast.success(res.toastMessage);
+                        return;
+                    case 'error':
+                        toast.error(res.toastMessage);
+                        return;
+                    default:
+                        console.error('Wrong toastType: ', res.toastType);
+                }
+            }
+        });
+        return () => {
+            socket.off(SOCKET_ON_GET_TOAST);
+        };
+    });
 
     function RenderPage() {
         switch (page) {

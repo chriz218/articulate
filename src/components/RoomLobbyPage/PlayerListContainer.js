@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../CSSFiles/PlayerListContainer.css';
 import {TranslateTeamDisplayed} from '../Util/util';
 
 function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam, playerName, broadcastGameState}) {
+    const [action, setAction] = useState({count: 0, newTeam: 0});
 
-    /** Removes player from current team and add them to the selected team*/
-    function chooseTeam(newTeam) {
+    useEffect(() => {
+        const {newTeam} = action;
         if (newTeam !== playerTeam) {
             setGameState(prevGameState => {
                 let myPlayerObj = {};
@@ -23,6 +24,13 @@ function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam
                 return newGameState;
             });
         }
+    }, [action]);
+
+    /** Removes player from current team and add them to the selected team*/
+    function chooseTeam(newTeam) {
+        setAction(prevAction => {
+            return {count: (prevAction.count + 1), newTeam: newTeam};
+        });
     }
 
     /** Display a button to choose the team and lists its current members*/
