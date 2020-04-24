@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import io from 'socket.io-client';
-import {SobaParentContainer} from 'soba';
+import {SobaParentContainer} from 'soba-game';
 import HomePage from './components/HomePage/HomePage.js';
 import RoomLobbyPage from './components/RoomLobbyPage/RoomLobbyPage';
 import JoinRoomPage from './components/JoinRoomPage/JoinRoomPage.js';

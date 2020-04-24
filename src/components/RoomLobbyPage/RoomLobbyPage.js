@@ -4,7 +4,7 @@ import '../../CSSFiles/RoomLobbyPage.css';
 import {CREATE_ROOM, PAGE_GAME, PAGE_HOME, PAGE_JOIN, RESPONSE_JSON, STATE_GAME, STATE_LOBBY} from '../../properties';
 import PlayerListContainer from './PlayerListContainer';
 import {CheckEnoughPlayers, PostRequest} from '../Util/util';
-import {Keys, SobaTeamLobbyContainer} from 'soba';
+import {Keys, SobaTeamLobbyContainer} from 'soba-game';
 import {toast} from 'react-toastify';
 
 function RoomLobbyPage(
