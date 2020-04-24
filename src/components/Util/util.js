@@ -5,7 +5,8 @@ import {
     CATEGORY_OBJECT,
     CATEGORY_PERSON,
     CATEGORY_RANDOM,
-    CATEGORY_WORLD, MIN_PLAYERS_PER_TEAM,
+    CATEGORY_WORLD,
+    MIN_PLAYERS_PER_TEAM,
     RESPONSE_JSON,
     RESPONSE_TEXT,
 } from '../../properties';
@@ -24,13 +25,13 @@ export const CapitaliseFirstLetter = (word) => {
 
 export const CommaBetweenWords = (words) => {
     let concatenatedString = '';
-    words.map((each, index) => {
-        if (index === 0) {
-            concatenatedString += each;
+    for (let i = 0; i < words.length; i++) {
+        if (i === 0) {
+            concatenatedString += words[i];
         } else {
-            concatenatedString += `, ${each}`;
+            concatenatedString += `, ${words[i]}`;
         }
-    });
+    }
     return concatenatedString;
 };
 

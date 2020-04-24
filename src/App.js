@@ -19,8 +19,7 @@ const socketConnect = io(BACKEND_ENDPOINT, {transports: ['websocket']});
 
 function App(
     {
-        socket, setSocket,
-        socketId, setSocketId,
+        socket, socketId,
         gameState, setGameState,
         broadcastGameState,
     },
