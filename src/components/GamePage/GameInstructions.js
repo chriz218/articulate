@@ -2,7 +2,8 @@ import React from 'react';
 import {TranslateTeamDisplayed} from '../Util/util';
 import {Utils} from 'soba-game';
 import {
-    PHASE_ARTICULATING, PHASE_ARTICULATING_SPECIAL,
+    PHASE_ARTICULATING,
+    PHASE_ARTICULATING_SPECIAL,
     PHASE_PLANNING,
     PHASE_PLANNING_SPECIAL,
     ROLE_DESCRIBER,

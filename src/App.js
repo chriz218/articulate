@@ -10,9 +10,14 @@ import CreateRoomPage from './components/CreateRoomPage/CreateRoomPage';
 import 'react-toastify/dist/ReactToastify.css';
 import {toast} from 'react-toastify';
 import {
-    BACKEND_ENDPOINT, PAGE_CREATE, PAGE_GAME,
-    PAGE_HOME, PAGE_JOIN, PAGE_LOBBY,
-    SOCKET_EMIT_BROADCAST_TOAST, SOCKET_ON_GET_TOAST
+    BACKEND_ENDPOINT,
+    PAGE_CREATE,
+    PAGE_GAME,
+    PAGE_HOME,
+    PAGE_JOIN,
+    PAGE_LOBBY,
+    SOCKET_EMIT_BROADCAST_TOAST,
+    SOCKET_ON_GET_TOAST,
 } from './properties';
 
 const socketConnect = io(BACKEND_ENDPOINT, {transports: ['websocket']});

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import GameWordCard from './GameWordCard';
-import {PostRequest, WordCategoryGivenPos, IsWhiteTile} from '../Util/util';
+import {IsWhiteTile, PostRequest, WordCategoryGivenPos} from '../Util/util';
 import {Utils} from 'soba-game';
 import {
     PHASE_ARTICULATING,
     PHASE_ARTICULATING_SPECIAL,
-    PHASE_PLANNING, PHASE_PLANNING_SPECIAL,
+    PHASE_PLANNING,
+    PHASE_PLANNING_SPECIAL,
     RANDOM_WORD_GIVEN_USED,
     RESPONSE_TEXT,
     ROLE_DESCRIBER,
