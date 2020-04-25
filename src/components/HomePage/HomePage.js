@@ -1,15 +1,8 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import '../../CSSFiles/HomePage.css';
-import {PAGE_CREATE, PAGE_JOIN, SOCKET_EMIT_SOCKETID} from '../../properties';
+import {PAGE_CREATE, PAGE_JOIN} from '../../properties';
 
-function HomePage({setPage, socket, setIsHost, socketId}) {
-
-    /** Request for a SocketId from server*/
-    useEffect(() => {
-        socket.emit(SOCKET_EMIT_SOCKETID, {}, (error) => {
-            if (error) alert(error);
-        });
-    }, []);
+function HomePage({setPage, setIsHost, socketId}) {
 
     const handleCreateRoom = () => {
         setIsHost(true);

@@ -5,33 +5,14 @@ import {
     CATEGORY_OBJECT,
     CATEGORY_PERSON,
     CATEGORY_RANDOM,
-    CATEGORY_WORLD, MIN_PLAYERS_PER_TEAM,
+    CATEGORY_WORLD,
+    MIN_PLAYERS_PER_TEAM,
     RESPONSE_JSON,
     RESPONSE_TEXT,
 } from '../../properties';
 
-export const NextTeam = (currentTeam, numberOfTeams) => {
-    return (currentTeam + 1) % numberOfTeams;
-};
-
 export const TranslateTeamDisplayed = (teamNumber) => {
     return String.fromCharCode(teamNumber + 65);
-};
-
-export const CapitaliseFirstLetter = (word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-};
-
-export const CommaBetweenWords = (words) => {
-    let concatenatedString = '';
-    words.map((each, index) => {
-        if (index === 0) {
-            concatenatedString += each;
-        } else {
-            concatenatedString += `, ${each}`;
-        }
-    });
-    return concatenatedString;
 };
 
 export const PostRequest = (
@@ -52,7 +33,9 @@ export const PostRequest = (
             }
         }
         throw new Error(response.statusText);
-    }).then(data => handler(data)).catch(error => errorHandler(error));
+    }).then(data => handler(data)).catch(error => {
+        if (errorHandler) errorHandler(error);
+    });
 };
 
 export const IsWhiteTile = (gamePosition, team) => {
@@ -82,7 +65,7 @@ export const WordCategoryGivenPos = (gamePosition, team) => {
     }
 };
 
-export const CheckEnoughPlayers = (numberOfTeams, teams) => {
+export const CheckEnoughPlayers = (teams) => {
     return true; // TODO: FOR DEVELOPMENT
 
     for (let i = 0; i < teams.length; i++) {
@@ -92,15 +75,3 @@ export const CheckEnoughPlayers = (numberOfTeams, teams) => {
     }
     return true;
 };
-
-export const CheckTeamsContainPlayer = (teams, name) => {
-    for (let i = 0; i < teams.length; i++) {
-        for (let j = 0; j < teams[i].length; j++) {
-            if (teams[i][j].playerName === name) {
-                return true;
-            }
-        }
-    }
-    return false;
-};
-
