@@ -3,8 +3,7 @@ import '../../CSSFiles/GamePage.css';
 import GameBoard from './GameBoard';
 import GameControlArticulating from './GameControlArticulating';
 import GameControlPlanning from './GameControlPlanning';
-import {TranslateTeamDisplayed} from '../Util/util';
-import {Utils} from 'soba-game';
+import {CapitaliseFirstLetter, TranslateTeamDisplayed} from '../Util/util';
 import {
     PHASE_ARTICULATING,
     PHASE_ARTICULATING_SPECIAL,
@@ -82,7 +81,7 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
                     Your Team: {TranslateTeamDisplayed(playerTeam)}
                 </div>
                 <div id="Game-Role">
-                    Your Role: {Utils.CapitaliseFirstLetter(playerRole)}
+                    Your Role: {CapitaliseFirstLetter(playerRole)}
                 </div>
             </div>
             {GameControlPanel()}

@@ -7,7 +7,7 @@ import {
     ROLE_GUESSER,
     ROLE_OPPONENT,
 } from '../../properties';
-import {Utils} from 'soba-game';
+import {CommaBetweenWords} from '../Util/util';
 
 function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameState, gameState, broadcastGameState}) {
     const [disablePlayButton, setDisablePlayButton] = useState(true);
@@ -102,10 +102,10 @@ function GameControlPlanning({playerName, playerRole, setPlayerRole, setGameStat
             <GameInstruction playerRole={playerRole}
                              currentTurn={gameState.currentTurn}/>
             <div id="Game-DescriberList">
-                Describer(s): {Utils.CommaBetweenWords(gameState.currentTurn.describer)}
+                Describer(s): {CommaBetweenWords(gameState.currentTurn.describer)}
             </div>
             <div id="Game-GuesserList">
-                Guesser(s): {Utils.CommaBetweenWords(gameState.currentTurn.guesser)}
+                Guesser(s): {CommaBetweenWords(gameState.currentTurn.guesser)}
             </div>
             {RenderButtons()}
 
