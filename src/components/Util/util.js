@@ -65,7 +65,7 @@ export const WordCategoryGivenPos = (gamePosition, team) => {
     }
 };
 
-export const CheckEnoughPlayers = (numberOfTeams, teams) => {
+export const CheckEnoughPlayers = (teams) => {
     return true; // TODO: FOR DEVELOPMENT
 
     for (let i = 0; i < teams.length; i++) {

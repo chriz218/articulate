@@ -1,37 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import '../../CSSFiles/PlayerListContainer.css';
 import {TranslateTeamDisplayed} from '../Util/util';
 
-function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam, playerName, broadcastGameState}) {
-    const [action, setAction] = useState({count: 0, newTeam: 0});
-
-    useEffect(() => {
-        const {newTeam} = action;
-        if (newTeam !== playerTeam) {
-            setGameState(prevGameState => {
-                let myPlayerObj = {};
-                const {teams} = prevGameState;
-                teams[playerTeam].forEach((player, index, object) => {
-                    if (player.playerName === playerName) {
-                        myPlayerObj = player;
-                        object.splice(index, 1);
-                    }
-                });
-                teams[newTeam].push(myPlayerObj);
-                setPlayerTeam(newTeam);
-                const newGameState = {...prevGameState, teams};
-                broadcastGameState(newGameState);
-                return newGameState;
-            });
-        }
-    }, [action]);
-
-    /** Removes player from current team and add them to the selected team*/
-    function chooseTeam(newTeam) {
-        setAction(prevAction => {
-            return {count: (prevAction.count + 1), newTeam: newTeam};
-        });
-    }
+function PlayerListContainer({gameState, changeTeam}) {
 
     /** Display a button to choose the team and lists its current members*/
     function renderTeam(i) {
@@ -41,7 +12,7 @@ function PlayerListContainer({gameState, setGameState, playerTeam, setPlayerTeam
                      'PlayerList-SectionDynamicStyle1' :
                      'PlayerList-SectionDynamicStyle2'}>
                 <button type="button" className="PlayerList-TeamBtn"
-                        onClick={() => chooseTeam(i)}>
+                        onClick={() => changeTeam(i)}>
                     Team {TranslateTeamDisplayed(i)}
                 </button>
                 <div className={gameState.teams.length === 2 ?
