@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import GameWordCard from './GameWordCard';
-import {CapitaliseFirstLetter, NextTeam, PostRequest, WordCategoryGivenPos, IsWhiteTile} from '../Util/util';
+import {PostRequest, WordCategoryGivenPos, IsWhiteTile} from '../Util/util';
+import {Utils} from 'soba-game';
 import {
     PHASE_ARTICULATING,
     PHASE_ARTICULATING_SPECIAL,
@@ -54,7 +55,7 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
         setGameState(prevGameState => {
             let newGamePositions = prevGameState.gamePositions;
             let phase = PHASE_PLANNING;
-            let newTeam = NextTeam(prevGameState.currentTurn.team, numberOfTeams);
+            let newTeam = Utils.NextTeam(prevGameState.currentTurn.team, numberOfTeams);
 
             // Evaluate new pos
             newGamePositions[prevGameState.currentTurn.team] += correctlyAnswered;
@@ -195,7 +196,7 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
     return (
         <React.Fragment>
             <div id="Game-WordCategory">
-                Word Category: {CapitaliseFirstLetter(currentTurn.category)}
+                Word Category: {Utils.CapitaliseFirstLetter(currentTurn.category)}
             </div>
             <div id="Game-Time">
                 Seconds Left: {secondsLeft}

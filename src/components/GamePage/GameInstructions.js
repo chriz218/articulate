@@ -1,5 +1,6 @@
 import React from 'react';
-import {CommaBetweenWords, TranslateTeamDisplayed} from '../Util/util';
+import {TranslateTeamDisplayed} from '../Util/util';
+import {Utils} from 'soba-game';
 import {
     PHASE_ARTICULATING, PHASE_ARTICULATING_SPECIAL,
     PHASE_PLANNING,
@@ -71,7 +72,7 @@ const GameInstruction = ({playerRole, currentTurn}) => {
 
     /** Instruction Text for Opponents and Guessers*/
     const ArticulatingInstruction = () => {
-        const describersString = CommaBetweenWords(currentTurn.describer);
+        const describersString = Utils.CommaBetweenWords(currentTurn.describer);
         switch (playerRole) {
             case ROLE_GUESSER:
                 return (
@@ -94,7 +95,7 @@ const GameInstruction = ({playerRole, currentTurn}) => {
     };
 
     const ArticulatingSpecialInstruction = () => {
-        const describersString = CommaBetweenWords(currentTurn.describer);
+        const describersString = Utils.CommaBetweenWords(currentTurn.describer);
         switch (playerRole) {
             case ROLE_GUESSER:
                 return (
