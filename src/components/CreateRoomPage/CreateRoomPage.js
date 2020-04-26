@@ -8,7 +8,7 @@ function CreateRoomPage({setPage, playerName, setPlayerName, setNumberOfTeams}) 
     useEffect(() => {
         setPlayerName('');
         setNumberOfTeams(2);
-    }, []);
+    }, [setPlayerName, setNumberOfTeams]);
 
     const handleCreate = () => {
         if (playerName) {

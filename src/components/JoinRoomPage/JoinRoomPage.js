@@ -10,7 +10,7 @@ function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
     useEffect(() => {
         setRoomCode('');
         setPlayerName('');
-    }, []);
+    }, [setRoomCode, setPlayerName]);
 
     const handleJoin = () => {
         if (playerName) {
