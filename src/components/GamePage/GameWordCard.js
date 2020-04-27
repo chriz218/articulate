@@ -37,7 +37,7 @@ function GameWordCard({category, word}) {
         <div id="Game-GeneratedWordDiv">
             <div id="Game-Word"
                  style={{'backgroundColor': WordColor(category)}}>
-                {word === '' ? 'Chair' : word}
+                {word ? word : ''}
             </div>
         </div>
     );

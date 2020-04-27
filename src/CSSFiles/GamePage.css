@@ -73,6 +73,15 @@
     margin-bottom: 5px;
 }
 
+#Game-PlayerName {
+    width: 0;
+    font-size: 4vmin;
+    float: left;
+    margin-left: 10px;
+    font-weight: bold;
+    color: black;
+}
+
 #Game-Team {
     display: inline-block;
     font-size: 4vmin;

@@ -11,6 +11,11 @@ import {
     RESPONSE_TEXT,
 } from '../../properties';
 
+export const TruncateString = (str, length) => {
+    if(str.toString().length <= length) return str;
+    return str.toString().substring(0, length) + "...";
+};
+
 export const TranslateTeamDisplayed = (teamNumber) => {
     return String.fromCharCode(teamNumber + 65);
 };
