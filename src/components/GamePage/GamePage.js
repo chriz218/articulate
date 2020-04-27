@@ -3,7 +3,7 @@ import '../../CSSFiles/GamePage.css';
 import GameBoard from './GameBoard';
 import GameControlArticulating from './GameControlArticulating';
 import GameControlPlanning from './GameControlPlanning';
-import {TranslateTeamDisplayed} from '../Util/util';
+import {TruncateString, TranslateTeamDisplayed} from '../Util/util';
 import {Utils} from 'soba-game';
 import {
     PHASE_ARTICULATING,
@@ -65,7 +65,10 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
 
     return (
         <div>
-            <h1 className="ArticulateTitle">Articulate</h1>
+            <div id="Game-PlayerName">{TruncateString(playerName, 10)}</div>
+            <h1 className="ArticulateTitle">
+                Articulate
+            </h1>
             <>
                 <ToastContainer
                     draggable={false}
