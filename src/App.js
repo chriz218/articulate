@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import io from 'socket.io-client';
-import {SobaParentContainer} from 'soba-game';
+import {SobaParentContainer, withTeamProps} from 'soba-game';
 import HomePage from './components/HomePage/HomePage.js';
 import RoomLobbyPage from './components/RoomLobbyPage/RoomLobbyPage';
 import JoinRoomPage from './components/JoinRoomPage/JoinRoomPage.js';
@@ -24,16 +24,11 @@ const socketConnect = io(BACKEND_ENDPOINT, {transports: ['websocket']});
 
 function App(
     {
-        socket, socketId,
-        gameState, setGameState,
-        broadcastGameState,
+        socket, socketId, gameState, setGameState, broadcastGameState,
+        isHost, setIsHost, roomCode, setRoomCode, playerName, setPlayerName,
+        playerTeam, setPlayerTeam, numberOfTeams, setNumberOfTeams,
     },
 ) {
-    const [isHost, setIsHost] = useState(false);
-    const [roomCode, setRoomCode] = useState('');
-    const [playerName, setPlayerName] = useState('');
-    const [playerTeam, setPlayerTeam] = useState(0);
-    const [numberOfTeams, setNumberOfTeams] = useState(2);
     const [page, setPage] = useState(PAGE_HOME);
 
     const playerNameRef = React.useRef(playerName);
@@ -141,5 +136,11 @@ function App(
         </div>
     );
 }
-
-export default SobaParentContainer(App, socketConnect);
+const appWithTeamProps = withTeamProps(App, {
+    defaultRoomCode: '',
+    defaultIsHost: false,
+    defaultPlayerName: '',
+    defaultTeam: 0,
+    defaultNumberOfTeams: 2,
+});
+export default SobaParentContainer(appWithTeamProps, socketConnect, {logging: true});
