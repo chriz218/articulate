@@ -28,7 +28,9 @@ function CreateRoomPage({setPage, playerName, setPlayerName, setNumberOfTeams}) 
                     <label className="Create-Label">Your name:</label>
                     <input className="Create-Input" type="text" name="Your name"
                            placeholder="Enter your name here..."
-                           onChange={e => setPlayerName(e.target.value)}/>
+                           onChange={e => setPlayerName(e.target.value)}
+                           onKeyPress={event => event.key === 'Enter' ? handleCreate(event) : null}
+                    />
                     <label className="Create-Label">No. of Teams:</label>
                     <select className="Create-SelectTeamNo" name="No. of Teams"
                             defaultValue="2"
