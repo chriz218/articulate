@@ -54,24 +54,39 @@ function GameControlArticulating({playerRole, playerName, numberOfTeams, gameSta
     /** Update board positions and go to next turn*/
     function nextTurn() {
         setGameState(prevGameState => {
-            let newGamePositions = prevGameState.gamePositions;
+            let newGamePositions = [...prevGameState.gamePositions];
             let phase = PHASE_PLANNING;
             let newTeam = Utils.NextTeam(prevGameState.currentTurn.team, numberOfTeams);
 
             // Evaluate new pos
             newGamePositions[prevGameState.currentTurn.team] += correctlyAnswered;
 
+            // Winning condition - When team goes over the tile counts, wrap to final tile
+            if (newGamePositions[prevGameState.currentTurn.team] >= 42) {
+                console.log('Win next and win all!');
+                newGamePositions[prevGameState.currentTurn.team] = 41;
+            }
+
             // Win white tile condition go again
             if (prevGameState.currentTurn.phase === PHASE_ARTICULATING_SPECIAL && correctlyAnswered > 0) {
+                if (newGamePositions[prevGameState.currentTurn.team] === 41) {
+                    prevGameState.winner = prevGameState.currentTurn.team;
+                    prevGameState.gameOver = true;
+                }
                 newTeam = prevGameState.currentTurn.team;
             }
 
             // Landed on white tile
             if (prevGameState.currentTurn.phase === PHASE_ARTICULATING &&
-                IsWhiteTile(prevGameState.gamePositions, prevGameState.currentTurn.team) &&
+                IsWhiteTile(newGamePositions, prevGameState.currentTurn.team) &&
                 correctlyAnswered > 0
             ) {
                 newTeam = prevGameState.currentTurn.team;
+                phase = PHASE_PLANNING_SPECIAL;
+            }
+
+            // Next team is on last tile (about to win)
+            if (newTeam !== prevGameState.currentTurn.team && newGamePositions[newTeam] === 41) {
                 phase = PHASE_PLANNING_SPECIAL;
             }
 

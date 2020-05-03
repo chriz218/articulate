@@ -13,12 +13,14 @@ import {
     BACKEND_ENDPOINT,
     PAGE_CREATE,
     PAGE_GAME,
+    PAGE_GAMEOVER,
     PAGE_HOME,
     PAGE_JOIN,
     PAGE_LOBBY,
     SOCKET_EMIT_BROADCAST_TOAST,
     SOCKET_ON_GET_TOAST,
 } from './properties';
+import GameOverPage from './components/GameOverPage/GameOverPage';
 
 const socketConnect = io(BACKEND_ENDPOINT, {transports: ['websocket']});
 
@@ -110,6 +112,7 @@ function App(
             case PAGE_GAME:
                 return (
                     <GamePage
+                        setPage={setPage}
                         numberOfTeams={numberOfTeams}
                         playerName={playerName}
                         playerTeam={playerTeam}
@@ -117,6 +120,13 @@ function App(
                         setGameState={setGameState}
                         broadcastGameState={broadcastGameState}
                         broadcastToast={broadcastToast}
+                    />
+                );
+            case PAGE_GAMEOVER:
+                return (
+                    <GameOverPage
+                        setPage={setPage}
+                        gameState={gameState}
                     />
                 );
             default:
@@ -136,6 +146,7 @@ function App(
         </div>
     );
 }
+
 const appWithTeamProps = withTeamProps(App, {
     defaultRoomCode: '',
     defaultIsHost: false,

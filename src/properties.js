@@ -15,6 +15,7 @@ export const PAGE_CREATE = 'create';
 export const PAGE_JOIN = 'join';
 export const PAGE_LOBBY = 'lobby';
 export const PAGE_GAME = 'game';
+export const PAGE_GAMEOVER = 'gameover';
 export const STATE_LOBBY = 'lobby';
 export const STATE_GAME = 'game';
 export const ROLE_DESCRIBER = 'describer';

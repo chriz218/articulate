@@ -3,9 +3,10 @@ import '../../CSSFiles/GamePage.css';
 import GameBoard from './GameBoard';
 import GameControlArticulating from './GameControlArticulating';
 import GameControlPlanning from './GameControlPlanning';
-import {TruncateString, TranslateTeamDisplayed} from '../Util/util';
+import {TranslateTeamDisplayed, TruncateString} from '../Util/util';
 import {Utils} from 'soba-game';
 import {
+    PAGE_GAMEOVER,
     PHASE_ARTICULATING,
     PHASE_ARTICULATING_SPECIAL,
     PHASE_PLANNING,
@@ -15,7 +16,7 @@ import {
 import {ToastContainer, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameState, broadcastGameState, broadcastToast}) {
+function GamePage({setPage, playerName, playerTeam, numberOfTeams, gameState, setGameState, broadcastGameState, broadcastToast}) {
     const [playerRole, setPlayerRole] = useState('-');
 
     const GameControlPanel = () => {
@@ -62,6 +63,12 @@ function GamePage({playerName, playerTeam, numberOfTeams, gameState, setGameStat
             }
         }
     }, [gameState.turns]);
+
+    useEffect(() => {
+        if (gameState.gameOver && gameState.winner >= 0) {
+            setPage(PAGE_GAMEOVER);
+        }
+    }, [gameState]);
 
     return (
         <div>
