@@ -37,11 +37,15 @@ function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
                     <label className="Join-Label">Room Code:</label>
                     <input className="Join-Input" type="text" name="Room Code"
                            placeholder="Enter the room code..."
-                           onChange={e => setRoomCode(e.target.value)}/>
+                           onChange={e => setRoomCode(e.target.value)}
+                           onKeyPress={event => event.key === 'Enter' ? handleJoin(event) : null}
+                    />
                     <label className="Join-Label">Your name:</label>
                     <input className="Join-Input" type="text" name="Your name"
                            placeholder="Enter your name here..."
-                           onChange={e => setPlayerName(e.target.value)}/>
+                           onChange={e => setPlayerName(e.target.value)}
+                           onKeyPress={event => event.key === 'Enter' ? handleJoin(event) : null}
+                    />
                 </div>
                 <div id="Join-BtnDiv">
                     <button id="Join-JoinBtn" className="Join-Btns"
