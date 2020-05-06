@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {ScaleLoader} from 'react-spinners';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../CSSFiles/RoomLobbyPage.css';
 import {CREATE_ROOM, PAGE_GAME, PAGE_HOME, PAGE_JOIN, RESPONSE_JSON, STATE_GAME, STATE_LOBBY} from '../../properties';
@@ -101,7 +102,14 @@ function RoomLobbyPage(
             {
                 isLoading ?
                     <div>
-                        LOADING........
+                        <ScaleLoader
+                            css={{position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}
+                            height={'100'}
+                            width={'15'}
+                            margin={'5'}
+                            radius={'5'}
+                            color={'purple'}
+                        />
                     </div>
                     :
                     <div>
