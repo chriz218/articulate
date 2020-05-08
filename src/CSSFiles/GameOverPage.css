@@ -1,0 +1,34 @@
+.ArticulateTitle {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    height: 5vh;
+    text-align: center;
+    color: purple;
+    font-size: 4vh;
+}
+
+.GameOverHeader {
+    text-align: center;
+}
+
+.Winner {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.BtnContainer {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.RefreshBtn {
+    text-align: center;
+    display: inline-block;
+    height: 8vh;
+    width: 40vw;
+    font-size: 4vmin;
+    font-weight: bold;
+    background-color: purple;
+    color: white;
+    font-family: 'Roboto Slab', serif;
+}
