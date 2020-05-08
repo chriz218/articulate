@@ -71,7 +71,7 @@ export const WordCategoryGivenPos = (gamePosition, team) => {
 };
 
 export const CheckEnoughPlayers = (teams) => {
-    return true; // TODO: FOR DEVELOPMENT
+    // return true; // TODO: FOR DEVELOPMENT
 
     for (let i = 0; i < teams.length; i++) {
         if (teams[i].length < MIN_PLAYERS_PER_TEAM) {

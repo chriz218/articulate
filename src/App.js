@@ -26,7 +26,7 @@ const socketConnect = io(BACKEND_ENDPOINT, {transports: ['websocket']});
 
 function App(
     {
-        socket, socketId, gameState, setGameState, broadcastGameState,
+        socket, socketId, gameState, setGameState, broadcastGameState, leaveRoom,
         isHost, setIsHost, roomCode, setRoomCode, playerName, setPlayerName,
         playerTeam, setPlayerTeam, numberOfTeams, setNumberOfTeams,
     },
@@ -127,6 +127,7 @@ function App(
                     <GameOverPage
                         setPage={setPage}
                         gameState={gameState}
+                        leaveRoom={leaveRoom}
                     />
                 );
             default:
