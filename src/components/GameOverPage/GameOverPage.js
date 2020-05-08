@@ -2,10 +2,12 @@ import React from 'react';
 import {TranslateTeamDisplayed} from '../Util/util';
 import {PAGE_HOME} from '../../properties';
 
-function GameOverPage({setPage, gameState}) {
+function GameOverPage({setPage, gameState, leaveRoom}) {
     function refresh() {
         // TODO: Disconnect and leave room
-
+        leaveRoom(gameState.roomCode, () => {
+            console.log("Left Room: " + gameState.roomCode)
+        });
 
         // Refresh
         setPage(PAGE_HOME);
@@ -17,7 +19,7 @@ function GameOverPage({setPage, gameState}) {
             <div>
                 The Winner is Team {TranslateTeamDisplayed(gameState.winner)} !!
             </div>
-            <button onClick={() => refresh()}>Return to Homepage</button>
+            <button onClick={() => refresh()}>Return to Home</button>
         </div>
     );
 }
