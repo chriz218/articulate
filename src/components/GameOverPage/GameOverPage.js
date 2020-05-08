@@ -1,25 +1,26 @@
 import React from 'react';
 import {TranslateTeamDisplayed} from '../Util/util';
 import {PAGE_HOME} from '../../properties';
+import '../../CSSFiles/GameOverPage.css';
 
 function GameOverPage({setPage, gameState, leaveRoom}) {
     function refresh() {
-        // TODO: Disconnect and leave room
         leaveRoom(gameState.roomCode, () => {
-            console.log("Left Room: " + gameState.roomCode)
+            console.log('Left Room: ' + gameState.roomCode);
         });
-
-        // Refresh
         setPage(PAGE_HOME);
     }
 
     return (
         <div>
-            <h1>GAME OVER!</h1>
-            <div>
+            <h1 className="ArticulateTitle">Articulate</h1>
+            <h1 className="GameOverHeader">GAME OVER!</h1>
+            <div className="Winner">
                 The Winner is Team {TranslateTeamDisplayed(gameState.winner)} !!
             </div>
-            <button onClick={() => refresh()}>Return to Home</button>
+            <div className="BtnContainer">
+                <button className="RefreshBtn" onClick={() => refresh()}>Return to Home</button>
+            </div>
         </div>
     );
 }
