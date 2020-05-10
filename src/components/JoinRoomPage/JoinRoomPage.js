@@ -22,6 +22,11 @@ function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
         setPage(PAGE_HOME);
     };
 
+    const handleRoomCodeInput = (event) => {
+        event.target.value = event.target.value.toUpperCase();
+        setRoomCode(event.target.value);
+    };
+
     return (
         <div>
             <h1 className="ArticulateTitle">Articulate</h1>
@@ -37,7 +42,7 @@ function JoinRoomPage({setPage, setRoomCode, playerName, setPlayerName}) {
                     <label className="Join-Label">Room Code:</label>
                     <input className="Join-Input" type="text" name="Room Code"
                            placeholder="Enter the room code..."
-                           onChange={e => setRoomCode(e.target.value)}
+                           onChange={handleRoomCodeInput}
                            onKeyPress={event => event.key === 'Enter' ? handleJoin(event) : null}
                     />
                     <label className="Join-Label">Your name:</label>
