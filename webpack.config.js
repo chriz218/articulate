@@ -1,4 +1,5 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     module: {
@@ -40,5 +41,8 @@ module.exports = {
             favicon: './public/favicon.ico',
             filename: './index.html',
         }),
+        new CopyPlugin([
+            { from: 'public/robots.txt', to: 'robots.txt' }
+        ]),
     ],
 };
