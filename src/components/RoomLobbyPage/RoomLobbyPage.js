@@ -104,10 +104,10 @@ function RoomLobbyPage(
                     <div>
                         <ScaleLoader
                             css={{position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}
-                            height={'100'}
-                            width={'15'}
-                            margin={'5'}
-                            radius={'5'}
+                            height={'100px'}
+                            width={'15px'}
+                            margin={'5px'}
+                            radius={'5px'}
                             color={'purple'}
                         />
                     </div>
