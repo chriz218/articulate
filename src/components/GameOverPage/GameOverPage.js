@@ -3,11 +3,12 @@ import {TranslateTeamDisplayed} from '../Util/util';
 import {PAGE_HOME} from '../../properties';
 import '../../CSSFiles/GameOverPage.css';
 
-function GameOverPage({setPage, gameState, leaveRoom}) {
+function GameOverPage({setPage, gameState, setGameState, leaveRoom}) {
     function refresh() {
         leaveRoom(gameState.roomCode, () => {
             console.log('Left Room: ' + gameState.roomCode);
         });
+        setGameState({});
         setPage(PAGE_HOME);
     }
 
