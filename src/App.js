@@ -127,6 +127,7 @@ function App(
                     <GameOverPage
                         setPage={setPage}
                         gameState={gameState}
+                        setGameState={setGameState}
                         leaveRoom={leaveRoom}
                     />
                 );

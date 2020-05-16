@@ -29,9 +29,9 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "dev": "webpack-dev-server --hot --inline",
+    "dev": "webpack-dev-server --hot --inline --port 3000",
     "start": "npm run build && node server.js",
-    "start-dev": "webpack-dev-server --open --mode development",
+    "start-dev": "webpack-dev-server --open --mode development --port 3000",
     "build": "webpack --config webpack.prod.config.js --mode production"
   },
   "eslintConfig": {
@@ -46,7 +46,8 @@
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "ie 11"
     ]
   }
 }
